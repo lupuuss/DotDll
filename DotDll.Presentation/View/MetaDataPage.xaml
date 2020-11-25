@@ -1,4 +1,4 @@
-﻿<Page x:Class="DotDll.Presentation.MetaDataPage"
+﻿<Page x:Class="DotDll.Presentation.View.MetaDataPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 

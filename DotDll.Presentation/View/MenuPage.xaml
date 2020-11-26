@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:DotDll.Presentation"
       xmlns:p="clr-namespace:DotDll.Presentation.Properties"
+      xmlns:navigation="clr-namespace:DotDll.Presentation.Navigation"
       mc:Ignorable="d"
       MinWidth="300" MinHeight="600"
       Title="{x:Static p:Resources.Menu}">
@@ -17,10 +18,7 @@
     
     <Grid>
         <Grid Margin="10" HorizontalAlignment="Center" VerticalAlignment="Top">
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
+            
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition />
@@ -38,14 +36,19 @@
             <Button 
                 Grid.Column="0"
                 Grid.Row="1"
-                Style="{StaticResource MenuButton}">
-                <TextBlock Text="{x:Static p:Resources.ReadFromDllExe}"/>
+                Style="{StaticResource MenuButton}"
+                Command="{Binding NavigateToCommand}"
+                CommandParameter="{x:Static navigation:TargetView.MetaData}">
+                <TextBlock 
+                    Text="{x:Static p:Resources.ReadFromDllExe}"/>
             </Button>
 
             <Button 
                 Grid.Column="0"
                 Grid.Row="2"
-                Style="{StaticResource MenuButton}">
+                Style="{StaticResource MenuButton}"
+                Command="{Binding NavigateToCommand}"
+                CommandParameter="{x:Static navigation:TargetView.List}">
                 <TextBlock Text="{x:Static p:Resources.Deserialize}"/>
             </Button>
         </Grid>

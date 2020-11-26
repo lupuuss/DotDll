@@ -9,5 +9,5 @@
         Title="{x:Static p:Resources.AppName}" 
         SizeToContent="WidthAndHeight">
     
-    <Frame Source="MenuPage.xaml" VerticalAlignment="Top"/>
+    <Frame  NavigationUIVisibility="Hidden" Source="MenuPage.xaml" VerticalAlignment="Top"/>
 </Window>

@@ -1,4 +1,9 @@
-﻿using System.Windows.Controls;
+﻿
+using System.Diagnostics;
+using System.Windows;
+using System.Windows.Controls;
+using DotDll.Presentation.Navigation;
+using DotDll.Presentation.ViewModel;
 
 namespace DotDll.Presentation.View
 {
@@ -7,6 +12,12 @@ namespace DotDll.Presentation.View
         public MenuPage()
         {
             InitializeComponent();
+
+            var navigator = new WpfNavigator((Frame) Application.Current.MainWindow.Content);
+            
+            DataContext = new MenuViewModel(navigator);
+
+            
         }
     }
 }

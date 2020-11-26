@@ -7,9 +7,7 @@
       mc:Ignorable="d" MinWidth="300" MinHeight="600"
       Title="Page1">
     <Grid ShowGridLines="False" VerticalAlignment="Top">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
+
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition />

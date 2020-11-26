@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using DotDll.Presentation.ViewModel;
 
 namespace DotDll.Presentation.View
 {
@@ -7,6 +8,7 @@ namespace DotDll.Presentation.View
         public MetaDataPage()
         {
             InitializeComponent();
+            DataContext = new MetaDataViewModel();
         }
     }
 }

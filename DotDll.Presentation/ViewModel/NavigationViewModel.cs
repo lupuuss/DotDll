@@ -4,18 +4,16 @@ using DotDll.Presentation.Navigation;
 
 namespace DotDll.Presentation.ViewModel
 {
-    public abstract class NavigationViewModel : BaseViewModel
+    public class NavigationViewModel : BaseViewModel
     {
 
-        protected readonly INavigator _navigator;
+        private readonly INavigator _navigator;
 
         public NavigationViewModel(INavigator navigator)
         {
             _navigator = navigator;
         }
 
-        #region Navigation Commands
-        
         private ICommand _navigateToCommand;
 
         public ICommand NavigateToCommand
@@ -56,7 +54,5 @@ namespace DotDll.Presentation.ViewModel
                     ));
             }
         }
-
-        #endregion
     }
 }

@@ -6,8 +6,36 @@
         xmlns:local="clr-namespace:DotDll.Presentation"
         xmlns:p="clr-namespace:DotDll.Presentation.Properties"
         mc:Ignorable="d"
-        Title="{x:Static p:Resources.AppName}" 
+        Title="{x:Static p:Resources.AppName}"
+        MinWidth="300" MinHeight="600"
         SizeToContent="WidthAndHeight">
     
-    <Frame  NavigationUIVisibility="Hidden" Source="MenuPage.xaml" VerticalAlignment="Top"/>
+    <Grid VerticalAlignment="Top" Focusable="True">
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        
+        <Button Grid.Column="0"
+                Grid.Row="0"
+                Margin="10"
+                Command="{Binding NavigateBackwardsCommand}">
+            Back
+        </Button>
+        
+        <Frame 
+            Grid.Row="1" 
+            Grid.ColumnSpan="2"  
+            Name="MainFrame"
+            NavigationUIVisibility="Hidden" 
+            Source="MenuPage.xaml" 
+            VerticalAlignment="Top"/>
+    </Grid>
+
 </Window>

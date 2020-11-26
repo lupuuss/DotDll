@@ -51,22 +51,23 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
+    <ApplicationDefinition Include="DotDllApp.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
+    <Compile Include="DotDllApp.xaml.cs">
+      <DependentUpon>DotDllApp.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Navigation\INavigator.cs" />
     <Compile Include="Navigation\WpfNavigator.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\MenuViewModel.cs" />
+    <Compile Include="ViewModel\MetaDataViewModel.cs" />
     <Compile Include="ViewModel\NavigationViewModel.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
-    <Compile Include="View\ListPickerPage.xaml.cs">
-      <DependentUpon>ListPickerPage.xaml</DependentUpon>
+    <Compile Include="View\DeserializeListPage.xaml.cs">
+      <DependentUpon>DeserializeListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -78,7 +79,7 @@
     <Compile Include="View\MetaDataPage.xaml.cs">
       <DependentUpon>MetaDataPage.xaml</DependentUpon>
     </Compile>
-    <Page Include="View\ListPickerPage.xaml" />
+    <Page Include="View\DeserializeListPage.xaml" />
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

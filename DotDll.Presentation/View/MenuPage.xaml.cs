@@ -13,7 +13,9 @@ namespace DotDll.Presentation.View
         {
             InitializeComponent();
 
-            _viewModel = new MenuViewModel(Application.Current.AsDotDllApp().Navigator)
+            var app = Application.Current.AsDotDllApp();
+
+            _viewModel = new MenuViewModel(app.Navigator, app.MetaDataService)
             {
                 PickFileCommand = new RelayCommand(o => OpenFileDialog())
             };

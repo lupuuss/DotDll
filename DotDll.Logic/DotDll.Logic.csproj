@@ -43,6 +43,7 @@
         <Compile Include="MetaData\Sources\FileSource.cs" />
         <Compile Include="MetaData\Sources\Source.cs" />
         <Compile Include="MetaData\Sources\SerializedSource.cs" />
+        <Compile Include="MetaData\TempMetaDataService.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

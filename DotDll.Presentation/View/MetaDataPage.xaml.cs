@@ -1,14 +1,16 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
+using DotDll.Logic.MetaData.Sources;
 using DotDll.Presentation.ViewModel;
 
 namespace DotDll.Presentation.View
 {
     public partial class MetaDataPage : Page
     {
-        public MetaDataPage()
+        public MetaDataPage(Source source)
         {
             InitializeComponent();
-            DataContext = new MetaDataViewModel();
+            DataContext = new MetaDataViewModel(source, Application.Current.AsDotDllApp().MetaDataService);
         }
     }
 }

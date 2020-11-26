@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Controls;
+using DotDll.Logic.MetaData.Sources;
 using DotDll.Presentation.View;
 
 namespace DotDll.Presentation.Navigation
@@ -24,7 +25,11 @@ namespace DotDll.Presentation.Navigation
                     _frame.Navigate(new DeserializeListPage());
                     break;
                 case TargetView.MetaData:
-                    _frame.Navigate(new MetaDataPage());
+
+                    if (args.Length == 0 || !(args[0] is Source))
+                        throw new ArgumentException($"One argument of type {typeof(Source)} is required!");
+
+                    _frame.Navigate(new MetaDataPage((Source) args[0]));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(target), target, null);

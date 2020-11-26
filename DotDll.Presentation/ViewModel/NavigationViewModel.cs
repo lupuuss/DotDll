@@ -5,7 +5,7 @@ namespace DotDll.Presentation.ViewModel
 {
     public class NavigationViewModel : BaseViewModel
     {
-        private readonly INavigator _navigator;
+        protected readonly INavigator Navigator;
 
         private ICommand _navigateBackwards;
 
@@ -15,7 +15,7 @@ namespace DotDll.Presentation.ViewModel
 
         public NavigationViewModel(INavigator navigator)
         {
-            _navigator = navigator;
+            Navigator = navigator;
         }
 
         public ICommand NavigateToCommand
@@ -23,7 +23,7 @@ namespace DotDll.Presentation.ViewModel
             get
             {
                 return _navigateToCommand ?? (_navigateToCommand = new RelayCommand(
-                    o => _navigator.NavigateTo((TargetView) o)
+                    o => Navigator.NavigateTo((TargetView) o)
                 ));
             }
             set => _navigateToCommand = value;
@@ -34,8 +34,8 @@ namespace DotDll.Presentation.ViewModel
             get
             {
                 return _navigateBackwards ?? (_navigateBackwards = new RelayCommand(
-                    o => _navigator.NavigateBackward(),
-                    o => _navigator.CanGoBackwards()
+                    o => Navigator.NavigateBackward(),
+                    o => Navigator.CanGoBackwards()
                 ));
             }
 
@@ -47,8 +47,8 @@ namespace DotDll.Presentation.ViewModel
             get
             {
                 return _navigateForwards ?? (_navigateForwards = new RelayCommand(
-                    o => _navigator.NavigateForwards(),
-                    o => _navigator.CanGoForwards()
+                    o => Navigator.NavigateForwards(),
+                    o => Navigator.CanGoForwards()
                 ));
             }
         }

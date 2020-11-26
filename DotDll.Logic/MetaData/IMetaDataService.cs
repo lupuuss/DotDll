@@ -5,7 +5,7 @@ namespace DotDll.Logic.MetaData
 {
     public interface IMetaDataService
     {
-        bool IsValidSource(Source source);
+        bool IsValidFileSourcePath(string path);
 
         Source CreateFileSource(string path);
 

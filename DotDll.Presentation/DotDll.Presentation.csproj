@@ -119,5 +119,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DotDll.Logic\DotDll.Logic.csproj">
+      <Project>{85d81cb3-d358-4381-a677-a99919b10a96}</Project>
+      <Name>DotDll.Logic</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

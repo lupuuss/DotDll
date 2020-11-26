@@ -2,11 +2,11 @@
 {
     public class FileSource : Source
     {
-        public override string Identifier { get; }
-
         internal FileSource(string path)
         {
             Identifier = path;
         }
+
+        public override string Identifier { get; }
     }
 }

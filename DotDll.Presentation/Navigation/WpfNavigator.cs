@@ -20,8 +20,8 @@ namespace DotDll.Presentation.Navigation
                 case TargetView.Menu:
                     _frame.Navigate(new MenuPage());
                     break;
-                case TargetView.List:
-                    _frame.Navigate(new ListPickerPage());
+                case TargetView.DeserializeList:
+                    _frame.Navigate(new DeserializeListPage());
                     break;
                 case TargetView.MetaData:
                     _frame.Navigate(new MetaDataPage());

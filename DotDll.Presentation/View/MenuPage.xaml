@@ -45,7 +45,7 @@
                 Grid.Row="2"
                 Style="{StaticResource MenuButton}"
                 Command="{Binding NavigateToCommand}"
-                CommandParameter="{x:Static navigation:TargetView.List}">
+                CommandParameter="{x:Static navigation:TargetView.DeserializeList}">
                 <TextBlock Text="{x:Static properties:Resources.Deserialize}" />
             </Button>
         </Grid>

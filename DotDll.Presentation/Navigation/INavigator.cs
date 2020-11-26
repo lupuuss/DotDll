@@ -3,7 +3,7 @@
     public enum TargetView
     {
         Menu,
-        List,
+        DeserializeList,
         MetaData
     }
 

@@ -2,9 +2,9 @@
 
 namespace DotDll.Presentation.View
 {
-    public partial class ListPickerPage : Page
+    public partial class DeserializeListPage : Page
     {
-        public ListPickerPage()
+        public DeserializeListPage()
         {
             InitializeComponent();
         }

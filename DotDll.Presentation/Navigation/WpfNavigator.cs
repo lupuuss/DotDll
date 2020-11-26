@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Controls;
 using DotDll.Presentation.View;
 
@@ -7,7 +6,8 @@ namespace DotDll.Presentation.Navigation
 {
     public class WpfNavigator : INavigator
     {
-        private Frame _frame;
+        private readonly Frame _frame;
+
         public WpfNavigator(Frame frame)
         {
             _frame = frame;
@@ -15,7 +15,6 @@ namespace DotDll.Presentation.Navigation
 
         public void NavigateTo(TargetView target, params object[] args)
         {
-
             switch (target)
             {
                 case TargetView.Menu:

@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using DotDll.Presentation.Navigation;
 using DotDll.Presentation.ViewModel;
@@ -16,7 +15,7 @@ namespace DotDll.Presentation.View
 
             // initializes navigator for other classes.
             Application.Current.AsDotDllApp().Navigator = navigator;
-            
+
             DataContext = new NavigationViewModel(navigator);
         }
     }

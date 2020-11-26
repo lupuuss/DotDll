@@ -2,10 +2,6 @@
 {
     public class MetaDataViewModel : BaseViewModel
     {
-        public string MetaDataName
-        {
-            get;
-            set;
-        } = "Some.dll";
+        public string MetaDataName { get; set; } = "Some.dll";
     }
 }

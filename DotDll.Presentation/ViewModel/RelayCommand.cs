@@ -5,8 +5,8 @@ namespace DotDll.Presentation.ViewModel
 {
     public class RelayCommand : ICommand
     {
-        private Action<object> _action;
-        private Predicate<object> _predicate;
+        private readonly Action<object> _action;
+        private readonly Predicate<object> _predicate;
 
         public RelayCommand(Action<object> action, Predicate<object> predicate = null)
         {

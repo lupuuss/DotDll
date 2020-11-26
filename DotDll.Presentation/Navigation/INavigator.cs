@@ -1,7 +1,10 @@
 ﻿namespace DotDll.Presentation.Navigation
 {
-    public enum TargetView {
-        Menu, List, MetaData
+    public enum TargetView
+    {
+        Menu,
+        List,
+        MetaData
     }
 
     public interface INavigator

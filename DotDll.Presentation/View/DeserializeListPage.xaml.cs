@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
+using DotDll.Presentation.ViewModel;
 
 namespace DotDll.Presentation.View
 {
@@ -7,6 +9,8 @@ namespace DotDll.Presentation.View
         public DeserializeListPage()
         {
             InitializeComponent();
+            var app = Application.Current.AsDotDllApp();
+            DataContext = new DeserializeListViewModel(app.Navigator, app.MetaDataService);
         }
     }
 }

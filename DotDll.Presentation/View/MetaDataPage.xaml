@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:properties="clr-namespace:DotDll.Presentation.Properties"
       xmlns:viewModel="clr-namespace:DotDll.Presentation.ViewModel"
-      mc:Ignorable="d" d:DataContext="{viewModel:MetaDataViewModel}">
+      mc:Ignorable="d">
     <Grid ShowGridLines="False" VerticalAlignment="Top">
 
         <Grid.RowDefinitions>

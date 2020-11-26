@@ -36,7 +36,8 @@ namespace DotDll.Presentation.ViewModel
 
         private void NavigateToMetaData()
         {
-            Navigator.NavigateTo(TargetView.MetaData, _service.CreateFileSource(_pickedFilePath));
+            Source = _service.CreateFileSource(PickedFilePath);
+            NavigateToMetaDataCommand.Execute(null);
         }
     }
 }

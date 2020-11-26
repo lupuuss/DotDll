@@ -132,4 +132,7 @@
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="PickToDeserialize" xml:space="preserve">
+    <value>Pick object to deserialize...</value>
+  </data>
 </root>

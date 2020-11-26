@@ -97,6 +97,15 @@ namespace DotDll.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pick object to deserialize....
+        /// </summary>
+        public static string PickToDeserialize {
+            get {
+                return ResourceManager.GetString("PickToDeserialize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Read from .dll/.exe....
         /// </summary>
         public static string ReadFromDllExe {

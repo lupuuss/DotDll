@@ -42,10 +42,9 @@
                 Grid.Row="0" 
                 Grid.Column="2" 
                 Margin="10"
-                HorizontalAlignment="Right"
                 VerticalAlignment="Center"
                 Command="{Binding NavigateToMetaDataCommand}">
-                <TextBlock Text="{x:Static properties:Resources.Deserialize}" />
+                <TextBlock Text="{x:Static properties:Resources.Next}" />
             </Button>
             
             <ProgressBar

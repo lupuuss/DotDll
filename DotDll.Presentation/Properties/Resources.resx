@@ -138,4 +138,7 @@
   <data name="Source" xml:space="preserve">
     <value>Source</value>
   </data>
+  <data name="Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
 </root>

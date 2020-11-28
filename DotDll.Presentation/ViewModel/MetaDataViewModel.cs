@@ -1,5 +1,6 @@
 ﻿using System;
 using DotDll.Logic.MetaData;
+using DotDll.Logic.MetaData.Data;
 using DotDll.Logic.MetaData.Sources;
 using DotDll.Presentation.Navigation;
 
@@ -10,7 +11,7 @@ namespace DotDll.Presentation.ViewModel
         private readonly IMetaDataService _service;
         private readonly Source _source;
 
-        private MetaData _metaData;
+        private MetaDataObject _metaData;
 
         public MetaDataViewModel(INavigator navigator, IMetaDataService service, Source source) : base(navigator)
         {

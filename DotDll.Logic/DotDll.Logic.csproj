@@ -38,8 +38,12 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="MetaData\Data\Base\Defined.cs" />
+        <Compile Include="MetaData\Data\Member.cs" />
+        <Compile Include="MetaData\Data\MetaDataObject.cs" />
+        <Compile Include="MetaData\Data\Namespace.cs" />
+        <Compile Include="MetaData\Data\Type.cs" />
         <Compile Include="MetaData\IMetaDataService.cs" />
-        <Compile Include="MetaData\MetaData.cs" />
         <Compile Include="MetaData\Sources\FileSource.cs" />
         <Compile Include="MetaData\Sources\Source.cs" />
         <Compile Include="MetaData\Sources\SerializedSource.cs" />

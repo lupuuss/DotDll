@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using DotDll.Logic.MetaData.Data;
 using DotDll.Logic.MetaData.Sources;
 
 namespace DotDll.Logic.MetaData
@@ -39,15 +39,40 @@ namespace DotDll.Logic.MetaData
             });
         }
 
-        public Task<MetaData> LoadMetaData(Source source)
+        public Task<MetaDataObject> LoadMetaData(Source source)
         {
             return Task.Run(() =>
             {
-                Thread.Sleep(1000);
-                return new MetaData
-                {
-                    Name = source.Identifier
-                };
+                var stringType = Type.newExternalType("class String");
+                
+                var firstNameMember = new Member(
+                    "(property) public String FirstName",
+                    new List<Type>() { stringType }
+                );
+                
+                var lastNameMember = new Member(
+                    "(property) public String LastName",
+                    new List<Type>() { stringType }
+                );
+                
+                var relatedPersonField = new Member(
+                    "(field) private Person _relatedPerson",
+                    new List<Type>() {}
+                    );
+                
+                var personType = Type.newInternalType(
+                    "public class Person",
+                    new List<Member>() { firstNameMember, lastNameMember, relatedPersonField }
+                );
+
+                relatedPersonField.RelatedTypes.Add(personType);
+                
+                var namespaceObject = new Namespace("Project", new List<Type>() { personType });
+
+                return new MetaDataObject(
+                    "Project.dll", 
+                    new List<Namespace>() { namespaceObject }
+                    );
             });
         }
     }

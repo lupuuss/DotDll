@@ -1,4 +1,8 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using DotDll.Logic.MetaData;
 using DotDll.Logic.MetaData.Sources;
@@ -11,14 +15,38 @@ namespace DotDll.Presentation.ViewModel
         private readonly IMetaDataService _metaDataService;
         public ObservableCollection<Source> Sources { get; set; } = new ObservableCollection<Source>();
 
+        private bool _isLoading;
+
+        public bool IsLoading
+        {
+            get => _isLoading;
+            set
+            {
+                if (_isLoading == value) return;
+
+                _isLoading = value;
+                OnPropertyChanged("IsLoading");
+            }
+        }
+        
         public DeserializeListViewModel(INavigator navigator, IMetaDataService metaDataService) : base(navigator)
         {
             _metaDataService = metaDataService;
 
-            foreach (var source in _metaDataService.GetSerializedSources())
+            LoadData();
+        }
+
+        private async void LoadData()
+        {
+            IsLoading = true;
+            
+            var sources = await _metaDataService.GetSerializedSources();
+            foreach (var source in sources)
             {
                 Sources.Add(source);
             }
+            
+            IsLoading = false;
         }
     }
 }

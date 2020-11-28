@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using DotDll.Logic.MetaData.Sources;
 
 namespace DotDll.Logic.MetaData
@@ -9,8 +10,8 @@ namespace DotDll.Logic.MetaData
 
         Source CreateFileSource(string path);
 
-        List<Source> GetSerializedSources();
+        Task<List<Source>> GetSerializedSources();
 
-        MetaData LoadMetaData(Source source);
+        Task<MetaData> LoadMetaData(Source source);
     }
 }

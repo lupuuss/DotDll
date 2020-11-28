@@ -6,7 +6,7 @@
         xmlns:p="clr-namespace:DotDll.Presentation.Properties"
         mc:Ignorable="d"
         Title="{x:Static p:Resources.AppName}"
-        MinWidth="300" MinHeight="600"
+        MinWidth="500" MinHeight="600"
         SizeToContent="WidthAndHeight">
 
     <Grid VerticalAlignment="Top" Focusable="True">

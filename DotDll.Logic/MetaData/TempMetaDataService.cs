@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 using DotDll.Logic.MetaData.Sources;
 
 namespace DotDll.Logic.MetaData
@@ -16,23 +19,28 @@ namespace DotDll.Logic.MetaData
             return new FileSource(path);
         }
 
-        public List<Source> GetSerializedSources()
+        public Task<List<Source>> GetSerializedSources()
         {
-            return new List<Source>
+            return Task.Run(delegate
             {
-                new SerializedSource("Example1"),
-                new SerializedSource("Example2"),
-                new SerializedSource("Example3"),
-                new SerializedSource("Example4")
-            };
+                Thread.Sleep(3000);
+                return new List<Source>
+                {
+                    new SerializedSource("Example1"),
+                    new SerializedSource("Example2"),
+                    new SerializedSource("Example3"),
+                    new SerializedSource("Example4")
+                };
+            });
         }
 
-        public MetaData LoadMetaData(Source source)
+        public Task<MetaData> LoadMetaData(Source source)
         {
-            return new MetaData
+            Thread.Sleep(3000);
+            return Task.Run(() => new MetaData
             {
                 Name = source.Identifier
-            };
+            });
         }
     }
 }

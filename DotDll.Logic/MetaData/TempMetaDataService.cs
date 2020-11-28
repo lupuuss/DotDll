@@ -29,7 +29,12 @@ namespace DotDll.Logic.MetaData
                     new SerializedSource("Example1"),
                     new SerializedSource("Example2"),
                     new SerializedSource("Example3"),
-                    new SerializedSource("Example4")
+                    new SerializedSource("Example4"),
+                    new SerializedSource("Example5"),
+                    new SerializedSource("Example6"),
+                    new SerializedSource("Example7"),
+                    new SerializedSource("Example8"),
+                    new SerializedSource("Example9"),
                 };
             });
         }

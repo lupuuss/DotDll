@@ -6,19 +6,20 @@
         xmlns:p="clr-namespace:DotDll.Presentation.Properties"
         mc:Ignorable="d"
         Title="{x:Static p:Resources.AppName}"
-        MinWidth="500" MinHeight="600"
-        SizeToContent="WidthAndHeight">
+        Height="600"
+        Width="600"
+        MinWidth="600">
 
-    <Grid VerticalAlignment="Top" Focusable="True">
+    <Grid VerticalAlignment="Top">
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="4*" />
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="8*"/>
         </Grid.RowDefinitions>
 
         <Button Grid.Column="0"
@@ -30,11 +31,13 @@
 
         <Frame
             Grid.Row="1"
+            Grid.Column="0"
             Grid.ColumnSpan="2"
+            Padding="10"
             Name="MainFrame"
             NavigationUIVisibility="Hidden"
             Source="MenuPage.xaml"
-            VerticalAlignment="Top" />
+            VerticalAlignment="Stretch"/>
     </Grid>
 
 </Window>

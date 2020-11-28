@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using DotDll.Presentation.ViewModel;
+using DotDll.Presentation.ViewModel.Common;
 using Microsoft.Win32;
 
 namespace DotDll.Presentation.View

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace DotDll.Presentation.ViewModel
+namespace DotDll.Presentation.ViewModel.Common
 {
     public class BaseViewModel : INotifyPropertyChanged
     {

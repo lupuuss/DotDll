@@ -1,7 +1,7 @@
-﻿using System.Security.AccessControl;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using DotDll.Logic.MetaData;
 using DotDll.Presentation.Navigation;
+using DotDll.Presentation.ViewModel.Common;
 
 namespace DotDll.Presentation.ViewModel
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace DotDll.Presentation.ViewModel
+namespace DotDll.Presentation.ViewModel.Common
 {
     public class RelayCommand : ICommand
     {

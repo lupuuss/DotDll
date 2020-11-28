@@ -61,13 +61,13 @@
     </Compile>
     <Compile Include="Navigation\INavigator.cs" />
     <Compile Include="Navigation\WpfNavigator.cs" />
-    <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\Common\BaseViewModel.cs" />
+    <Compile Include="ViewModel\Common\DynamicContentViewModel.cs" />
+    <Compile Include="ViewModel\Common\NavigationViewModel.cs" />
+    <Compile Include="ViewModel\Common\RelayCommand.cs" />
     <Compile Include="ViewModel\DeserializeListViewModel.cs" />
-    <Compile Include="ViewModel\DynamicContentViewModel.cs" />
     <Compile Include="ViewModel\MenuViewModel.cs" />
-    <Compile Include="ViewModel\MetaDataViewModel.cs" />
-    <Compile Include="ViewModel\NavigationViewModel.cs" />
-    <Compile Include="ViewModel\RelayCommand.cs" />
+    <Compile Include="ViewModel\MetaData\MetaDataViewModel.cs" />
     <Compile Include="View\DeserializeListPage.xaml.cs">
       <DependentUpon>DeserializeListPage.xaml</DependentUpon>
     </Compile>

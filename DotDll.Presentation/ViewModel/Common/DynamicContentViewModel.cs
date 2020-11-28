@@ -1,6 +1,6 @@
 ﻿using DotDll.Presentation.Navigation;
 
-namespace DotDll.Presentation.ViewModel
+namespace DotDll.Presentation.ViewModel.Common
 {
     public class DynamicContentViewModel : NavigationViewModel
     {

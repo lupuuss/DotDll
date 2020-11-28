@@ -2,7 +2,7 @@
 using DotDll.Logic.MetaData.Sources;
 using DotDll.Presentation.Navigation;
 
-namespace DotDll.Presentation.ViewModel
+namespace DotDll.Presentation.ViewModel.Common
 {
     public class NavigationViewModel : BaseViewModel
     {

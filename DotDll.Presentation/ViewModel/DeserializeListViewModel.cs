@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Input;
 using DotDll.Logic.MetaData;
 using DotDll.Logic.MetaData.Sources;
 using DotDll.Presentation.Navigation;
+using DotDll.Presentation.ViewModel.Common;
 
 namespace DotDll.Presentation.ViewModel
 {

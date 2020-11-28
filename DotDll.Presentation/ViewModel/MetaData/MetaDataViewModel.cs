@@ -3,8 +3,9 @@ using DotDll.Logic.MetaData;
 using DotDll.Logic.MetaData.Data;
 using DotDll.Logic.MetaData.Sources;
 using DotDll.Presentation.Navigation;
+using DotDll.Presentation.ViewModel.Common;
 
-namespace DotDll.Presentation.ViewModel
+namespace DotDll.Presentation.ViewModel.MetaData
 {
     public class MetaDataViewModel : DynamicContentViewModel
     {

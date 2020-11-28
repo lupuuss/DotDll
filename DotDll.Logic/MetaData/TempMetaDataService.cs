@@ -23,7 +23,7 @@ namespace DotDll.Logic.MetaData
         {
             return Task.Run(delegate
             {
-                Thread.Sleep(3000);
+                Thread.Sleep(1000);
                 return new List<Source>
                 {
                     new SerializedSource("Example1"),
@@ -43,7 +43,7 @@ namespace DotDll.Logic.MetaData
         {
             return Task.Run(() =>
             {
-                Thread.Sleep(3000);
+                Thread.Sleep(1000);
                 return new MetaData
                 {
                     Name = source.Identifier

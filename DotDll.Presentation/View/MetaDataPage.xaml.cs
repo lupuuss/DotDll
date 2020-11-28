@@ -10,7 +10,8 @@ namespace DotDll.Presentation.View
         public MetaDataPage(Source source)
         {
             InitializeComponent();
-            DataContext = new MetaDataViewModel(source, Application.Current.AsDotDllApp().MetaDataService);
+            var app = Application.Current.AsDotDllApp();
+            DataContext = new MetaDataViewModel(app.Navigator, app.MetaDataService, source);
         }
     }
 }

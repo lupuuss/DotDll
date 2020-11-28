@@ -10,25 +10,11 @@ using DotDll.Presentation.Navigation;
 
 namespace DotDll.Presentation.ViewModel
 {
-    public class DeserializeListViewModel : NavigationViewModel
+    public class DeserializeListViewModel : DynamicContentViewModel
     {
         private readonly IMetaDataService _metaDataService;
         public ObservableCollection<Source> Sources { get; set; } = new ObservableCollection<Source>();
 
-        private bool _isLoading;
-
-        public bool IsLoading
-        {
-            get => _isLoading;
-            set
-            {
-                if (_isLoading == value) return;
-
-                _isLoading = value;
-                OnPropertyChanged("IsLoading");
-            }
-        }
-        
         public DeserializeListViewModel(INavigator navigator, IMetaDataService metaDataService) : base(navigator)
         {
             _metaDataService = metaDataService;
@@ -39,13 +25,22 @@ namespace DotDll.Presentation.ViewModel
         private async void LoadData()
         {
             IsLoading = true;
-            
-            var sources = await _metaDataService.GetSerializedSources();
-            foreach (var source in sources)
+
+            try
             {
-                Sources.Add(source);
+                var sources = await _metaDataService.GetSerializedSources();
+                foreach (var source in sources)
+                {
+                    Sources.Add(source);
+                }
+
+                IsContentShown = true;
             }
-            
+            catch (Exception e)
+            {
+                ErrorOccured = true;
+            }
+
             IsLoading = false;
         }
     }

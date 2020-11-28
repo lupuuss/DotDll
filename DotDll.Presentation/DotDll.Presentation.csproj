@@ -63,6 +63,7 @@
     <Compile Include="Navigation\WpfNavigator.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\DeserializeListViewModel.cs" />
+    <Compile Include="ViewModel\DynamicContentViewModel.cs" />
     <Compile Include="ViewModel\MenuViewModel.cs" />
     <Compile Include="ViewModel\MetaDataViewModel.cs" />
     <Compile Include="ViewModel\NavigationViewModel.cs" />

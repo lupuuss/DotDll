@@ -36,10 +36,13 @@ namespace DotDll.Logic.MetaData
 
         public Task<MetaData> LoadMetaData(Source source)
         {
-            Thread.Sleep(3000);
-            return Task.Run(() => new MetaData
+            return Task.Run(() =>
             {
-                Name = source.Identifier
+                Thread.Sleep(3000);
+                return new MetaData
+                {
+                    Name = source.Identifier
+                };
             });
         }
     }

@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using DotDll.Logic.MetaData;
 using DotDll.Logic.MetaData.Data;
+using DotDll.Logic.MetaData.Data.Base;
 using DotDll.Logic.MetaData.Sources;
 using DotDll.Presentation.Navigation;
 using DotDll.Presentation.ViewModel.Common;
@@ -13,7 +16,23 @@ namespace DotDll.Presentation.ViewModel.MetaData
         private readonly Source _source;
 
         private MetaDataObject _metaData;
+        public ObservableCollection<MetaDataNode> Nodes { get; } = new ObservableCollection<MetaDataNode>();
+        public string MetaDataSource => _source.Identifier;
 
+        private string _metaDataName = "...";
+
+        public string MetaDataName
+        {
+            get => _metaDataName;
+            set
+            {
+                if (_metaDataName == value) return;
+
+                _metaDataName = value;
+                OnPropertyChanged("MetaDataName");
+            }
+        }
+        
         public MetaDataViewModel(INavigator navigator, IMetaDataService service, Source source) : base(navigator)
         {
             _service = service;
@@ -21,9 +40,7 @@ namespace DotDll.Presentation.ViewModel.MetaData
 
             LoadData();
         }
-        
-        public string MetaDataName => _source.Identifier;
-        
+
         private async void LoadData()
         {
             IsLoading = true;
@@ -33,7 +50,9 @@ namespace DotDll.Presentation.ViewModel.MetaData
             try
             {
                 _metaData = await _service.LoadMetaData(_source);
+                LoadFirstLayer();
                 IsContentShown = true;
+                MetaDataName = _metaData.Name;
             }
             catch (Exception e)
             {
@@ -41,6 +60,17 @@ namespace DotDll.Presentation.ViewModel.MetaData
             }
 
             IsLoading = false;
+        }
+
+        private void LoadFirstLayer()
+        {
+            foreach (var nSpace in _metaData.Namespaces)
+            {
+                var node = new MetaDataNode(nSpace);
+                Nodes.Add(node);
+
+                node.LoadChildren();
+            }
         }
     }
 }

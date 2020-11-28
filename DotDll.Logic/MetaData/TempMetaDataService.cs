@@ -43,6 +43,8 @@ namespace DotDll.Logic.MetaData
         {
             return Task.Run(() =>
             {
+                Thread.Sleep(1500);
+                
                 var stringType = Type.newExternalType("class String");
                 
                 var firstNameMember = new Member(

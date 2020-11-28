@@ -67,6 +67,7 @@
     <Compile Include="ViewModel\Common\RelayCommand.cs" />
     <Compile Include="ViewModel\DeserializeListViewModel.cs" />
     <Compile Include="ViewModel\MenuViewModel.cs" />
+    <Compile Include="ViewModel\MetaData\MetaDataNode.cs" />
     <Compile Include="ViewModel\MetaData\MetaDataViewModel.cs" />
     <Compile Include="View\DeserializeListPage.xaml.cs">
       <DependentUpon>DeserializeListPage.xaml</DependentUpon>

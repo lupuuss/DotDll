@@ -106,6 +106,15 @@ namespace DotDll.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Operation failed!.
+        /// </summary>
+        public static string OperationFailed {
+            get {
+                return ResourceManager.GetString("OperationFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pick object to deserialize....
         /// </summary>
         public static string PickToDeserialize {
@@ -120,6 +129,15 @@ namespace DotDll.Presentation.Properties {
         public static string ReadFromDllExe {
             get {
                 return ResourceManager.GetString("ReadFromDllExe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Serialize....
+        /// </summary>
+        public static string Serialize {
+            get {
+                return ResourceManager.GetString("Serialize", resourceCulture);
             }
         }
         

@@ -141,4 +141,10 @@
   <data name="Next" xml:space="preserve">
     <value>Next</value>
   </data>
+  <data name="Serialize" xml:space="preserve">
+    <value>Serialize...</value>
+  </data>
+  <data name="OperationFailed" xml:space="preserve">
+    <value>Operation failed!</value>
+  </data>
 </root>

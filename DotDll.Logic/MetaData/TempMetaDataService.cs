@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using DotDll.Logic.MetaData.Data;
 using DotDll.Logic.MetaData.Sources;
+using Type = DotDll.Logic.MetaData.Data.Type;
 
 namespace DotDll.Logic.MetaData
 {
@@ -75,6 +77,15 @@ namespace DotDll.Logic.MetaData
                     "Project.dll", 
                     new List<Namespace>() { namespaceObject }
                     );
+            });
+        }
+
+        public Task<bool> SaveMetaData(MetaDataObject metaData)
+        {
+            return Task.Run(() =>
+            {
+                Thread.Sleep(1500);
+                return new Random().Next() % 2 == 0;
             });
         }
     }

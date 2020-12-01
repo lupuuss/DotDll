@@ -13,11 +13,15 @@
             <Setter Property="Margin" Value="0, 10, 0, 0" />
             <Setter Property="Padding" Value="5"/>
         </Style>
+
+        <BooleanToVisibilityConverter x:Key="VisibilityConverter" />
+        
     </Page.Resources>
 
     <Grid Margin="10" HorizontalAlignment="Center" VerticalAlignment="Top">
 
         <Grid.RowDefinitions>
+            <RowDefinition />
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
@@ -34,15 +38,24 @@
         <Button
             Grid.Column="0"
             Grid.Row="1"
+            Width="200"
             Style="{StaticResource MenuButton}"
             Command="{Binding PickFileCommand}">
             <TextBlock
                 Text="{x:Static properties:Resources.ReadFromDllExe}" />
         </Button>
 
-        <Button
+        <TextBlock
             Grid.Column="0"
             Grid.Row="2"
+            Visibility="{Binding PathErrorMessageShown, Converter={StaticResource VisibilityConverter}}"
+            Foreground="Red"
+            Text="{x:Static properties:Resources.PathError}"/>
+        
+        <Button
+            Grid.Column="0"
+            Grid.Row="3"
+            Width="200"
             Style="{StaticResource MenuButton}"
             Command="{Binding NavigateToCommand}"
             CommandParameter="{x:Static navigation:TargetView.DeserializeList}">

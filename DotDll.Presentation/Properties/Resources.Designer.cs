@@ -115,6 +115,15 @@ namespace DotDll.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Picked file path is invalid! File probably doesn&apos;t exists!.
+        /// </summary>
+        public static string PathError {
+            get {
+                return ResourceManager.GetString("PathError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pick object to deserialize....
         /// </summary>
         public static string PickToDeserialize {

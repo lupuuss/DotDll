@@ -65,6 +65,7 @@
         <Compile Include="ViewModel\Common\DynamicContentViewModelTest.cs" />
         <Compile Include="ViewModel\Common\NavigationViewModelTest.cs" />
         <Compile Include="ViewModel\Common\RelayCommandTest.cs" />
+        <Compile Include="ViewModel\MenuViewModelTest.cs" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\DotDll.Logic\DotDll.Logic.csproj">

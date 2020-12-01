@@ -10,6 +10,20 @@ namespace DotDll.Presentation.ViewModel
         private readonly IMetaDataService _service;
         private string _pickedFilePath;
 
+        private bool _pathErrorMessageShown = false;
+
+        public bool PathErrorMessageShown
+        {
+            get => _pathErrorMessageShown;
+            set
+            {
+                if (_pathErrorMessageShown == value) return;
+
+                _pathErrorMessageShown = value;
+                OnPropertyChangedAuto();
+            }
+        }
+
         public MenuViewModel(INavigator navigator, IMetaDataService service) : base(navigator)
         {
             _service = service;
@@ -20,12 +34,17 @@ namespace DotDll.Presentation.ViewModel
             get => _pickedFilePath;
             set
             {
+
                 if (_pickedFilePath == value) return;
 
+                PathErrorMessageShown = false;
+                
                 if (!_service.IsValidFileSourcePath(value))
-                    // TODO
-                    return;
-
+                {
+                    PathErrorMessageShown = true;
+                    return; 
+                }
+                
                 _pickedFilePath = value;
 
                 OnPropertyChangedAuto();

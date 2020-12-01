@@ -147,4 +147,7 @@
   <data name="OperationFailed" xml:space="preserve">
     <value>Operation failed!</value>
   </data>
+  <data name="PathError" xml:space="preserve">
+    <value>Picked file path is invalid! File probably doesn't exists!</value>
+  </data>
 </root>

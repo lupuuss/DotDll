@@ -148,7 +148,7 @@ namespace DotDll.Tests.Presentation.ViewModel.Common
         [Test]
         public void NavigateToMetaDataCommand_SourceNotNull_CanExecuteReturnsTrue()
         {
-            _viewModel.Source = new Mock<Source>().Object;
+            _viewModel.Source = new SerializedSource("");
             var actual = _viewModel.NavigateToMetaDataCommand.CanExecute(null);
 
             Assert.True(actual);
@@ -157,7 +157,7 @@ namespace DotDll.Tests.Presentation.ViewModel.Common
         [Test]
         public void NavigateToMetaDataCommand_SourceNotNull_ExecuteDelegatesToNavigator()
         {
-            _viewModel.Source = new Mock<Source>().Object;
+            _viewModel.Source = new SerializedSource("");
 
             _viewModel.NavigateToMetaDataCommand.Execute(null);
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-
 using System.Threading.Tasks;
 using DotDll.Logic.MetaData;
 using DotDll.Logic.MetaData.Sources;
@@ -9,7 +8,7 @@ using DotDll.Presentation.ViewModel;
 using Moq;
 using NUnit.Framework;
 
-namespace DotDll.Tests.Presentation.ViewModel.Common
+namespace DotDll.Tests.Presentation.ViewModel
 {
     [TestFixture]
     public class DeserializeListViewModelTest
@@ -20,7 +19,11 @@ namespace DotDll.Tests.Presentation.ViewModel.Common
         
         private DeserializeListViewModel _viewModel;
 
-        private List<Source> _sources = new List<Source>();
+        private List<Source> _sources = new List<Source>()
+        {
+            new SerializedSource("Example1"),
+            new SerializedSource("Example2")
+        };
 
         [SetUp]
         public void SetUp()
@@ -28,18 +31,6 @@ namespace DotDll.Tests.Presentation.ViewModel.Common
             _navigatorMock = new Mock<INavigator>();
             _serviceMock = new Mock<IMetaDataService>();
 
-            var mock1 = new Mock<Source>();
-            mock1.Setup((s) => s.Identifier)
-                .Returns("Example1");
-            
-            
-            var mock2 = new Mock<Source>();
-            mock1.Setup((s) => s.Identifier)
-                .Returns("Example2");
-            
-            _sources.Add(mock1.Object);
-            _sources.Add(mock2.Object);
-            
             _serviceMock
                 .Setup((service) => service.GetSerializedSources())
                 .Returns(Task.FromResult(_sources));

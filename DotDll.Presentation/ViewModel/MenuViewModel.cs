@@ -28,7 +28,7 @@ namespace DotDll.Presentation.ViewModel
 
                 _pickedFilePath = value;
 
-                OnPropertyChanged("PickedFilePath");
+                OnPropertyChangedAuto();
                 NavigateToMetaData();
             }
         }

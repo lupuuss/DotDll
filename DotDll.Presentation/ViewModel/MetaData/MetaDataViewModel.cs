@@ -27,7 +27,7 @@ namespace DotDll.Presentation.ViewModel.MetaData
                 if (_metaDataName == value) return;
 
                 _metaDataName = value;
-                OnPropertyChanged("MetaDataName");
+                OnPropertyChangedAuto();
             }
         }
 

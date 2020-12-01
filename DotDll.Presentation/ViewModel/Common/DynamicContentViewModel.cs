@@ -15,7 +15,7 @@ namespace DotDll.Presentation.ViewModel.Common
                 if (_isLoading == value) return;
 
                 _isLoading = value;
-                OnPropertyChanged("IsLoading");
+                OnPropertyChangedAuto();
             }
         }
 
@@ -29,7 +29,7 @@ namespace DotDll.Presentation.ViewModel.Common
                 if (_isContentShown == value) return;
 
                 _isContentShown = value;
-                OnPropertyChanged("IsContentShown");
+                OnPropertyChangedAuto();
             }
         }
         
@@ -43,7 +43,7 @@ namespace DotDll.Presentation.ViewModel.Common
                 if (_errorOccured == value) return;
 
                 _errorOccured = value;
-                OnPropertyChanged("ErrorOccured");
+                OnPropertyChangedAuto();
             }
         }
 

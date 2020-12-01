@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace DotDll.Presentation.ViewModel.Common
 {
@@ -14,6 +16,11 @@ namespace DotDll.Presentation.ViewModel.Common
 
             var e = new PropertyChangedEventArgs(propertyName);
             handler(this, e);
+        }
+        
+        public void OnPropertyChangedAuto([CallerMemberName] String propertyName = "")
+        {
+            OnPropertyChanged(propertyName);
         }
     }
 }

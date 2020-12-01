@@ -31,7 +31,7 @@ namespace DotDll.Presentation.ViewModel.Common
                 if (_source == value) return;
 
                 _source = value;
-                OnPropertyChanged("Source");
+                OnPropertyChangedAuto();
             }
         }
         

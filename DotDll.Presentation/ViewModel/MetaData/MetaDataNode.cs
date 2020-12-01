@@ -79,7 +79,8 @@ namespace DotDll.Presentation.ViewModel.MetaData
                     break;
                 default:
                     throw new ArgumentException(
-                        $"Not supported children of type {_relatedDefinition.GetType().FullName}");
+                        $"Not supported children of type {_relatedDefinition.GetType().FullName}"
+                        );
             }
         }
 

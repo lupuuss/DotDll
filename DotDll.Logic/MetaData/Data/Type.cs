@@ -7,25 +7,22 @@ namespace DotDll.Logic.MetaData.Data
     {
         private Type(
             string definition,
-            List<Member> members,
-            bool isExternal
+            List<Member> members
         ) : base(definition)
         {
             Members = members;
-            IsExternal = isExternal;
         }
 
         public List<Member> Members { get; }
-        public bool IsExternal { get; }
 
-        internal static Type newInternalType(string definition, List<Member> members)
+        internal static Type NewInternalType(string definition, List<Member> members)
         {
-            return new Type(definition, members, false);
+            return new Type(definition, members);
         }
 
-        internal static Type newExternalType(string definition)
+        internal static Type NewExternalType(string definition)
         {
-            return new Type(definition, new List<Member>(), false);
+            return new Type(definition, new List<Member>());
         }
     }
 }

@@ -67,6 +67,7 @@
         <Compile Include="ViewModel\Common\RelayCommandTest.cs" />
         <Compile Include="ViewModel\DeserializeListViewModelTest.cs" />
         <Compile Include="ViewModel\MenuViewModelTest.cs" />
+        <Compile Include="ViewModel\MetaData\MetaDataNodeTest.cs" />
         <Compile Include="ViewModel\MetaData\MetaDataViewModelTest.cs" />
     </ItemGroup>
     <ItemGroup>

@@ -17,8 +17,8 @@ namespace DotDll.Presentation.ViewModel.Common
             var e = new PropertyChangedEventArgs(propertyName);
             handler(this, e);
         }
-        
-        public void OnPropertyChangedAuto([CallerMemberName] String propertyName = "")
+
+        protected void OnPropertyChangedAuto([CallerMemberName] String propertyName = "")
         {
             OnPropertyChanged(propertyName);
         }

@@ -7,6 +7,7 @@ using DotDll.Logic.MetaData.Data;
 using DotDll.Logic.MetaData.Sources;
 using Type = DotDll.Logic.MetaData.Data.Type;
 
+#if DEBUG
 namespace DotDll.Logic.MetaData
 {
     public class TempMetaDataService : IMetaDataService
@@ -90,3 +91,4 @@ namespace DotDll.Logic.MetaData
         }
     }
 }
+#endif

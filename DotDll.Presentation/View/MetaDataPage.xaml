@@ -87,6 +87,16 @@
                 Visibility="{Binding Path=IsContentShown, Converter={StaticResource VisibilityConverter}}"
                 ItemsSource="{Binding Nodes}">
 
+                <TreeView.Template>
+                    <ControlTemplate>
+                        <Border BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                SnapsToDevicePixels="true">
+                            <ItemsPresenter/>
+                        </Border>
+                    </ControlTemplate>
+                </TreeView.Template>
+
                 <TreeView.ItemContainerStyle>
                     <Style TargetType="{x:Type TreeViewItem}">
                         <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />

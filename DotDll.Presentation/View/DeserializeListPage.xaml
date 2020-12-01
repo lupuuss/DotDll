@@ -71,6 +71,17 @@
                 SelectedItem="{Binding Source}"
                 ItemsSource="{Binding Sources}"
                 Visibility="{Binding Path=IsContentShown, Converter={StaticResource VisibilityConverter}}">
+                
+                <ListView.Template>
+                    <ControlTemplate>
+                        <Border BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                SnapsToDevicePixels="true">
+                            <ItemsPresenter/>
+                        </Border>
+                    </ControlTemplate>
+                </ListView.Template>
+                
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ContentPresenter Content="{Binding Identifier}">

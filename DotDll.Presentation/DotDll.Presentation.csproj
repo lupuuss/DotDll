@@ -60,7 +60,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Navigation\INavigator.cs" />
+    <Compile Include="Navigation\IUserInputService.cs" />
     <Compile Include="Navigation\WpfNavigator.cs" />
+    <Compile Include="Navigation\WpfUserInputService.cs" />
     <Compile Include="ViewModel\Common\BaseViewModel.cs" />
     <Compile Include="ViewModel\Common\DynamicContentViewModel.cs" />
     <Compile Include="ViewModel\Common\NavigationViewModel.cs" />

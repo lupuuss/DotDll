@@ -8,6 +8,7 @@ namespace DotDll.Presentation.ViewModel
     public class MenuViewModel : NavigationViewModel
     {
         private readonly IMetaDataService _service;
+        private readonly IUserInputService _userInputService;
         private string _pickedFilePath;
 
         private bool _pathErrorMessageShown = false;
@@ -24,9 +25,14 @@ namespace DotDll.Presentation.ViewModel
             }
         }
 
-        public MenuViewModel(INavigator navigator, IMetaDataService service) : base(navigator)
+        public MenuViewModel(
+            INavigator navigator, 
+            IMetaDataService service,
+            IUserInputService userInputService
+            ) : base(navigator)
         {
             _service = service;
+            _userInputService = userInputService;
         }
 
         public string PickedFilePath
@@ -52,7 +58,20 @@ namespace DotDll.Presentation.ViewModel
             }
         }
 
-        public ICommand PickFileCommand { get; set; }
+        private ICommand _pickFileCommand;
+        public ICommand PickFileCommand
+        {
+            get => _pickFileCommand ?? (_pickFileCommand = new RelayCommand(
+                (o) => PickFile()
+            ));
+        }
+
+        private async void PickFile()
+        {
+            var path = await _userInputService.PickFilePath();
+
+            PickedFilePath = path;
+        }
 
         private void NavigateToMetaData()
         {

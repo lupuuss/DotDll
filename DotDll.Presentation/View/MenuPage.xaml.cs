@@ -16,29 +16,10 @@ namespace DotDll.Presentation.View
 
             var app = Application.Current.AsDotDllApp();
 
-            _viewModel = new MenuViewModel(app.Navigator, app.MetaDataService)
-            {
-                PickFileCommand = new RelayCommand(o => OpenFileDialog())
-            };
+            _viewModel = new MenuViewModel(app.Navigator, app.MetaDataService, app.UserInputService);
 
             DataContext = _viewModel;
         }
-
-        private void OpenFileDialog()
-        {
-            var fileDialog = new OpenFileDialog
-            {
-                DefaultExt = ".dll",
-                Filter =
-                    "DLL (*.dll)|*.dll|EXE (*.exe)|*.exe"
-            };
-
-            var result = fileDialog.ShowDialog();
-
-            if (result != true) return;
-
-            var filename = fileDialog.FileName;
-            _viewModel.PickedFilePath = filename;
-        }
+        
     }
 }

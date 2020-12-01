@@ -5,7 +5,7 @@ using DotDll.Presentation.ViewModel.Common;
 using Moq;
 using NUnit.Framework;
 
-namespace DotDll.Tests.Presentation.ViewModel
+namespace DotDll.Tests.Presentation.ViewModel.Common
 {
     [TestFixture]
     public class NavigationViewModelTest

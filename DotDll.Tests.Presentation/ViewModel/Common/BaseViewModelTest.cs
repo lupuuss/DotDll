@@ -2,7 +2,7 @@
 using DotDll.Presentation.ViewModel.Common;
 using NUnit.Framework;
 
-namespace DotDll.Tests.Presentation.ViewModel
+namespace DotDll.Tests.Presentation.ViewModel.Common
 {
     class TestBaseViewModel : BaseViewModel
     {

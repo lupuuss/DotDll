@@ -13,12 +13,27 @@ namespace DotDll.Presentation.ViewModel.MetaData
     {
         private readonly IMetaDataService _service;
         private readonly Source _source;
-        
+
+        private bool _alreadySerialized;
+
         private MetaDataObject _metaData;
-        public string MetaDataSource => _source.Identifier;
 
         private string _metaDataName = "...";
-        
+
+        private RelayCommand _serializeCommand;
+
+        public MetaDataViewModel(INavigator navigator, IMetaDataService service, Source source) : base(navigator)
+        {
+            _service = service;
+            _source = source;
+
+            _alreadySerialized = _source is SerializedSource;
+
+            LoadData();
+        }
+
+        public string MetaDataSource => _source.Identifier;
+
         public string MetaDataName
         {
             get => _metaDataName;
@@ -32,37 +47,22 @@ namespace DotDll.Presentation.ViewModel.MetaData
         }
 
         public ObservableCollection<MetaDataNode> Nodes { get; } = new ObservableCollection<MetaDataNode>();
-        
-        private bool _alreadySerialized;
-        
-        private RelayCommand _serializeCommand;
-        public ICommand SerializeCommand
-        {
-            get => _serializeCommand ?? (_serializeCommand = new RelayCommand(
-                (o) => SaveData(),
-                (o) =>!_alreadySerialized && 
-                                     !IsLoading && 
-                                     IsContentShown &&
-                                     _metaData != null
+
+        public ICommand SerializeCommand =>
+            _serializeCommand ?? (_serializeCommand = new RelayCommand(
+                o => SaveData(),
+                o => !_alreadySerialized &&
+                     !IsLoading &&
+                     IsContentShown &&
+                     _metaData != null
             ));
-        }
-
-        public MetaDataViewModel(INavigator navigator, IMetaDataService service, Source source) : base(navigator)
-        {
-            _service = service;
-            _source = source;
-
-            _alreadySerialized = _source is SerializedSource;
-            
-            LoadData();
-        }
 
         private async void LoadData()
         {
             IsLoading = true;
             ErrorOccured = false;
             IsContentShown = false;
-            
+
             try
             {
                 _metaData = await _service.LoadMetaData(_source);
@@ -90,7 +90,7 @@ namespace DotDll.Presentation.ViewModel.MetaData
             IsLoading = false;
             _serializeCommand?.RaiseCanExecuteChanged();
         }
-        
+
         private void LoadFirstLayer()
         {
             foreach (var nSpace in _metaData.Namespaces)

@@ -4,8 +4,15 @@ namespace DotDll.Presentation.ViewModel.Common
 {
     public class DynamicContentViewModel : NavigationViewModel
     {
-        
-        private bool _isLoading = false;
+        private bool _errorOccured;
+
+        private bool _isContentShown;
+
+        private bool _isLoading;
+
+        public DynamicContentViewModel(INavigator navigator) : base(navigator)
+        {
+        }
 
         public bool IsLoading
         {
@@ -19,8 +26,6 @@ namespace DotDll.Presentation.ViewModel.Common
             }
         }
 
-        private bool _isContentShown = false;
-
         public bool IsContentShown
         {
             get => _isContentShown;
@@ -32,8 +37,6 @@ namespace DotDll.Presentation.ViewModel.Common
                 OnPropertyChangedAuto();
             }
         }
-        
-        private bool _errorOccured = false;
 
         public bool ErrorOccured
         {
@@ -45,10 +48,6 @@ namespace DotDll.Presentation.ViewModel.Common
                 _errorOccured = value;
                 OnPropertyChangedAuto();
             }
-        }
-
-        public DynamicContentViewModel(INavigator navigator) : base(navigator)
-        {
         }
     }
 }

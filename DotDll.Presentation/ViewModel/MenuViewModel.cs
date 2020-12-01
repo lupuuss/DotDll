@@ -9,9 +9,21 @@ namespace DotDll.Presentation.ViewModel
     {
         private readonly IMetaDataService _service;
         private readonly IUserInputService _userInputService;
+
+        private bool _pathErrorMessageShown;
         private string _pickedFilePath;
 
-        private bool _pathErrorMessageShown = false;
+        private ICommand _pickFileCommand;
+
+        public MenuViewModel(
+            INavigator navigator,
+            IMetaDataService service,
+            IUserInputService userInputService
+        ) : base(navigator)
+        {
+            _service = service;
+            _userInputService = userInputService;
+        }
 
         public bool PathErrorMessageShown
         {
@@ -25,32 +37,21 @@ namespace DotDll.Presentation.ViewModel
             }
         }
 
-        public MenuViewModel(
-            INavigator navigator, 
-            IMetaDataService service,
-            IUserInputService userInputService
-            ) : base(navigator)
-        {
-            _service = service;
-            _userInputService = userInputService;
-        }
-
         public string PickedFilePath
         {
             get => _pickedFilePath;
             set
             {
-
                 if (_pickedFilePath == value) return;
 
                 PathErrorMessageShown = false;
-                
+
                 if (!_service.IsValidFileSourcePath(value))
                 {
                     PathErrorMessageShown = true;
-                    return; 
+                    return;
                 }
-                
+
                 _pickedFilePath = value;
 
                 OnPropertyChangedAuto();
@@ -58,13 +59,10 @@ namespace DotDll.Presentation.ViewModel
             }
         }
 
-        private ICommand _pickFileCommand;
-        public ICommand PickFileCommand
-        {
-            get => _pickFileCommand ?? (_pickFileCommand = new RelayCommand(
-                (o) => PickFile()
+        public ICommand PickFileCommand =>
+            _pickFileCommand ?? (_pickFileCommand = new RelayCommand(
+                o => PickFile()
             ));
-        }
 
         private async void PickFile()
         {

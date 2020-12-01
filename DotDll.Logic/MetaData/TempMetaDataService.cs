@@ -37,7 +37,7 @@ namespace DotDll.Logic.MetaData
                     new SerializedSource("Example6"),
                     new SerializedSource("Example7"),
                     new SerializedSource("Example8"),
-                    new SerializedSource("Example9"),
+                    new SerializedSource("Example9")
                 };
             });
         }
@@ -47,37 +47,36 @@ namespace DotDll.Logic.MetaData
             return Task.Run(() =>
             {
                 Thread.Sleep(1500);
-                
+
                 var stringType = Type.newExternalType("class String");
-                
+
                 var firstNameMember = new Member(
                     "(property) public String FirstName",
-                    new List<Type>() { stringType }
+                    new List<Type> {stringType}
                 );
-                
+
                 var lastNameMember = new Member(
                     "(property) public String LastName",
-                    new List<Type>() { stringType }
+                    new List<Type> {stringType}
                 );
-                
+
                 var relatedPersonField = new Member(
                     "(field) private Person _relatedPerson",
-                    new List<Type>() {}
-                    );
-                
+                    new List<Type>());
+
                 var personType = Type.newInternalType(
                     "public class Person",
-                    new List<Member>() { firstNameMember, lastNameMember, relatedPersonField }
+                    new List<Member> {firstNameMember, lastNameMember, relatedPersonField}
                 );
 
                 relatedPersonField.RelatedTypes.Add(personType);
-                
-                var namespaceObject = new Namespace("Project", new List<Type>() { personType });
+
+                var namespaceObject = new Namespace("Project", new List<Type> {personType});
 
                 return new MetaDataObject(
-                    "Project.dll", 
-                    new List<Namespace>() { namespaceObject }
-                    );
+                    "Project.dll",
+                    new List<Namespace> {namespaceObject}
+                );
             });
         }
 

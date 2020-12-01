@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace DotDll.Presentation.ViewModel.Common
@@ -18,7 +17,7 @@ namespace DotDll.Presentation.ViewModel.Common
             handler(this, e);
         }
 
-        protected void OnPropertyChangedAuto([CallerMemberName] String propertyName = "")
+        protected void OnPropertyChangedAuto([CallerMemberName] string propertyName = "")
         {
             OnPropertyChanged(propertyName);
         }

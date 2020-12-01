@@ -8,15 +8,14 @@ namespace DotDll.Tests.Presentation.ViewModel.Common
     [TestFixture]
     public class DynamicContentViewModelTest
     {
-
-        private DynamicContentViewModel _viewModel;
-
         [SetUp]
         public void SetUp()
         {
             _viewModel = new DynamicContentViewModel(new Mock<INavigator>().Object);
         }
-        
+
+        private DynamicContentViewModel _viewModel;
+
         [TestCase(true)]
         [TestCase(false)]
         public void IsLoading_Always_ProperlyPropagatesItsChanges(bool isLoadingValue)
@@ -33,10 +32,10 @@ namespace DotDll.Tests.Presentation.ViewModel.Common
             };
 
             _viewModel.IsLoading = isLoadingValue;
-            
+
             Assert.True(handlerTriggered);
         }
-     
+
         [TestCase(true)]
         [TestCase(false)]
         public void IsContentShown_Always_ProperlyPropagatesItsChanges(bool isContentShownValue)
@@ -53,10 +52,10 @@ namespace DotDll.Tests.Presentation.ViewModel.Common
             };
 
             _viewModel.IsContentShown = isContentShownValue;
-            
+
             Assert.True(handlerTriggered);
         }
-        
+
         [TestCase(true)]
         [TestCase(false)]
         public void ErrorOccured_Always_ProperlyPropagatesItsChanges(bool errorOccuredValue)
@@ -73,9 +72,8 @@ namespace DotDll.Tests.Presentation.ViewModel.Common
             };
 
             _viewModel.ErrorOccured = errorOccuredValue;
-            
+
             Assert.True(handlerTriggered);
         }
-
     }
 }

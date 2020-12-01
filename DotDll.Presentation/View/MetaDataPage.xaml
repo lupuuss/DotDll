@@ -5,37 +5,37 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:properties="clr-namespace:DotDll.Presentation.Properties"
       mc:Ignorable="d">
-    
+
     <Page.Resources>
         <BooleanToVisibilityConverter x:Key="VisibilityConverter" />
     </Page.Resources>
-    
+
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <Grid ShowGridLines="False" VerticalAlignment="Top">
-    
+
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="4*"/>
-                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="4*" />
+                <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
-            
+
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition />
                 <RowDefinition />
                 <RowDefinition />
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-    
-            <TextBlock 
+
+            <TextBlock
                 Grid.Column="0"
                 Grid.Row="0"
                 Grid.ColumnSpan="3"
                 Text="{x:Static properties:Resources.OperationFailed}"
                 HorizontalAlignment="Center"
                 Foreground="Red"
-                Visibility="{Binding Path=ErrorOccured, Converter={StaticResource VisibilityConverter}}"/>
-            
+                Visibility="{Binding Path=ErrorOccured, Converter={StaticResource VisibilityConverter}}" />
+
             <TextBlock Grid.Column="0"
                        Grid.Row="1"
                        Grid.ColumnSpan="2"
@@ -47,16 +47,16 @@
                     </MultiBinding>
                 </TextBlock.Text>
             </TextBlock>
-            
+
             <Button Grid.Column="2"
                     Grid.Row="1"
                     VerticalAlignment="Center"
                     Padding="5"
                     FontSize="10"
                     Command="{Binding SerializeCommand}">
-                <TextBlock Text="{x:Static properties:Resources.Serialize}"/>
+                <TextBlock Text="{x:Static properties:Resources.Serialize}" />
             </Button>
-            
+
             <TextBlock Grid.Column="0"
                        Grid.Row="2"
                        Grid.ColumnSpan="2"
@@ -68,15 +68,15 @@
                     </MultiBinding>
                 </TextBlock.Text>
             </TextBlock>
-            
+
             <ProgressBar
                 Grid.Column="0"
                 Grid.Row="3"
                 Grid.ColumnSpan="3"
                 MinHeight="10"
                 IsIndeterminate="True"
-                Visibility="{Binding Path=IsLoading, Converter={StaticResource VisibilityConverter}}"/>
-    
+                Visibility="{Binding Path=IsLoading, Converter={StaticResource VisibilityConverter}}" />
+
             <TreeView
                 Grid.Column="0"
                 Grid.Row="4"
@@ -84,19 +84,19 @@
                 BorderThickness="0"
                 Visibility="{Binding Path=IsContentShown, Converter={StaticResource VisibilityConverter}}"
                 ItemsSource="{Binding Nodes}">
-                
+
                 <TreeView.ItemContainerStyle>
                     <Style TargetType="{x:Type TreeViewItem}">
-                        <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}"/>
-                        <Setter Property="Focusable" Value="False"/>
+                        <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                        <Setter Property="Focusable" Value="False" />
                     </Style>
                 </TreeView.ItemContainerStyle>
-                
-                <TreeView.ItemTemplate>  
-                    <HierarchicalDataTemplate ItemsSource="{Binding Nodes}">  
-                        <Label Content="{Binding Name}"/>  
-                    </HierarchicalDataTemplate>  
-                </TreeView.ItemTemplate> 
+
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Nodes}">
+                        <Label Content="{Binding Name}" />
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
             </TreeView>
         </Grid>
     </ScrollViewer>

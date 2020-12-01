@@ -4,8 +4,6 @@ namespace DotDll.Logic.MetaData.Data
 {
     public class MetaDataObject
     {
-        public string Name { get; internal set; }
-
         public List<Namespace> Namespaces;
 
         internal MetaDataObject(string name, List<Namespace> namespaces)
@@ -13,5 +11,7 @@ namespace DotDll.Logic.MetaData.Data
             Name = name;
             Namespaces = namespaces;
         }
+
+        public string Name { get; internal set; }
     }
 }

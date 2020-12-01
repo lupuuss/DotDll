@@ -5,49 +5,46 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:properties="clr-namespace:DotDll.Presentation.Properties"
       mc:Ignorable="d">
-    
+
     <Page.Resources>
-        <Style x:Key="noHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
-            <Setter Property="Visibility" Value="Collapsed" />
-        </Style>
         <BooleanToVisibilityConverter x:Key="VisibilityConverter" />
     </Page.Resources>
-    
-    
+
+
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <Grid VerticalAlignment="Top" Margin="10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            
+
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition />
                 <RowDefinition />
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            
-            <TextBlock 
-                Grid.Row="0" 
+
+            <TextBlock
+                Grid.Row="0"
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
                 TextAlignment="Center"
                 Text="{x:Static properties:Resources.PickToDeserialize}" />
-            
-            <Button 
-                Grid.Row="0" 
-                Grid.Column="2" 
+
+            <Button
+                Grid.Row="0"
+                Grid.Column="2"
                 Padding="5"
                 Margin="0, 10, 0, 10"
                 Command="{Binding NavigateToMetaDataCommand}">
                 <TextBlock Text="{x:Static properties:Resources.Next}" />
             </Button>
-            
+
             <ProgressBar
                 Grid.Row="1"
                 Grid.Column="0"
@@ -55,8 +52,8 @@
                 VerticalAlignment="Top"
                 IsIndeterminate="True"
                 MinHeight="10"
-                Visibility="{Binding Path=IsLoading, Converter={StaticResource VisibilityConverter}}"/>
-            
+                Visibility="{Binding Path=IsLoading, Converter={StaticResource VisibilityConverter}}" />
+
             <TextBlock Grid.Row="2"
                        Grid.Column="0"
                        Grid.ColumnSpan="3"
@@ -64,7 +61,7 @@
                        Foreground="Red"
                        Text="{x:Static properties:Resources.OperationFailed}"
                        Visibility="{Binding Path=ErrorOccured, Converter={StaticResource VisibilityConverter}}" />
-     
+
             <ListView
                 Grid.Row="3"
                 Grid.Column="0"
@@ -77,10 +74,10 @@
                     <DataTemplate>
                         <ContentPresenter Content="{Binding Identifier}">
                             <ContentPresenter.InputBindings>
-                                <MouseBinding 
-                                    MouseAction="LeftDoubleClick" 
+                                <MouseBinding
+                                    MouseAction="LeftDoubleClick"
                                     Command="{Binding Path=DataContext.NavigateToMetaDataCommand,
-                                                      RelativeSource={RelativeSource AncestorType={x:Type Page}}}"/>
+                                                      RelativeSource={RelativeSource AncestorType={x:Type Page}}}" />
                             </ContentPresenter.InputBindings>
                         </ContentPresenter>
                     </DataTemplate>

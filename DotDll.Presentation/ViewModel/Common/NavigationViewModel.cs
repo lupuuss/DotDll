@@ -8,15 +8,15 @@ namespace DotDll.Presentation.ViewModel.Common
     {
         protected readonly INavigator Navigator;
 
-        private Source _source;
-
         private ICommand _navigateBackwardsCommand;
 
         private ICommand _navigateForwardsCommand;
 
         private ICommand _navigateToCommand;
-        
+
         private ICommand _navigateToMetaDataCommand;
+
+        private Source _source;
 
         public NavigationViewModel(INavigator navigator)
         {
@@ -34,7 +34,7 @@ namespace DotDll.Presentation.ViewModel.Common
                 OnPropertyChangedAuto();
             }
         }
-        
+
         public ICommand NavigateToCommand
         {
             get

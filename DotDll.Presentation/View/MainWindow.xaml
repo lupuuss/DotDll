@@ -14,14 +14,14 @@
     <Grid VerticalAlignment="Top">
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
             <ColumnDefinition Width="5*" />
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="10*"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="10*" />
         </Grid.RowDefinitions>
 
         <Button Grid.Column="0"
@@ -30,7 +30,7 @@
                 Command="{Binding NavigateBackwardsCommand}">
             &lt;&lt;
         </Button>
-        
+
         <Button Grid.Column="1"
                 Grid.Row="0"
                 Margin="10"
@@ -46,7 +46,7 @@
             Name="MainFrame"
             NavigationUIVisibility="Hidden"
             Source="MenuPage.xaml"
-            VerticalAlignment="Stretch"/>
+            VerticalAlignment="Stretch" />
     </Grid>
 
 </Window>

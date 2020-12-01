@@ -10,7 +10,6 @@ namespace DotDll.Presentation.ViewModel
     public class DeserializeListViewModel : DynamicContentViewModel
     {
         private readonly IMetaDataService _metaDataService;
-        public ObservableCollection<Source> Sources { get; set; } = new ObservableCollection<Source>();
 
         public DeserializeListViewModel(INavigator navigator, IMetaDataService metaDataService) : base(navigator)
         {
@@ -18,6 +17,8 @@ namespace DotDll.Presentation.ViewModel
 
             LoadData();
         }
+
+        public ObservableCollection<Source> Sources { get; set; } = new ObservableCollection<Source>();
 
         private async void LoadData()
         {

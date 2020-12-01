@@ -1,11 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.Win32;
+﻿using System.Threading.Tasks;
 
 namespace DotDll.Presentation.Navigation
 {
     public interface IUserInputService
-    { 
-        Task<String> PickFilePath();
+    {
+        Task<string> PickFilePath();
     }
 }

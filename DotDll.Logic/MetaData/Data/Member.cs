@@ -5,11 +5,11 @@ namespace DotDll.Logic.MetaData.Data
 {
     public class Member : Defined
     {
-        public List<Type> RelatedTypes { get; }
-
-        internal Member(string definition,  List<Type> relatedTypes) : base(definition)
+        internal Member(string definition, List<Type> relatedTypes) : base(definition)
         {
             RelatedTypes = relatedTypes;
         }
+
+        public List<Type> RelatedTypes { get; }
     }
 }

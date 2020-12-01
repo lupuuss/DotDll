@@ -7,9 +7,9 @@ namespace DotDll.Presentation
     public partial class DotDllApp : Application
     {
         internal INavigator Navigator { get; set; }
-        
+
         internal IMetaDataService MetaDataService { get; set; }
-        
+
         internal IUserInputService UserInputService { get; set; }
 
         protected override void OnStartup(StartupEventArgs e)

@@ -5,7 +5,7 @@ using DotDll.Presentation.ViewModel.MetaData;
 
 namespace DotDll.Presentation.View
 {
-    public partial class MetaDataPage : Page
+    public partial class MetaDataPage
     {
         public MetaDataPage(Source source)
         {

@@ -5,8 +5,10 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:properties="clr-namespace:DotDll.Presentation.Properties"
       xmlns:navigation="clr-namespace:DotDll.Presentation.Navigation"
+      xmlns:viewModel="clr-namespace:DotDll.Presentation.ViewModel"
       mc:Ignorable="d"
-      Title="{x:Static properties:Resources.Menu}">
+      Title="{x:Static properties:Resources.Menu}" 
+      d:DataContext="{d:DesignInstance viewModel:MenuViewModel}">
 
     <Page.Resources>
         <Style TargetType="Button" x:Key="MenuButton">

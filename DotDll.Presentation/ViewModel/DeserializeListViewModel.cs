@@ -27,14 +27,11 @@ namespace DotDll.Presentation.ViewModel
             try
             {
                 var sources = await _metaDataService.GetSerializedSources();
-                foreach (var source in sources)
-                {
-                    Sources.Add(source);
-                }
+                foreach (var source in sources) Sources.Add(source);
 
                 IsContentShown = true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 ErrorOccured = true;
             }

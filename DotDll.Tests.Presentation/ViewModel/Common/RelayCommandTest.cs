@@ -10,7 +10,7 @@ namespace DotDll.Tests.Presentation.ViewModel.Common
         public void RelayCommand_Always_RunPassedActionOnExecute()
         {
             var delegated = false;
-            var relayParam = "Some Param";
+            const string relayParam = "Some Param";
 
             var command = new RelayCommand(param =>
             {
@@ -36,7 +36,7 @@ namespace DotDll.Tests.Presentation.ViewModel.Common
         public void RelayCommand_PredicatePassed_CanExecuteReturnsPredicateReturnValue(bool predicateReturn)
         {
             var delegated = false;
-            var relayParam = "Some param";
+            const string relayParam = "Some param";
 
             var relayCommand = new RelayCommand(
                 o => { },

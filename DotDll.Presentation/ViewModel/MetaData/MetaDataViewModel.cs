@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using DotDll.Logic.MetaData;
 using DotDll.Logic.MetaData.Data;
@@ -70,7 +71,7 @@ namespace DotDll.Presentation.ViewModel.MetaData
                 IsContentShown = true;
                 MetaDataName = _metaData.Name;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 ErrorOccured = true;
             }
@@ -93,9 +94,8 @@ namespace DotDll.Presentation.ViewModel.MetaData
 
         private void LoadFirstLayer()
         {
-            foreach (var nSpace in _metaData.Namespaces)
+            foreach (var node in _metaData.Namespaces.Select(nSpace => new MetaDataNode(nSpace)))
             {
-                var node = new MetaDataNode(nSpace);
                 Nodes.Add(node);
 
                 node.LoadChildren();

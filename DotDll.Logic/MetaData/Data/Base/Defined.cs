@@ -2,7 +2,7 @@
 {
     public abstract class Defined
     {
-        public string Definition;
+        public readonly string Definition;
 
         protected Defined(string definition)
         {

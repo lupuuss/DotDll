@@ -4,7 +4,9 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:properties="clr-namespace:DotDll.Presentation.Properties"
-      mc:Ignorable="d">
+      xmlns:metaData="clr-namespace:DotDll.Presentation.ViewModel.MetaData"
+      mc:Ignorable="d" 
+      d:DataContext="{d:DesignInstance metaData:MetaDataViewModel}">
 
     <Page.Resources>
         <BooleanToVisibilityConverter x:Key="VisibilityConverter" />

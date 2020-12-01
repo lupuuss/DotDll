@@ -5,7 +5,7 @@ using DotDll.Presentation.ViewModel.Common;
 
 namespace DotDll.Presentation.View
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         public MainWindow()
         {

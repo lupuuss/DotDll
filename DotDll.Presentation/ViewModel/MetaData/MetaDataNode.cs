@@ -80,11 +80,11 @@ namespace DotDll.Presentation.ViewModel.MetaData
                 default:
                     throw new ArgumentException(
                         $"Not supported children of type {_relatedDefinition.GetType().FullName}"
-                        );
+                    );
             }
         }
 
-        private void LoadChildren<T>(List<T> subItems) where T : Defined
+        private void LoadChildren<T>(IEnumerable<T> subItems) where T : Defined
         {
             foreach (var item in subItems) Nodes.Add(new MetaDataNode(item));
         }

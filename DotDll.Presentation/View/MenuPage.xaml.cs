@@ -4,7 +4,7 @@ using DotDll.Presentation.ViewModel;
 
 namespace DotDll.Presentation.View
 {
-    public partial class MenuPage : Page
+    public partial class MenuPage
     {
         public MenuPage()
         {

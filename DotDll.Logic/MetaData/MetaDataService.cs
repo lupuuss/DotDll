@@ -75,7 +75,7 @@ namespace DotDll.Logic
             throw new System.NotImplementedException();
         }
 
-        public Task<bool> SaveMetaData(Source metaDataSource)
+        public Task<bool> SaveMetaData(Source source)
         {
             throw new System.NotImplementedException();
         }

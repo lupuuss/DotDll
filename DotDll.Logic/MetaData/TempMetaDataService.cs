@@ -80,7 +80,7 @@ namespace DotDll.Logic.MetaData
             });
         }
 
-        public Task<bool> SaveMetaData(Source metaDataSource)
+        public Task<bool> SaveMetaData(Source source)
         {
             return Task.Run(() =>
             {

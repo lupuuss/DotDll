@@ -5,7 +5,7 @@ namespace DotDll.Logic.MetaData.Data
 {
     public class Type : Defined
     {
-        private Type(
+        internal Type(
             string definition,
             List<Member> members
         ) : base(definition)
@@ -13,16 +13,10 @@ namespace DotDll.Logic.MetaData.Data
             Members = members;
         }
 
+        internal Type(string definition) : this(definition, new List<Member>())
+        {
+        }
+
         public List<Member> Members { get; }
-
-        internal static Type NewInternalType(string definition, List<Member> members)
-        {
-            return new Type(definition, members);
-        }
-
-        internal static Type NewExternalType(string definition)
-        {
-            return new Type(definition, new List<Member>());
-        }
     }
 }

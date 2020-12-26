@@ -48,7 +48,7 @@ namespace DotDll.Logic.MetaData
             {
                 Thread.Sleep(1500);
 
-                var stringType = Type.NewExternalType("class String");
+                var stringType = new Type("class String");
 
                 var firstNameMember = new Member(
                     "(property) public String FirstName",
@@ -64,7 +64,7 @@ namespace DotDll.Logic.MetaData
                     "(field) private Person _relatedPerson",
                     new List<Type>());
 
-                var personType = Type.NewInternalType(
+                var personType = new Type(
                     "public class Person",
                     new List<Member> {firstNameMember, lastNameMember, relatedPersonField}
                 );

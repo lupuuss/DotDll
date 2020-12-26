@@ -44,11 +44,18 @@
         <Compile Include="MetaData\Data\Namespace.cs" />
         <Compile Include="MetaData\Data\Type.cs" />
         <Compile Include="MetaData\IMetaDataService.cs" />
+        <Compile Include="MetaData\MetaDataService.cs" />
         <Compile Include="MetaData\Sources\FileSource.cs" />
         <Compile Include="MetaData\Sources\Source.cs" />
         <Compile Include="MetaData\Sources\SerializedSource.cs" />
         <Compile Include="MetaData\TempMetaDataService.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\DotDll.Model\DotDll.Model.csproj">
+        <Project>{d29b0be1-23ec-45cd-88a7-c442a3907320}</Project>
+        <Name>DotDll.Model</Name>
+      </ProjectReference>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

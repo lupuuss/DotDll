@@ -77,6 +77,8 @@ namespace DotDll.Logic.MetaData
                     {
                         var dllInfo = _analyzer.Analyze(fileSource.FilePath);
 
+                        _analyzeCache[fileSource] = dllInfo;
+                        
                         return _mapper.Map(dllInfo);
                     });
                     
@@ -110,16 +112,7 @@ namespace DotDll.Logic.MetaData
             
             return Task.Run(delegate
             {
-                DllInfo dllInfo;
-
-                if (_analyzeCache.ContainsKey(fileSource))
-                {
-                    dllInfo = _analyzeCache[fileSource];
-                }
-                else
-                {
-                    dllInfo = _analyzer.Analyze(fileSource.FilePath);
-                }
+                var dllInfo = _analyzeCache.ContainsKey(fileSource) ? _analyzeCache[fileSource] : _analyzer.Analyze(fileSource.FilePath);
 
                 try
                 {
@@ -127,7 +120,7 @@ namespace DotDll.Logic.MetaData
 
                     return true;
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     return false;
                 }

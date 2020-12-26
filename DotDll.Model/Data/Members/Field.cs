@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using DotDll.Model.Analysis.Data.Base;
+using DotDll.Model.Data.Base;
 
-namespace DotDll.Model.Analysis.Data.Members
+namespace DotDll.Model.Data.Members
 {
     public class Field : Member
     {

@@ -1,4 +1,4 @@
-﻿namespace DotDll.Model.Analysis.Data.Base
+﻿namespace DotDll.Model.Data.Base
 {
     public class Parameter
     {

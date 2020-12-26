@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DotDll.Model.Analysis.Data.Base
+namespace DotDll.Model.Data.Base
 {
     public abstract class Member
     {

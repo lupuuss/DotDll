@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using DotDll.Model.Analysis.Data.Base;
+using DotDll.Model.Data.Base;
 
-namespace DotDll.Model.Analysis.Data.Members
+namespace DotDll.Model.Data.Members
 {
     public class Method : Member
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DotDll.Model.Analysis.Data
+namespace DotDll.Model.Data
 {
     public class DllInfo
     {

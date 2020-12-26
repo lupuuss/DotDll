@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using DotDll.Model.Analysis.Data.Base;
-using DotDll.Model.Analysis.Data.Members;
+using DotDll.Model.Data.Base;
 
-namespace DotDll.Model.Analysis.Data
+namespace DotDll.Model.Data
 {
     public class Type
     {

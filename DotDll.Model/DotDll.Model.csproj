@@ -38,19 +38,19 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="Analysis\Data\Base\Access.cs" />
-        <Compile Include="Analysis\Data\Base\Member.cs" />
-        <Compile Include="Analysis\Data\Base\Parameter.cs" />
-        <Compile Include="Analysis\Data\DllInfo.cs" />
-        <Compile Include="Analysis\Data\Members\Constructor.cs" />
-        <Compile Include="Analysis\Data\Members\Event.cs" />
-        <Compile Include="Analysis\Data\Members\Field.cs" />
-        <Compile Include="Analysis\Data\Members\Method.cs" />
-        <Compile Include="Analysis\Data\Members\NestedType.cs" />
-        <Compile Include="Analysis\Data\Members\Property.cs" />
-        <Compile Include="Analysis\Data\Namespace.cs" />
-        <Compile Include="Analysis\Data\Type.cs" />
         <Compile Include="Analysis\IDllAnalyzer.cs" />
+        <Compile Include="Data\Base\Access.cs" />
+        <Compile Include="Data\Base\Member.cs" />
+        <Compile Include="Data\Base\Parameter.cs" />
+        <Compile Include="Data\DllInfo.cs" />
+        <Compile Include="Data\Members\Constructor.cs" />
+        <Compile Include="Data\Members\Event.cs" />
+        <Compile Include="Data\Members\Field.cs" />
+        <Compile Include="Data\Members\Method.cs" />
+        <Compile Include="Data\Members\NestedType.cs" />
+        <Compile Include="Data\Members\Property.cs" />
+        <Compile Include="Data\Namespace.cs" />
+        <Compile Include="Data\Type.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="Serialization\IDllInfoSerializer.cs" />
     </ItemGroup>

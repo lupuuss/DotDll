@@ -12,7 +12,7 @@ namespace DotDll.Presentation
 
         internal IUserInputService UserInputService { get; set; }
 
-        protected override void OnStartup(StartupEventArgs e)
+        protected override void OnStartup(StartupEventArgs e) 
         {
             base.OnStartup(e);
 

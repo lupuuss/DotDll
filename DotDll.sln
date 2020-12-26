@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotDll.Logic", "DotDll.Logi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotDll.Tests.Presentation", "DotDll.Tests.Presentation\DotDll.Tests.Presentation.csproj", "{9AB5E643-B4CB-4671-9763-BCCC7A25092D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotDll.Model", "DotDll.Model\DotDll.Model.csproj", "{D29B0BE1-23EC-45CD-88A7-C442A3907320}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{9AB5E643-B4CB-4671-9763-BCCC7A25092D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9AB5E643-B4CB-4671-9763-BCCC7A25092D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9AB5E643-B4CB-4671-9763-BCCC7A25092D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D29B0BE1-23EC-45CD-88A7-C442A3907320}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D29B0BE1-23EC-45CD-88A7-C442A3907320}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D29B0BE1-23EC-45CD-88A7-C442A3907320}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D29B0BE1-23EC-45CD-88A7-C442A3907320}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

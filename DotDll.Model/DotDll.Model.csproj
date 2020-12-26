@@ -51,6 +51,8 @@
         <Compile Include="Data\Members\Property.cs" />
         <Compile Include="Data\Namespace.cs" />
         <Compile Include="Data\Type.cs" />
+        <Compile Include="Files\FilesManager.cs" />
+        <Compile Include="Files\IFilesManager.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="Serialization\IDllInfoSerializer.cs" />
     </ItemGroup>

@@ -52,6 +52,7 @@
         <Compile Include="Analysis\Data\Type.cs" />
         <Compile Include="Analysis\IDllAnalyzer.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="Serialization\IDllInfoSerializer.cs" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

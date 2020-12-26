@@ -85,7 +85,7 @@ namespace DotDll.Presentation.ViewModel.MetaData
             IsLoading = true;
             ErrorOccured = false;
 
-            _alreadySerialized = await _service.SaveMetaData(_metaData);
+            _alreadySerialized = await _service.SaveMetaData(_source);
 
             ErrorOccured = !_alreadySerialized;
             IsLoading = false;

@@ -15,6 +15,6 @@ namespace DotDll.Logic.MetaData
 
         Task<MetaDataObject> LoadMetaData(Source source);
 
-        Task<bool> SaveMetaData(MetaDataObject metaData);
+        Task<bool> SaveMetaData(Source metaDataSource);
     }
 }

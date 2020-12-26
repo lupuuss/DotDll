@@ -28,7 +28,7 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
                 .Returns(Task.FromResult(_metaDataObject));
 
             _serviceMock
-                .Setup(service => service.SaveMetaData(It.IsAny<MetaDataObject>()))
+                .Setup(service => service.SaveMetaData(It.IsAny<Source>()))
                 .Returns(Task.FromResult(true));
         }
 
@@ -158,7 +158,7 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
         public void SerializeCommand_MetaDataOkAndAfterFailedSerialization_CanExecuteReturnsTrue()
         {
             _serviceMock
-                .Setup(service => service.SaveMetaData(It.IsAny<MetaDataObject>()))
+                .Setup(service => service.SaveMetaData(It.IsAny<Source>()))
                 .Returns(Task.FromResult(false));
 
             _targetSource = new FileSource("path/to/file");

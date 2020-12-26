@@ -12,13 +12,7 @@ using DotDll.Model.Serialization;
 
 namespace DotDll.Logic.MetaData
 {
-    public class InvalidFileException : Exception
-    {
-        public InvalidFileException() : base("File doesn't exists or has bad extension (must be dll or exe)")
-        {
-        }
-    }
-    
+
     public class MetaDataService : IMetaDataService
     {
 
@@ -29,6 +23,8 @@ namespace DotDll.Logic.MetaData
         private readonly IDllAnalyzer _analyzer;
 
         private readonly IMetaDataMapper _mapper;
+
+        private readonly Dictionary<FileSource, DllInfo> _analyzeCache = new Dictionary<FileSource, DllInfo>();
 
         public MetaDataService(
             IFilesManager filesManager, 
@@ -73,12 +69,90 @@ namespace DotDll.Logic.MetaData
 
         public Task<MetaDataObject> LoadMetaData(Source source)
         {
-            throw new System.NotImplementedException();
+            switch (source)
+            {
+                case FileSource fileSource:
+
+                    return Task.Run(delegate
+                    {
+                        var dllInfo = _analyzer.Analyze(fileSource.FilePath);
+
+                        return _mapper.Map(dllInfo);
+                    });
+                    
+                case SerializedSource serializedSource:
+                    
+                    return Task.Run(delegate
+                    {
+                        var dllInfo = _serializer.Deserialize(serializedSource.Identifier);
+
+                        return _mapper.Map(dllInfo);
+                    });
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(source));
+            }
+            
         }
 
         public Task<bool> SaveMetaData(Source source)
         {
-            throw new System.NotImplementedException();
+            if (source is SerializedSource)
+            {
+                throw new AlreadySerializedException();
+            }
+
+            if (!(source is FileSource))
+            {
+                throw new SourceNotSerializableException();
+            }
+
+            var fileSource = (FileSource) source;
+            
+            return Task.Run(delegate
+            {
+                DllInfo dllInfo;
+
+                if (_analyzeCache.ContainsKey(fileSource))
+                {
+                    dllInfo = _analyzeCache[fileSource];
+                }
+                else
+                {
+                    dllInfo = _analyzer.Analyze(fileSource.FilePath);
+                }
+
+                try
+                {
+                    _serializer.Serialize(dllInfo);
+
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    return false;
+                }
+            });
         }
     }
+
+    public class InvalidFileException : Exception
+    {
+        public InvalidFileException() : base("File doesn't exists or has bad extension (must be dll or exe)")
+        {
+        }
+    }
+    public class AlreadySerializedException : Exception
+    {
+        public AlreadySerializedException() : base("Passed source that is already serialized!")
+        {
+        }
+    }
+    
+    public class SourceNotSerializableException : Exception
+    {
+        public SourceNotSerializableException() : base("This type of Source cannot be serializable!")
+        {
+        }
+    }
+
 }

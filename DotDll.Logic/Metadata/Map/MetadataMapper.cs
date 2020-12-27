@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DotDll.Logic.Metadata.Data;
 using DotDll.Model.Data;
@@ -10,6 +11,8 @@ namespace DotDll.Logic.Metadata.Map
 {
     public class MetadataMapper : IMetadataMapper
     {
+
+        private Dictionary<Type, DType> _typesMapping = new Dictionary<Type, DType>();
         public MetaDataDeclarations Map(DllInfo dllInfo)
         {
             var namespaces = dllInfo.Namespaces
@@ -30,36 +33,38 @@ namespace DotDll.Logic.Metadata.Map
 
         private DType MapType(Type type)
         {
+            if (_typesMapping.ContainsKey(type)) return _typesMapping[type];
+            
             if (type.TypeKind is Type.Kind.GenericArg) return new DType(type.Name);
 
-            var name = GetAccessString(type.Access);
+            var declaration = GetAccessString(type.Access);
 
             if (type.IsStatic)
             {
-                name += " static";
+                declaration += " static";
             }
             else
             {
-                if (type.IsSealed) name += " sealed";
+                if (type.IsSealed) declaration += " sealed";
 
-                if (type.IsAbstract) name += " abstract";
+                if (type.IsAbstract) declaration += " abstract";
             }
 
-            name += " ";
+            declaration += " ";
 
             switch (type.TypeKind)
             {
                 case Type.Kind.Interface:
-                    name += "interface";
+                    declaration += "interface";
                     break;
                 case Type.Kind.Class:
-                    name += "class";
+                    declaration += "class";
                     break;
                 case Type.Kind.Enum:
-                    name += "enum";
+                    declaration += "enum";
                     break;
                 case Type.Kind.Array:
-                    name += "[]";
+                    declaration += "[]";
                     break;
                 case Type.Kind.GenericArg:
                     break;
@@ -67,15 +72,25 @@ namespace DotDll.Logic.Metadata.Map
                     throw new ArgumentOutOfRangeException();
             }
 
-            name += " " + type.Name;
+            declaration += " " + type.Name;
 
-            if (!type.GenericArguments.Any()) return new DType(name, type.Members.Select(MapMember).ToList());
+            if (type.GenericArguments.Any())
+            {
+                declaration += "<";
+                declaration += string.Join(", ", type.GenericArguments.Select(arg => arg.Name));
+                declaration += ">";
+            }
 
-            name += "<";
-            name += string.Join(", ", type.GenericArguments.Select(arg => arg.Name));
-            name += ">";
+            var dType = new DType(declaration);
 
-            return new DType(name, type.Members.Select(MapMember).ToList());
+            _typesMapping[type] = dType;
+
+            foreach (var member in type.Members)
+            {
+                dType.Members.Add(MapMember(member));
+            }
+            
+            return dType;
         }
 
         private DMember MapMember(Member member)
@@ -101,32 +116,87 @@ namespace DotDll.Logic.Metadata.Map
 
         private DMember MapProperty(Property property)
         {
-            throw new NotImplementedException();
+            var declaration = $"(property) {property.Getter.ReturnType.Name} {property.Name}";
+
+            if (property.CanRead)
+            {
+                declaration += $"{{ {GetAccessString(property.AccessLevel)} get; ";
+            }
+
+            if (property.CanWrite)
+            {
+                declaration += $"{GetAccessString(property.AccessLevel)} set; ";
+            }
+
+            if (property.CanRead)
+            {
+                declaration += "}";
+            }
+            
+            return new DMember(declaration, property.GetRelatedTypes().Select(MapType).ToList());
         }
 
         private DMember MapNestedType(NestedType nestedType)
         {
-            throw new NotImplementedException();
+            var declaration = "(nested) ";
+            var dType = MapType(nestedType.Type);
+
+            declaration += dType.Declaration;
+            
+            return new DMember(declaration, new List<DType> { dType });
         }
 
         private DMember MapMethod(Method method)
         {
-            throw new NotImplementedException();
+            var declaration = GetAccessString(method.AccessLevel) + " ";
+
+            if (method.IsStatic)
+            {
+                declaration += "static ";
+            }
+            else if (method.IsAbstract)
+            {
+                declaration += "abstract ";
+            }
+            
+            declaration += $"{method.ReturnType.Name} {method.Name}";
+
+            declaration += MapParameters(method.Parameters);
+
+            return new DMember(declaration, method.GetRelatedTypes().Select(MapType).ToList());
         }
 
         private DMember MapField(Field field)
         {
-            throw new NotImplementedException();
+            var declaration = $"{GetAccessString(field.AccessLevel)} {field.ReturnType.Name} {field.Name}";
+            
+            return new DMember(declaration, field.GetRelatedTypes().Select(MapType).ToList());
         }
 
         private DMember MapConstructor(Constructor constructor)
         {
-            throw new NotImplementedException();
+            return MapMethod(constructor);
         }
 
+        private String MapParameters(List<Parameter> parameters)
+        {
+            return "(" + string.Join(
+                ", ",
+                parameters.Select(param => $"{param.ParameterType.Name} {param.Name}")
+            ) + ")";
+        }
+        
         private DMember MapEvent(Event eve)
         {
-            throw new NotImplementedException();
+            var declaration = $"(event) {eve.AddMethod.ReturnType.Name} {eve.Name}";
+
+            declaration += $"{{ {GetAccessString(eve.AddMethod.AccessLevel)} add; ";
+            
+            declaration += $"{{ {GetAccessString(eve.RemoveMethod.AccessLevel)} remove; ";
+            
+            declaration += $"{{ {GetAccessString(eve.RaiseMethod.AccessLevel)} raise; }}";
+            
+            return new DMember(declaration, eve.GetRelatedTypes().Select(MapType).ToList());
         }
 
         private string GetAccessString(Access typeAccess)

@@ -8,7 +8,7 @@ namespace DotDll.Model.Data.Members
     {
         public Event(
             string name, bool isAbstract, Method removeMethod, Method addMethod, Method raiseMethod
-        ) : base(name, Access.Inner, Kind.Event, addMethod.IsStatic, isAbstract)
+        ) : base(name, Access.Inner, addMethod.IsStatic, isAbstract)
         {
             RemoveMethod = removeMethod;
             AddMethod = addMethod;
@@ -18,7 +18,6 @@ namespace DotDll.Model.Data.Members
         public Method RaiseMethod { get; }
         public Method AddMethod { get; }
         public Method RemoveMethod { get; }
-
 
         public override IEnumerable<Type> GetRelatedTypes()
         {

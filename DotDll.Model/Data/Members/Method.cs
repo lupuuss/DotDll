@@ -10,28 +10,15 @@ namespace DotDll.Model.Data.Members
             string name,
             Access accessLevel,
             Type returnType,
-            Kind memberKind,
             bool isStatic,
             bool isAbstract,
             List<Parameter> parameters,
             List<Type> genericArguments
-        ) : base(name, accessLevel, memberKind, isStatic, isAbstract)
+        ) : base(name, accessLevel, isStatic, isAbstract)
         {
             ReturnType = returnType;
             Parameters = parameters;
             GenericArguments = genericArguments;
-        }
-
-        public Method(
-            string name,
-            Access accessLevel,
-            Type returnType,
-            bool isStatic,
-            bool isAbstract,
-            List<Parameter> parameters,
-            List<Type> genericArguments
-        ) : this(name, accessLevel, returnType, Kind.Method, isStatic, isAbstract, parameters, genericArguments)
-        {
         }
 
         public Method(
@@ -53,6 +40,11 @@ namespace DotDll.Model.Data.Members
         internal void AddParameter(Parameter parameter)
         {
             Parameters.Add(parameter);
+        }
+
+        internal void AddGenericArgument(Type type)
+        {
+            GenericArguments.Add(type);
         }
 
         public override IEnumerable<Type> GetRelatedTypes()

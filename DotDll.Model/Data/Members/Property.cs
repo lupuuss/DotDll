@@ -7,7 +7,7 @@ namespace DotDll.Model.Data.Members
     {
         internal Property(
             string name, bool isAbstract, Method getter, Method? setter = null
-        ) : base(name, Access.Inner, Kind.Property, getter.IsStatic, isAbstract)
+        ) : base(name, Access.Inner, getter.IsStatic, isAbstract)
         {
             Getter = getter;
             Setter = setter;

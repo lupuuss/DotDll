@@ -5,13 +5,20 @@ namespace DotDll.Model.Data.Members
 {
     public class Field : Member
     {
+        public enum Constraint
+        {
+            None, ReadOnly, Const
+        }
         public Field(
-            string name, Access accessLevel, Type returnType, bool isStatic
-        ) : base(name, accessLevel, Kind.Field, isStatic, false)
+            string name, Access accessLevel, Type returnType, bool isStatic, Constraint constraint = Constraint.None
+        ) : base(name, accessLevel, isStatic, false)
         {
             ReturnType = returnType;
+            FieldConstraint = constraint;
         }
 
+        public Constraint FieldConstraint { get; }
+        
         public Type ReturnType { get; }
 
         public override IEnumerable<Type> GetRelatedTypes()

@@ -135,7 +135,8 @@ namespace DotDll.Logic.Metadata.Map
 
             if (method.IsStatic)
                 declaration += "static ";
-            else if (method.IsAbstract) declaration += "abstract ";
+            else if (method.IsAbstract)
+                declaration += "abstract ";
 
             declaration += $"{method.ReturnType.Name} {method.Name}";
 
@@ -146,7 +147,20 @@ namespace DotDll.Logic.Metadata.Map
 
         private DMember MapField(Field field)
         {
-            var declaration = $"{GetAccessString(field.AccessLevel)} {field.ReturnType.Name} {field.Name}";
+            var constraint = field.FieldConstraint switch
+            {
+                Field.Constraint.None => "",
+                Field.Constraint.ReadOnly => "readonly",
+                Field.Constraint.Const => "const",
+                _ => throw new ArgumentOutOfRangeException()
+            };
+
+            var declaration = (constraint != "")
+                ? $"{GetAccessString(field.AccessLevel)} {constraint} "
+                : $"{GetAccessString(field.AccessLevel)} ";
+                
+
+            declaration += $"{field.ReturnType.Name} {field.Name}";
 
             return new DMember(declaration, field.GetRelatedTypes().Select(MapType).ToList());
         }

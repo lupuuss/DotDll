@@ -8,7 +8,7 @@ namespace DotDll.Model.Data.Members
     {
         
         internal Property(
-            string name, bool isAbstract, Method? getter = null, Method? setter = null
+            string name, Method? getter = null, Method? setter = null
         ) : base(
             name,
             Access.Inner,
@@ -32,11 +32,16 @@ namespace DotDll.Model.Data.Members
 
         public bool CanWrite { get; }
 
+        public Type ReturnType =>
+            Getter?.ReturnType 
+            ?? Setter?.ReturnType 
+            ?? throw new InvalidOperationException("Getter or setter must be not null!");
+
         public override IEnumerable<Type> GetRelatedTypes()
         {
             return new List<Type>
             {
-                Getter.ReturnType
+                ReturnType
             };
         }
     }

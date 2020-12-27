@@ -108,7 +108,7 @@ namespace DotDll.Logic.Metadata.Map
 
         private DMember MapProperty(Property property)
         {
-            var declaration = $"(property) {property.Getter.ReturnType.Name} {property.Name}";
+            var declaration = $"(property) {property.ReturnType.Name} {property.Name}";
 
             if (property.CanRead) declaration += $"{{ {GetAccessString(property.AccessLevel)} get; ";
 

@@ -23,9 +23,9 @@ namespace DotDll.Model.Data.Members
         
         public Type ReturnType { get; }
 
-        public List<Parameter> Parameters { get; protected set; }
+        public List<Parameter> Parameters { get; protected set; } = new List<Parameter>();
 
-        public List<Type> GenericArguments { get; private set; }
+        public List<Type> GenericArguments { get; private set; } = new List<Type>();
 
         internal void AddParameter(Parameter parameter)
         {
@@ -57,7 +57,7 @@ namespace DotDll.Model.Data.Members
             private bool _isSealed;
             private bool _isStatic;
             private bool _isAbstract;
-            private Type _returnType;
+            private Type _returnType = null!;
             private List<Parameter> _parameters = new List<Parameter>();
             private List<Type> _genericArguments = new List<Type>();
             
@@ -103,6 +103,12 @@ namespace DotDll.Model.Data.Members
                 return this;
             }
 
+            public Builder WithGenericArguments(List<Type> genericArguments)
+            {
+                _genericArguments = genericArguments;
+                return this;
+            }
+            
             public Method Build()
             {
                 var method = new Method(_name, _accessLevel, _returnType, _isStatic, _isAbstract);

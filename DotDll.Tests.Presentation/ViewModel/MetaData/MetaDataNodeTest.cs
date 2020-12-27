@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using DotDll.Logic.MetaData.Data;
-using DotDll.Presentation.ViewModel.MetaData;
+using DotDll.Logic.Metadata.Data;
+using DotDll.Presentation.ViewModel.Metadata;
 using NUnit.Framework;
 
 namespace DotDll.Tests.Presentation.ViewModel.MetaData
@@ -48,11 +48,11 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
         [Test]
         public void Constructor_EveryTypeOfDefinition_LoadsZeroNodes()
         {
-            var nodes = new List<MetaDataNode>
+            var nodes = new List<MetadataNode>
             {
-                new MetaDataNode(_metaData.Namespaces[0]),
-                new MetaDataNode(_metaData.Namespaces[0].Types[0]),
-                new MetaDataNode(_metaData.Namespaces[0].Types[0].Members[0])
+                new MetadataNode(_metaData.Namespaces[0]),
+                new MetadataNode(_metaData.Namespaces[0].Types[0]),
+                new MetadataNode(_metaData.Namespaces[0].Types[0].Members[0])
             };
 
             foreach (var node in nodes) Assert.AreEqual(0, node.Nodes.Count);
@@ -63,7 +63,7 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
         {
             var nSpace = _metaData.Namespaces[0];
 
-            var node = new MetaDataNode(nSpace);
+            var node = new MetadataNode(nSpace);
             var expectedSize = nSpace.Types.Count;
 
             node.LoadChildren();
@@ -81,7 +81,7 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
         {
             var type = _metaData.Namespaces[0].Types[0];
 
-            var node = new MetaDataNode(type);
+            var node = new MetadataNode(type);
             var expectedSize = type.Members.Count;
 
             node.LoadChildren();
@@ -99,7 +99,7 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
         {
             var member = _metaData.Namespaces[0].Types[0].Members[0];
 
-            var node = new MetaDataNode(member);
+            var node = new MetadataNode(member);
             var expectedSize = member.RelatedTypes.Count;
 
             node.LoadChildren();
@@ -115,7 +115,7 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
         [Test]
         public void ClearChildren_Always_ClearsSubNodes()
         {
-            var node = new MetaDataNode(_metaData.Namespaces[0]);
+            var node = new MetadataNode(_metaData.Namespaces[0]);
 
             node.ClearChildren();
 
@@ -138,17 +138,17 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
         [TestCase(true)]
         public void IsExpanded_ListenerRegistered_NotifyAboutChanges(bool isExpandedValue)
         {
-            var node = new MetaDataNode(_metaData.Namespaces[0]);
+            var node = new MetadataNode(_metaData.Namespaces[0]);
             var listenerTriggered = false;
 
             node.IsExpanded = !isExpandedValue;
 
             node.PropertyChanged += (sender, args) =>
             {
-                Assert.IsInstanceOf<MetaDataNode>(sender);
+                Assert.IsInstanceOf<MetadataNode>(sender);
                 Assert.AreEqual("IsExpanded", args.PropertyName);
 
-                Assert.AreEqual(isExpandedValue, ((MetaDataNode) sender).IsExpanded);
+                Assert.AreEqual(isExpandedValue, ((MetadataNode) sender).IsExpanded);
                 listenerTriggered = true;
             };
 
@@ -160,7 +160,7 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
         [Test]
         public void IsExpanded_SetTrue_LoadsChildrenSubNodes()
         {
-            var node = new MetaDataNode(_metaData.Namespaces[0]);
+            var node = new MetadataNode(_metaData.Namespaces[0]);
 
             node.LoadChildren();
 
@@ -176,7 +176,7 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
         [Test]
         public void IsExpanded_SetFalse_ClearsChildrenSubNodes()
         {
-            var node = new MetaDataNode(_metaData.Namespaces[0]);
+            var node = new MetadataNode(_metaData.Namespaces[0]);
 
             node.LoadChildren();
             node.IsExpanded = true;

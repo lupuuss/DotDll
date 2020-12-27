@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using DotDll.Logic.MetaData.Data;
-using DotDll.Logic.MetaData.Sources;
+using DotDll.Logic.Metadata.Data;
+using DotDll.Logic.Metadata.Sources;
 
 #if DEBUG
-namespace DotDll.Logic.MetaData
+namespace DotDll.Logic.Metadata
 {
-    public class TempMetaDataService : IMetaDataService
+    public class TempMetadataService : IMetadataService
     {
         public bool IsValidFileSourcePath(string path)
         {

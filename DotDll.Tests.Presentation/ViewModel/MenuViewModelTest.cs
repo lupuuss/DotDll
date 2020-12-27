@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
-using DotDll.Logic.MetaData;
-using DotDll.Logic.MetaData.Sources;
+using DotDll.Logic.Metadata;
+using DotDll.Logic.Metadata.Sources;
 using DotDll.Presentation.Navigation;
 using DotDll.Presentation.ViewModel;
 using Moq;
@@ -14,7 +14,7 @@ namespace DotDll.Tests.Presentation.ViewModel
         [SetUp]
         public void SetUp()
         {
-            _serviceMock = new Mock<IMetaDataService>();
+            _serviceMock = new Mock<IMetadataService>();
             _navigatorMock = new Mock<INavigator>();
             _userInputService = new Mock<IUserInputService>();
 
@@ -25,7 +25,7 @@ namespace DotDll.Tests.Presentation.ViewModel
             InitViewModel();
         }
 
-        private Mock<IMetaDataService> _serviceMock;
+        private Mock<IMetadataService> _serviceMock;
 
         private Mock<INavigator> _navigatorMock;
 

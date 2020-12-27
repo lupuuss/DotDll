@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using DotDll.Logic.MetaData;
-using DotDll.Logic.MetaData.Sources;
+using DotDll.Logic.Metadata;
+using DotDll.Logic.Metadata.Sources;
 using DotDll.Presentation.Navigation;
 using DotDll.Presentation.ViewModel.Common;
 
@@ -9,11 +9,11 @@ namespace DotDll.Presentation.ViewModel
 {
     public class DeserializeListViewModel : DynamicContentViewModel
     {
-        private readonly IMetaDataService _metaDataService;
+        private readonly IMetadataService _metadataService;
 
-        public DeserializeListViewModel(INavigator navigator, IMetaDataService metaDataService) : base(navigator)
+        public DeserializeListViewModel(INavigator navigator, IMetadataService metadataService) : base(navigator)
         {
-            _metaDataService = metaDataService;
+            _metadataService = metadataService;
 
             LoadData();
         }
@@ -26,7 +26,7 @@ namespace DotDll.Presentation.ViewModel
 
             try
             {
-                var sources = await _metaDataService.GetSerializedSources();
+                var sources = await _metadataService.GetSerializedSources();
                 foreach (var source in sources) Sources.Add(source);
 
                 IsContentShown = true;

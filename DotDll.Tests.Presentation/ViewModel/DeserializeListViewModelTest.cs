@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DotDll.Logic.MetaData;
-using DotDll.Logic.MetaData.Sources;
+using DotDll.Logic.Metadata;
+using DotDll.Logic.Metadata.Sources;
 using DotDll.Presentation.Navigation;
 using DotDll.Presentation.ViewModel;
 using Moq;
@@ -17,7 +17,7 @@ namespace DotDll.Tests.Presentation.ViewModel
         public void SetUp()
         {
             _navigatorMock = new Mock<INavigator>();
-            _serviceMock = new Mock<IMetaDataService>();
+            _serviceMock = new Mock<IMetadataService>();
 
             _serviceMock
                 .Setup(service => service.GetSerializedSources())
@@ -26,7 +26,7 @@ namespace DotDll.Tests.Presentation.ViewModel
 
         private Mock<INavigator> _navigatorMock;
 
-        private Mock<IMetaDataService> _serviceMock;
+        private Mock<IMetadataService> _serviceMock;
 
         private DeserializeListViewModel _viewModel;
 

@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using DotDll.Logic.MetaData;
+using DotDll.Logic.Metadata;
 using DotDll.Presentation.Navigation;
 
 namespace DotDll.Presentation
@@ -8,15 +8,15 @@ namespace DotDll.Presentation
     {
         internal INavigator Navigator { get; set; }
 
-        internal IMetaDataService MetaDataService { get; set; }
+        internal IMetadataService MetadataService { get; private set; }
 
-        internal IUserInputService UserInputService { get; set; }
+        internal IUserInputService UserInputService { get; private set; }
 
-        protected override void OnStartup(StartupEventArgs e) 
+        protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
-            MetaDataService = new TempMetaDataService();
+            MetadataService = new TempMetadataService();
             UserInputService = new WpfUserInputService();
         }
     }

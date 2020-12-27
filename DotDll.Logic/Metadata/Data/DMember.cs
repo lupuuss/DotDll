@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using DotDll.Logic.MetaData.Data.Base;
+using DotDll.Logic.Metadata.Data.Base;
 
-namespace DotDll.Logic.MetaData.Data
+namespace DotDll.Logic.Metadata.Data
 {
     public class DMember : Declared
     {

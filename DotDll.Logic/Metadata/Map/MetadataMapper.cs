@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Linq;
-using DotDll.Logic.MetaData.Data;
+using DotDll.Logic.Metadata.Data;
 using DotDll.Model.Data;
 using DotDll.Model.Data.Base;
 using DotDll.Model.Data.Members;
+using Type = DotDll.Model.Data.Type;
 
-namespace DotDll.Logic.MetaData.Map
+namespace DotDll.Logic.Metadata.Map
 {
-    public class MetaDataMapper : IMetaDataMapper
+    public class MetadataMapper : IMetadataMapper
     {
         public MetaDataDeclarations Map(DllInfo dllInfo)
         {
@@ -18,7 +19,7 @@ namespace DotDll.Logic.MetaData.Map
             return new MetaDataDeclarations(dllInfo.Name, namespaces);
         }
 
-        private DNamespace MapNamespace(DotDll.Model.Data.Namespace nSpace)
+        private DNamespace MapNamespace(Namespace nSpace)
         {
             var types = nSpace.Types
                 .Select(MapType)
@@ -27,15 +28,11 @@ namespace DotDll.Logic.MetaData.Map
             return new DNamespace(nSpace.Name, types);
         }
 
-        private DType MapType(Model.Data.Type type)
+        private DType MapType(Type type)
         {
+            if (type.TypeKind is Type.Kind.GenericArg) return new DType(type.Name);
 
-            if (type.TypeKind is Model.Data.Type.Kind.GenericArg)
-            {
-                return new DType(type.Name);
-            }
-            
-            string name = GetAccessString(type.Access);
+            var name = GetAccessString(type.Access);
 
             if (type.IsStatic)
             {
@@ -43,32 +40,28 @@ namespace DotDll.Logic.MetaData.Map
             }
             else
             {
-                if (type.IsSealed)
-                {
-                    name += " sealed";
-                }
-                
-                if (type.IsAbstract)
-                {
-                    name += " abstract";
-                }
+                if (type.IsSealed) name += " sealed";
+
+                if (type.IsAbstract) name += " abstract";
             }
 
             name += " ";
-            
+
             switch (type.TypeKind)
             {
-                case Model.Data.Type.Kind.Interface:
+                case Type.Kind.Interface:
                     name += "interface";
                     break;
-                case Model.Data.Type.Kind.Class:
+                case Type.Kind.Class:
                     name += "class";
                     break;
-                case Model.Data.Type.Kind.Enum:
+                case Type.Kind.Enum:
                     name += "enum";
                     break;
-                case Model.Data.Type.Kind.Array:
+                case Type.Kind.Array:
                     name += "[]";
+                    break;
+                case Type.Kind.GenericArg:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -76,19 +69,17 @@ namespace DotDll.Logic.MetaData.Map
 
             name += " " + type.Name;
 
-            if (type.GenericArguments.Any())
-            {
-                name += "<";
-                name += String.Join(", ", type.GenericArguments.Select(arg => arg.Name));
-                name += ">";
-            }
+            if (!type.GenericArguments.Any()) return new DType(name, type.Members.Select(MapMember).ToList());
+
+            name += "<";
+            name += string.Join(", ", type.GenericArguments.Select(arg => arg.Name));
+            name += ">";
 
             return new DType(name, type.Members.Select(MapMember).ToList());
         }
 
-        private DMember MapMember(Model.Data.Base.Member member)
+        private DMember MapMember(Member member)
         {
-
             switch (member)
             {
                 case Event eve:
@@ -149,7 +140,7 @@ namespace DotDll.Logic.MetaData.Map
                 case Access.Protected:
                     return "protected";
                 case Access.InternalProtected:
-                    return "internal protected";;
+                    return "internal protected";
                 case Access.Private:
                     return "private";
                 case Access.Inner:

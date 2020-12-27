@@ -2,7 +2,7 @@
 
 [assembly: InternalsVisibleTo("DotDll.Tests.Presentation")]
 
-namespace DotDll.Logic.MetaData.Sources
+namespace DotDll.Logic.Metadata.Sources
 {
     public abstract class Source
     {

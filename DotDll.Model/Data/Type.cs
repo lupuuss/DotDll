@@ -7,31 +7,22 @@ namespace DotDll.Model.Data
     {
         public enum Kind
         {
-            Interface, Class, Enum, Array, GenericArg
+            Interface,
+            Class,
+            Enum,
+            Array,
+            GenericArg
         }
-        
-        public string Name { get; }
-        public Access Access { get;  }
-        public Kind TypeKind { get; }
-        public bool IsSealed { get; }
-        
-        public bool IsAbstract { get; }
-        
-        public bool IsStatic { get; }
-        
-        public List<Member> Members { get; }
 
-        public List<Type> GenericArguments { get; }
-        
         internal Type(
-            string name, 
+            string name,
             Access access,
             Kind typeKind,
             bool isSealed,
             bool isAbstract,
             List<Member> members,
             List<Type> genericArguments
-            )
+        )
         {
             Name = name;
             Access = access;
@@ -44,16 +35,28 @@ namespace DotDll.Model.Data
         }
 
         internal Type(
-            string name, 
-            Access access, 
+            string name,
+            Access access,
             Kind typeKind,
             bool isSealed,
             bool isAbstract,
             List<Type> genericArguments
-            ) : this(name, access, typeKind, isSealed, isAbstract, new List<Member>(), new List<Type>())
+        ) : this(name, access, typeKind, isSealed, isAbstract, new List<Member>(), new List<Type>())
         {
-            
         }
+
+        public string Name { get; }
+        public Access Access { get; }
+        public Kind TypeKind { get; }
+        public bool IsSealed { get; }
+
+        public bool IsAbstract { get; }
+
+        public bool IsStatic { get; }
+
+        public List<Member> Members { get; }
+
+        public List<Type> GenericArguments { get; }
 
         internal void AddMember(Member member)
         {

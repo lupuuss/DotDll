@@ -1,4 +1,4 @@
-﻿namespace DotDll.Logic.MetaData.Data.Base
+﻿namespace DotDll.Logic.Metadata.Data.Base
 {
     public abstract class Declared
     {

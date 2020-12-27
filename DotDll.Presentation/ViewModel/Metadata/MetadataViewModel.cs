@@ -2,17 +2,17 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
-using DotDll.Logic.MetaData;
-using DotDll.Logic.MetaData.Data;
-using DotDll.Logic.MetaData.Sources;
+using DotDll.Logic.Metadata;
+using DotDll.Logic.Metadata.Data;
+using DotDll.Logic.Metadata.Sources;
 using DotDll.Presentation.Navigation;
 using DotDll.Presentation.ViewModel.Common;
 
-namespace DotDll.Presentation.ViewModel.MetaData
+namespace DotDll.Presentation.ViewModel.Metadata
 {
-    public class MetaDataViewModel : DynamicContentViewModel
+    public class MetadataViewModel : DynamicContentViewModel
     {
-        private readonly IMetaDataService _service;
+        private readonly IMetadataService _service;
         private readonly Source _source;
 
         private bool _alreadySerialized;
@@ -23,7 +23,7 @@ namespace DotDll.Presentation.ViewModel.MetaData
 
         private RelayCommand _serializeCommand;
 
-        public MetaDataViewModel(INavigator navigator, IMetaDataService service, Source source) : base(navigator)
+        public MetadataViewModel(INavigator navigator, IMetadataService service, Source source) : base(navigator)
         {
             _service = service;
             _source = source;
@@ -47,7 +47,7 @@ namespace DotDll.Presentation.ViewModel.MetaData
             }
         }
 
-        public ObservableCollection<MetaDataNode> Nodes { get; } = new ObservableCollection<MetaDataNode>();
+        public ObservableCollection<MetadataNode> Nodes { get; } = new ObservableCollection<MetadataNode>();
 
         public ICommand SerializeCommand =>
             _serializeCommand ?? (_serializeCommand = new RelayCommand(
@@ -94,7 +94,7 @@ namespace DotDll.Presentation.ViewModel.MetaData
 
         private void LoadFirstLayer()
         {
-            foreach (var node in _metaData.Namespaces.Select(nSpace => new MetaDataNode(nSpace)))
+            foreach (var node in _metaData.Namespaces.Select(nSpace => new MetadataNode(nSpace)))
             {
                 Nodes.Add(node);
 

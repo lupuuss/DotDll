@@ -1,5 +1,5 @@
 ﻿using System.Windows.Input;
-using DotDll.Logic.MetaData.Sources;
+using DotDll.Logic.Metadata.Sources;
 using DotDll.Presentation.Navigation;
 
 namespace DotDll.Presentation.ViewModel.Common

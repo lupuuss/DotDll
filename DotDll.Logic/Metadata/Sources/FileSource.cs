@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace DotDll.Logic.MetaData.Sources
+namespace DotDll.Logic.Metadata.Sources
 {
     public class FileSource : Source
     {

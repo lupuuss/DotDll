@@ -1,4 +1,4 @@
-﻿namespace DotDll.Logic.MetaData.Sources
+﻿namespace DotDll.Logic.Metadata.Sources
 {
     public class SerializedSource : Source
     {

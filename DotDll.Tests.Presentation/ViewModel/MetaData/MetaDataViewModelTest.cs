@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DotDll.Logic.MetaData;
-using DotDll.Logic.MetaData.Data;
-using DotDll.Logic.MetaData.Sources;
+using DotDll.Logic.Metadata;
+using DotDll.Logic.Metadata.Data;
+using DotDll.Logic.Metadata.Sources;
 using DotDll.Presentation.Navigation;
-using DotDll.Presentation.ViewModel.MetaData;
+using DotDll.Presentation.ViewModel.Metadata;
 using Moq;
 using NUnit.Framework;
 
@@ -18,7 +18,7 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
         public void SetUp()
         {
             _navigatorMock = new Mock<INavigator>();
-            _serviceMock = new Mock<IMetaDataService>();
+            _serviceMock = new Mock<IMetadataService>();
 
             _metaData = new MetaDataDeclarations("Project", _namespaces);
 
@@ -32,9 +32,9 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
         }
 
         private Mock<INavigator> _navigatorMock;
-        private Mock<IMetaDataService> _serviceMock;
+        private Mock<IMetadataService> _serviceMock;
 
-        private MetaDataViewModel _viewModel;
+        private MetadataViewModel _viewModel;
 
         private Source _targetSource;
 
@@ -49,7 +49,7 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
 
         private void InitViewModel()
         {
-            _viewModel = new MetaDataViewModel(
+            _viewModel = new MetadataViewModel(
                 _navigatorMock.Object,
                 _serviceMock.Object,
                 _targetSource

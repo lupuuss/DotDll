@@ -7,7 +7,7 @@
       xmlns:navigation="clr-namespace:DotDll.Presentation.Navigation"
       xmlns:viewModel="clr-namespace:DotDll.Presentation.ViewModel"
       mc:Ignorable="d"
-      Title="{x:Static properties:Resources.Menu}" 
+      Title="{x:Static properties:Resources.Menu}"
       d:DataContext="{d:DesignInstance viewModel:MenuViewModel}">
 
     <Page.Resources>

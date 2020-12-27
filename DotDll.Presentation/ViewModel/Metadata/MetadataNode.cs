@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using DotDll.Logic.MetaData.Data;
-using DotDll.Logic.MetaData.Data.Base;
+using DotDll.Logic.Metadata.Data;
+using DotDll.Logic.Metadata.Data.Base;
 
-namespace DotDll.Presentation.ViewModel.MetaData
+namespace DotDll.Presentation.ViewModel.Metadata
 {
-    public class MetaDataNode : INotifyPropertyChanged
+    public class MetadataNode : INotifyPropertyChanged
     {
         private readonly Declared _relatedDefinition;
 
         private bool _isExpanded;
 
-        public MetaDataNode(Declared definition)
+        public MetadataNode(Declared definition)
         {
             _relatedDefinition = definition;
         }
@@ -35,7 +35,7 @@ namespace DotDll.Presentation.ViewModel.MetaData
             }
         }
 
-        public ObservableCollection<MetaDataNode> Nodes { get; } = new ObservableCollection<MetaDataNode>();
+        public ObservableCollection<MetadataNode> Nodes { get; } = new ObservableCollection<MetadataNode>();
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -85,7 +85,7 @@ namespace DotDll.Presentation.ViewModel.MetaData
 
         private void LoadChildren<T>(IEnumerable<T> subItems) where T : Declared
         {
-            foreach (var item in subItems) Nodes.Add(new MetaDataNode(item));
+            foreach (var item in subItems) Nodes.Add(new MetadataNode(item));
         }
 
         public void ClearChildren()

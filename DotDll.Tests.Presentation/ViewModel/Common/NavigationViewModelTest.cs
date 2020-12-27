@@ -1,5 +1,5 @@
 ﻿using System;
-using DotDll.Logic.MetaData.Sources;
+using DotDll.Logic.Metadata.Sources;
 using DotDll.Presentation.Navigation;
 using DotDll.Presentation.ViewModel.Common;
 using Moq;

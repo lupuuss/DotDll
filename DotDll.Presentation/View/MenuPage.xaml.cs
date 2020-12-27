@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
 using DotDll.Presentation.ViewModel;
 
 namespace DotDll.Presentation.View
@@ -12,7 +11,7 @@ namespace DotDll.Presentation.View
 
             var app = Application.Current.AsDotDllApp();
 
-            DataContext = new MenuViewModel(app.Navigator, app.MetaDataService, app.UserInputService);
+            DataContext = new MenuViewModel(app.Navigator, app.MetadataService, app.UserInputService);
         }
     }
 }

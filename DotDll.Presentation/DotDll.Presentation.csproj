@@ -69,8 +69,8 @@
     <Compile Include="ViewModel\Common\RelayCommand.cs" />
     <Compile Include="ViewModel\DeserializeListViewModel.cs" />
     <Compile Include="ViewModel\MenuViewModel.cs" />
-    <Compile Include="ViewModel\MetaData\MetaDataNode.cs" />
-    <Compile Include="ViewModel\MetaData\MetaDataViewModel.cs" />
+    <Compile Include="ViewModel\Metadata\MetadataNode.cs" />
+    <Compile Include="ViewModel\Metadata\MetadataViewModel.cs" />
     <Compile Include="View\DeserializeListPage.xaml.cs">
       <DependentUpon>DeserializeListPage.xaml</DependentUpon>
     </Compile>
@@ -81,8 +81,8 @@
     <Compile Include="View\MenuPage.xaml.cs">
       <DependentUpon>MenuPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\MetaDataPage.xaml.cs">
-      <DependentUpon>MetaDataPage.xaml</DependentUpon>
+    <Compile Include="View\MetadataPage.xaml.cs">
+      <DependentUpon>MetadataPage.xaml</DependentUpon>
     </Compile>
     <Page Include="View\DeserializeListPage.xaml" />
     <Page Include="View\MainWindow.xaml">
@@ -93,7 +93,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\MetaDataPage.xaml">
+    <Page Include="View\MetadataPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

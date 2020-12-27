@@ -4,22 +4,16 @@ namespace DotDll.Model.Data.Base
 {
     public abstract class Member
     {
-
         public enum Kind
         {
-            Method, Property, NestedType, Field, Constructor, Event
+            Method,
+            Property,
+            NestedType,
+            Field,
+            Constructor,
+            Event
         }
 
-        public string Name { get; }
-        
-        public Access AccessLevel { get; }
-
-        public Kind MemberKind { get; }
-        
-        public bool IsStatic { get; }
-        
-        public bool IsAbstract { get; }
-        
         internal Member(string name, Access accessLevel, Kind memberKind, bool isStatic, bool isAbstract)
         {
             Name = name;
@@ -28,6 +22,16 @@ namespace DotDll.Model.Data.Base
             IsStatic = isStatic;
             IsAbstract = isAbstract;
         }
+
+        public string Name { get; }
+
+        public Access AccessLevel { get; }
+
+        public Kind MemberKind { get; }
+
+        public bool IsStatic { get; }
+
+        public bool IsAbstract { get; }
 
         public abstract List<Type> GetRelatedTypes();
     }

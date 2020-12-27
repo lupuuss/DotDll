@@ -4,9 +4,9 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:properties="clr-namespace:DotDll.Presentation.Properties"
-      xmlns:metaData="clr-namespace:DotDll.Presentation.ViewModel.MetaData"
-      mc:Ignorable="d" 
-      d:DataContext="{d:DesignInstance metaData:MetaDataViewModel}">
+      xmlns:metaData="clr-namespace:DotDll.Presentation.ViewModel.Metadata"
+      mc:Ignorable="d"
+      d:DataContext="{d:DesignInstance metaData:MetadataViewModel}">
 
     <Page.Resources>
         <BooleanToVisibilityConverter x:Key="VisibilityConverter" />
@@ -92,7 +92,7 @@
                         <Border BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 SnapsToDevicePixels="true">
-                            <ItemsPresenter/>
+                            <ItemsPresenter />
                         </Border>
                     </ControlTemplate>
                 </TreeView.Template>

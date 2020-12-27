@@ -1,5 +1,5 @@
 ﻿using System.Windows.Input;
-using DotDll.Logic.MetaData;
+using DotDll.Logic.Metadata;
 using DotDll.Presentation.Navigation;
 using DotDll.Presentation.ViewModel.Common;
 
@@ -7,7 +7,7 @@ namespace DotDll.Presentation.ViewModel
 {
     public class MenuViewModel : NavigationViewModel
     {
-        private readonly IMetaDataService _service;
+        private readonly IMetadataService _service;
         private readonly IUserInputService _userInputService;
 
         private bool _pathErrorMessageShown;
@@ -17,7 +17,7 @@ namespace DotDll.Presentation.ViewModel
 
         public MenuViewModel(
             INavigator navigator,
-            IMetaDataService service,
+            IMetadataService service,
             IUserInputService userInputService
         ) : base(navigator)
         {

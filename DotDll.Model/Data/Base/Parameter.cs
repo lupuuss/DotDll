@@ -5,6 +5,5 @@
         public string Name { get; }
 
         public Type ParameterType { get; }
-        
     }
 }

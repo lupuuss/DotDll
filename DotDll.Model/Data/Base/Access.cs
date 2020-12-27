@@ -2,6 +2,11 @@
 {
     public enum Access
     {
-        Public, Internal, Protected, InternalProtected, Private, Inner
+        Public,
+        Internal,
+        Protected,
+        InternalProtected,
+        Private,
+        Inner
     }
 }

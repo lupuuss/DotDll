@@ -38,19 +38,19 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="MetaData\Data\Base\Declared.cs" />
-        <Compile Include="MetaData\Data\DMember.cs" />
-        <Compile Include="MetaData\Data\MetaDataDeclarations.cs" />
-        <Compile Include="MetaData\Data\DNamespace.cs" />
-        <Compile Include="MetaData\Data\DType.cs" />
-        <Compile Include="MetaData\IMetaDataService.cs" />
-        <Compile Include="MetaData\Map\IMetaDataMapper.cs" />
-        <Compile Include="MetaData\Map\MetaDataMapper.cs" />
-        <Compile Include="MetaData\MetaDataService.cs" />
-        <Compile Include="MetaData\Sources\FileSource.cs" />
-        <Compile Include="MetaData\Sources\Source.cs" />
-        <Compile Include="MetaData\Sources\SerializedSource.cs" />
-        <Compile Include="MetaData\TempMetaDataService.cs" />
+        <Compile Include="Metadata\Data\Base\Declared.cs" />
+        <Compile Include="Metadata\Data\DMember.cs" />
+        <Compile Include="Metadata\Data\MetaDataDeclarations.cs" />
+        <Compile Include="Metadata\Data\DNamespace.cs" />
+        <Compile Include="Metadata\Data\DType.cs" />
+        <Compile Include="Metadata\IMetadataService.cs" />
+        <Compile Include="Metadata\Map\IMetadataMapper.cs" />
+        <Compile Include="Metadata\Map\MetadataMapper.cs" />
+        <Compile Include="Metadata\MetadataService.cs" />
+        <Compile Include="Metadata\Sources\FileSource.cs" />
+        <Compile Include="Metadata\Sources\Source.cs" />
+        <Compile Include="Metadata\Sources\SerializedSource.cs" />
+        <Compile Include="Metadata\TempMetadataService.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <ItemGroup>

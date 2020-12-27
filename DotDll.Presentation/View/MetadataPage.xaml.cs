@@ -1,7 +1,6 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
-using DotDll.Logic.MetaData.Sources;
-using DotDll.Presentation.ViewModel.MetaData;
+using DotDll.Logic.Metadata.Sources;
+using DotDll.Presentation.ViewModel.Metadata;
 
 namespace DotDll.Presentation.View
 {
@@ -11,7 +10,7 @@ namespace DotDll.Presentation.View
         {
             InitializeComponent();
             var app = Application.Current.AsDotDllApp();
-            DataContext = new MetaDataViewModel(app.Navigator, app.MetaDataService, source);
+            DataContext = new MetadataViewModel(app.Navigator, app.MetadataService, source);
         }
     }
 }

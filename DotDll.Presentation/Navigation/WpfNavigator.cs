@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Controls;
-using DotDll.Logic.MetaData.Sources;
+using DotDll.Logic.Metadata.Sources;
 using DotDll.Presentation.View;
 
 namespace DotDll.Presentation.Navigation

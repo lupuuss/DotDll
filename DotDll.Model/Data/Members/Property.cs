@@ -5,17 +5,9 @@ namespace DotDll.Model.Data.Members
 {
     public class Property : Member
     {
-        public Method Getter { get; }
-        
-        public Method Setter { get; }
-       
-        public bool CanRead { get; }
-        
-        public bool CanWrite { get; }
-
         internal Property(
             string name, bool isAbstract, Method getter, Method setter = null
-            ) : base(name, Access.Inner, Kind.Property, getter.IsStatic, isAbstract)
+        ) : base(name, Access.Inner, Kind.Property, getter.IsStatic, isAbstract)
         {
             Getter = getter;
             Setter = setter;
@@ -23,10 +15,17 @@ namespace DotDll.Model.Data.Members
             CanWrite = Setter != null;
         }
 
+        public Method Getter { get; }
+
+        public Method Setter { get; }
+
+        public bool CanRead { get; }
+
+        public bool CanWrite { get; }
+
         public override List<Type> GetRelatedTypes()
         {
-
-            return new List<Type>()
+            return new List<Type>
             {
                 Getter.ReturnType
             };

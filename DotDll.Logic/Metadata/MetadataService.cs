@@ -2,36 +2,34 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DotDll.Logic.MetaData.Data;
-using DotDll.Logic.MetaData.Map;
-using DotDll.Logic.MetaData.Sources;
+using DotDll.Logic.Metadata.Data;
+using DotDll.Logic.Metadata.Map;
+using DotDll.Logic.Metadata.Sources;
 using DotDll.Model.Analysis;
 using DotDll.Model.Data;
 using DotDll.Model.Files;
 using DotDll.Model.Serialization;
 
-namespace DotDll.Logic.MetaData
+namespace DotDll.Logic.Metadata
 {
-
-    public class MetaDataService : IMetaDataService
+    public class MetadataService : IMetadataService
     {
-
-        private readonly IFilesManager _filesManager;
-
-        private readonly IDllInfoSerializer _serializer;
+        private readonly Dictionary<FileSource, DllInfo> _analyzeCache = new Dictionary<FileSource, DllInfo>();
 
         private readonly IDllAnalyzer _analyzer;
 
-        private readonly IMetaDataMapper _mapper;
+        private readonly IFilesManager _filesManager;
 
-        private readonly Dictionary<FileSource, DllInfo> _analyzeCache = new Dictionary<FileSource, DllInfo>();
+        private readonly IMetadataMapper _mapper;
 
-        public MetaDataService(
-            IFilesManager filesManager, 
-            IDllInfoSerializer serializer, 
-            IDllAnalyzer analyzer, 
-            IMetaDataMapper mapper
-            )
+        private readonly IDllInfoSerializer _serializer;
+
+        public MetadataService(
+            IFilesManager filesManager,
+            IDllInfoSerializer serializer,
+            IDllAnalyzer analyzer,
+            IMetadataMapper mapper
+        )
         {
             _filesManager = filesManager;
             _serializer = serializer;
@@ -47,10 +45,7 @@ namespace DotDll.Logic.MetaData
 
         public Source CreateFileSource(string path)
         {
-            if (IsValidFileSourcePath(path))
-            {
-                return new FileSource(path);
-            }
+            if (IsValidFileSourcePath(path)) return new FileSource(path);
 
             throw new InvalidFileException();
         }
@@ -58,7 +53,7 @@ namespace DotDll.Logic.MetaData
         public Task<List<Source>> GetSerializedSources()
         {
             return Task.Run(delegate
-            { 
+            {
                 return _serializer
                     .GetAllIds()
                     .Select(id => new SerializedSource(id))
@@ -78,12 +73,12 @@ namespace DotDll.Logic.MetaData
                         var dllInfo = _analyzer.Analyze(fileSource.FilePath);
 
                         _analyzeCache[fileSource] = dllInfo;
-                        
+
                         return _mapper.Map(dllInfo);
                     });
-                    
+
                 case SerializedSource serializedSource:
-                    
+
                     return Task.Run(delegate
                     {
                         var dllInfo = _serializer.Deserialize(serializedSource.Identifier);
@@ -93,26 +88,21 @@ namespace DotDll.Logic.MetaData
                 default:
                     throw new ArgumentOutOfRangeException(nameof(source));
             }
-            
         }
 
         public Task<bool> SaveMetaData(Source source)
         {
-            if (source is SerializedSource)
-            {
-                throw new AlreadySerializedException();
-            }
+            if (source is SerializedSource) throw new AlreadySerializedException();
 
-            if (!(source is FileSource))
-            {
-                throw new SourceNotSerializableException();
-            }
+            if (!(source is FileSource)) throw new SourceNotSerializableException();
 
             var fileSource = (FileSource) source;
-            
+
             return Task.Run(delegate
             {
-                var dllInfo = _analyzeCache.ContainsKey(fileSource) ? _analyzeCache[fileSource] : _analyzer.Analyze(fileSource.FilePath);
+                var dllInfo = _analyzeCache.ContainsKey(fileSource)
+                    ? _analyzeCache[fileSource]
+                    : _analyzer.Analyze(fileSource.FilePath);
 
                 try
                 {
@@ -134,18 +124,18 @@ namespace DotDll.Logic.MetaData
         {
         }
     }
+
     public class AlreadySerializedException : Exception
     {
         public AlreadySerializedException() : base("Passed source that is already serialized!")
         {
         }
     }
-    
+
     public class SourceNotSerializableException : Exception
     {
         public SourceNotSerializableException() : base("This type of Source cannot be serializable!")
         {
         }
     }
-
 }

@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DotDll.Logic.MetaData.Data;
-using DotDll.Logic.MetaData.Sources;
+using DotDll.Logic.Metadata.Data;
+using DotDll.Logic.Metadata.Sources;
 
-namespace DotDll.Logic.MetaData
+namespace DotDll.Logic.Metadata
 {
-    public interface IMetaDataService
+    public interface IMetadataService
     {
         bool IsValidFileSourcePath(string path);
 

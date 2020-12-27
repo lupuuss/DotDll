@@ -12,14 +12,16 @@ namespace DotDll.Logic.Metadata.Map
     public class MetadataMapper : IMetadataMapper
     {
 
-        private Dictionary<Type, DType> _typesMapping = new Dictionary<Type, DType>();
-        public MetaDataDeclarations Map(DllInfo dllInfo)
+        private readonly Dictionary<Type, DType> _typesMapping = new Dictionary<Type, DType>();
+        public MetadataDeclarations Map(MetadataInfo metadataInfo)
         {
-            var namespaces = dllInfo.Namespaces
+            _typesMapping.Clear();
+
+            var namespaces = metadataInfo.Namespaces
                 .Select(MapNamespace)
                 .ToList();
-
-            return new MetaDataDeclarations(dllInfo.Name, namespaces);
+            
+            return new MetadataDeclarations(metadataInfo.Name, namespaces);
         }
 
         private DNamespace MapNamespace(Namespace nSpace)

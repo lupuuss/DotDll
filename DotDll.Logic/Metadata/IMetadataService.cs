@@ -13,7 +13,7 @@ namespace DotDll.Logic.Metadata
 
         Task<List<Source>> GetSerializedSources();
 
-        Task<MetaDataDeclarations> LoadMetaData(Source source);
+        Task<MetadataDeclarations> LoadMetaData(Source source);
 
         Task<bool> SaveMetaData(Source source);
     }

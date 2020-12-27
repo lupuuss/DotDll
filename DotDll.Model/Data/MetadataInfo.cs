@@ -2,15 +2,15 @@
 
 namespace DotDll.Model.Data
 {
-    public class DllInfo
+    public class MetadataInfo
     {
-        public DllInfo(string name, List<Namespace> namespaces)
+        public MetadataInfo(string name, List<Namespace> namespaces)
         {
             Name = name;
             Namespaces = namespaces;
         }
 
-        public DllInfo(string name) : this(name, new List<Namespace>())
+        public MetadataInfo(string name) : this(name, new List<Namespace>())
         {
         }
 

@@ -40,7 +40,7 @@
     <ItemGroup>
         <Compile Include="Metadata\Data\Base\Declared.cs" />
         <Compile Include="Metadata\Data\DMember.cs" />
-        <Compile Include="Metadata\Data\MetaDataDeclarations.cs" />
+        <Compile Include="Metadata\Data\MetadataDeclarations.cs" />
         <Compile Include="Metadata\Data\DNamespace.cs" />
         <Compile Include="Metadata\Data\DType.cs" />
         <Compile Include="Metadata\IMetadataService.cs" />

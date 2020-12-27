@@ -42,7 +42,7 @@
         <Compile Include="Data\Base\Access.cs" />
         <Compile Include="Data\Base\Member.cs" />
         <Compile Include="Data\Base\Parameter.cs" />
-        <Compile Include="Data\DllInfo.cs" />
+        <Compile Include="Data\MetadataInfo.cs" />
         <Compile Include="Data\Members\Constructor.cs" />
         <Compile Include="Data\Members\Event.cs" />
         <Compile Include="Data\Members\Field.cs" />
@@ -54,7 +54,7 @@
         <Compile Include="Files\FilesManager.cs" />
         <Compile Include="Files\IFilesManager.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
-        <Compile Include="Serialization\IDllInfoSerializer.cs" />
+        <Compile Include="Serialization\IMetadataSerializer.cs" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

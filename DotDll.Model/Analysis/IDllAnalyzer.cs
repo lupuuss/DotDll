@@ -4,6 +4,6 @@ namespace DotDll.Model.Analysis
 {
     public interface IDllAnalyzer
     {
-        DllInfo Analyze(string path);
+        MetadataInfo Analyze(string path);
     }
 }

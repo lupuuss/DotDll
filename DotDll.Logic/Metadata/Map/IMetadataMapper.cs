@@ -5,6 +5,6 @@ namespace DotDll.Logic.Metadata.Map
 {
     public interface IMetadataMapper
     {
-        MetaDataDeclarations Map(DllInfo dllInfo);
+        MetadataDeclarations Map(MetadataInfo metadataInfo);
     }
 }

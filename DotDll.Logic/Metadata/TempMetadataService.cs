@@ -41,7 +41,7 @@ namespace DotDll.Logic.Metadata
             });
         }
 
-        public Task<MetaDataDeclarations> LoadMetaData(Source source)
+        public Task<MetadataDeclarations> LoadMetaData(Source source)
         {
             return Task.Run(() =>
             {
@@ -72,7 +72,7 @@ namespace DotDll.Logic.Metadata
 
                 var namespaceObject = new DNamespace("Project", new List<DType> {personType});
 
-                return new MetaDataDeclarations(
+                return new MetadataDeclarations(
                     "Project.dll",
                     new List<DNamespace> {namespaceObject}
                 );

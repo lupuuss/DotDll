@@ -37,22 +37,22 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
 
             var namespaceObject = new DNamespace("Project", new List<DType> {personType});
 
-            _metaData = new MetaDataDeclarations(
+            _metadata = new MetadataDeclarations(
                 "Project.dll",
                 new List<DNamespace> {namespaceObject}
             );
         }
 
-        private MetaDataDeclarations _metaData;
+        private MetadataDeclarations _metadata;
 
         [Test]
         public void Constructor_EveryTypeOfDefinition_LoadsZeroNodes()
         {
             var nodes = new List<MetadataNode>
             {
-                new MetadataNode(_metaData.Namespaces[0]),
-                new MetadataNode(_metaData.Namespaces[0].Types[0]),
-                new MetadataNode(_metaData.Namespaces[0].Types[0].Members[0])
+                new MetadataNode(_metadata.Namespaces[0]),
+                new MetadataNode(_metadata.Namespaces[0].Types[0]),
+                new MetadataNode(_metadata.Namespaces[0].Types[0].Members[0])
             };
 
             foreach (var node in nodes) Assert.AreEqual(0, node.Nodes.Count);
@@ -61,7 +61,7 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
         [Test]
         public void LoadChildren_NamespaceDefinition_LoadsSubNodes()
         {
-            var nSpace = _metaData.Namespaces[0];
+            var nSpace = _metadata.Namespaces[0];
 
             var node = new MetadataNode(nSpace);
             var expectedSize = nSpace.Types.Count;
@@ -79,7 +79,7 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
         [Test]
         public void LoadChildren_TypeDefinition_LoadsSubNodes()
         {
-            var type = _metaData.Namespaces[0].Types[0];
+            var type = _metadata.Namespaces[0].Types[0];
 
             var node = new MetadataNode(type);
             var expectedSize = type.Members.Count;
@@ -97,7 +97,7 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
         [Test]
         public void LoadChildren_MemberDefinition_LoadsSubNodes()
         {
-            var member = _metaData.Namespaces[0].Types[0].Members[0];
+            var member = _metadata.Namespaces[0].Types[0].Members[0];
 
             var node = new MetadataNode(member);
             var expectedSize = member.RelatedTypes.Count;
@@ -115,7 +115,7 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
         [Test]
         public void ClearChildren_Always_ClearsSubNodes()
         {
-            var node = new MetadataNode(_metaData.Namespaces[0]);
+            var node = new MetadataNode(_metadata.Namespaces[0]);
 
             node.ClearChildren();
 
@@ -138,7 +138,7 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
         [TestCase(true)]
         public void IsExpanded_ListenerRegistered_NotifyAboutChanges(bool isExpandedValue)
         {
-            var node = new MetadataNode(_metaData.Namespaces[0]);
+            var node = new MetadataNode(_metadata.Namespaces[0]);
             var listenerTriggered = false;
 
             node.IsExpanded = !isExpandedValue;
@@ -160,7 +160,7 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
         [Test]
         public void IsExpanded_SetTrue_LoadsChildrenSubNodes()
         {
-            var node = new MetadataNode(_metaData.Namespaces[0]);
+            var node = new MetadataNode(_metadata.Namespaces[0]);
 
             node.LoadChildren();
 
@@ -176,7 +176,7 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
         [Test]
         public void IsExpanded_SetFalse_ClearsChildrenSubNodes()
         {
-            var node = new MetadataNode(_metaData.Namespaces[0]);
+            var node = new MetadataNode(_metadata.Namespaces[0]);
 
             node.LoadChildren();
             node.IsExpanded = true;

@@ -20,11 +20,11 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
             _navigatorMock = new Mock<INavigator>();
             _serviceMock = new Mock<IMetadataService>();
 
-            _metaData = new MetaDataDeclarations("Project", _namespaces);
+            _metadata = new MetadataDeclarations("Project", _namespaces);
 
             _serviceMock
                 .Setup(service => service.LoadMetaData(It.IsAny<Source>()))
-                .Returns(Task.FromResult(_metaData));
+                .Returns(Task.FromResult(_metadata));
 
             _serviceMock
                 .Setup(service => service.SaveMetaData(It.IsAny<Source>()))
@@ -45,7 +45,7 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
             new DNamespace("Namespace3", new List<DType>())
         };
 
-        private MetaDataDeclarations _metaData;
+        private MetadataDeclarations _metadata;
 
         private void InitViewModel()
         {
@@ -91,7 +91,7 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
             Assert.True(_viewModel.IsContentShown);
 
             Assert.AreEqual(_targetSource.Identifier, _viewModel.MetaDataSource);
-            Assert.AreEqual(_metaData.Name, _viewModel.MetaDataName);
+            Assert.AreEqual(_metadata.Name, _viewModel.MetaDataName);
             Assert.AreEqual(_namespaces.Count, _viewModel.Nodes.Count);
         }
 

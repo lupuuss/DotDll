@@ -17,7 +17,7 @@ namespace DotDll.Presentation.ViewModel.Metadata
 
         private bool _alreadySerialized;
 
-        private MetaDataDeclarations _metaData;
+        private MetadataDeclarations _metadata;
 
         private string _metaDataName = "...";
 
@@ -55,7 +55,7 @@ namespace DotDll.Presentation.ViewModel.Metadata
                 o => !_alreadySerialized &&
                      !IsLoading &&
                      IsContentShown &&
-                     _metaData != null
+                     _metadata != null
             ));
 
         private async void LoadData()
@@ -66,10 +66,10 @@ namespace DotDll.Presentation.ViewModel.Metadata
 
             try
             {
-                _metaData = await _service.LoadMetaData(_source);
+                _metadata = await _service.LoadMetaData(_source);
                 LoadFirstLayer();
                 IsContentShown = true;
-                MetaDataName = _metaData.Name;
+                MetaDataName = _metadata.Name;
             }
             catch (Exception)
             {
@@ -94,7 +94,7 @@ namespace DotDll.Presentation.ViewModel.Metadata
 
         private void LoadFirstLayer()
         {
-            foreach (var node in _metaData.Namespaces.Select(nSpace => new MetadataNode(nSpace)))
+            foreach (var node in _metadata.Namespaces.Select(nSpace => new MetadataNode(nSpace)))
             {
                 Nodes.Add(node);
 

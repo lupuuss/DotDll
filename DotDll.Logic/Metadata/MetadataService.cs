@@ -14,7 +14,7 @@ namespace DotDll.Logic.Metadata
 {
     public class MetadataService : IMetadataService
     {
-        private readonly Dictionary<FileSource, DllInfo> _analyzeCache = new Dictionary<FileSource, DllInfo>();
+        private readonly Dictionary<FileSource, MetadataInfo> _analyzeCache = new Dictionary<FileSource, MetadataInfo>();
 
         private readonly IDllAnalyzer _analyzer;
 
@@ -22,11 +22,11 @@ namespace DotDll.Logic.Metadata
 
         private readonly IMetadataMapper _mapper;
 
-        private readonly IDllInfoSerializer _serializer;
+        private readonly IMetadataSerializer _serializer;
 
         public MetadataService(
             IFilesManager filesManager,
-            IDllInfoSerializer serializer,
+            IMetadataSerializer serializer,
             IDllAnalyzer analyzer,
             IMetadataMapper mapper
         )
@@ -62,7 +62,7 @@ namespace DotDll.Logic.Metadata
             });
         }
 
-        public Task<MetaDataDeclarations> LoadMetaData(Source source)
+        public Task<MetadataDeclarations> LoadMetaData(Source source)
         {
             switch (source)
             {

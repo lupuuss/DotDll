@@ -2,11 +2,11 @@
 
 namespace DotDll.Logic.Metadata.Data
 {
-    public class MetaDataDeclarations
+    public class MetadataDeclarations
     {
         public readonly List<DNamespace> Namespaces;
 
-        internal MetaDataDeclarations(string name, List<DNamespace> namespaces)
+        internal MetadataDeclarations(string name, List<DNamespace> namespaces)
         {
             Name = name;
             Namespaces = namespaces;

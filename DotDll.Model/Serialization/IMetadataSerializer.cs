@@ -3,12 +3,12 @@ using DotDll.Model.Data;
 
 namespace DotDll.Model.Serialization
 {
-    public interface IDllInfoSerializer
+    public interface IMetadataSerializer
     {
         List<string> GetAllIds();
 
-        DllInfo Deserialize(string id);
+        MetadataInfo Deserialize(string id);
 
-        void Serialize(DllInfo dllInfo);
+        void Serialize(MetadataInfo metadataInfo);
     }
 }

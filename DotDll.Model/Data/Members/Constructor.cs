@@ -7,8 +7,9 @@ namespace DotDll.Model.Data.Members
     {
         public Constructor(
             Type parentType, Access accessLevel, List<Parameter> parameters
-        ) : base(".ctor", accessLevel, parentType, false, false, parameters, new List<Type>())
+        ) : base(".ctor", accessLevel, parentType, false, false)
         {
+            Parameters = parameters;
         }
     }
 }

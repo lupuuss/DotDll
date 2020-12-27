@@ -11,31 +11,21 @@ namespace DotDll.Model.Data.Members
             Access accessLevel,
             Type returnType,
             bool isStatic,
-            bool isAbstract,
-            List<Parameter> parameters,
-            List<Type> genericArguments
+            bool isAbstract
         ) : base(name, accessLevel, isStatic, isAbstract)
         {
             ReturnType = returnType;
-            Parameters = parameters;
-            GenericArguments = genericArguments;
         }
 
-        public Method(
-            string name,
-            Access accessLevel,
-            Type returnType,
-            bool isStatic,
-            bool isAbstract
-        ) : this(name, accessLevel, returnType, isStatic, isAbstract, new List<Parameter>(), new List<Type>())
-        {
-        }
-
+        public bool IsVirtual { get; private set; }
+        
+        public bool IsSealed { get; private set; }
+        
         public Type ReturnType { get; }
 
-        public List<Parameter> Parameters { get; }
+        public List<Parameter> Parameters { get; protected set; }
 
-        public List<Type> GenericArguments { get; }
+        public List<Type> GenericArguments { get; private set; }
 
         internal void AddParameter(Parameter parameter)
         {
@@ -58,5 +48,73 @@ namespace DotDll.Model.Data.Members
                 ReturnType
             };
         }
+        
+        public class Builder
+        {
+            private readonly string _name;
+            private readonly Access _accessLevel;
+            private bool _isVirtual;
+            private bool _isSealed;
+            private bool _isStatic;
+            private bool _isAbstract;
+            private Type _returnType;
+            private List<Parameter> _parameters = new List<Parameter>();
+            private List<Type> _genericArguments = new List<Type>();
+            
+            public Builder(string name, Access accessLevel)
+            {
+                _name = name;
+                _accessLevel = accessLevel;
+            }
+
+            public Builder WithVirtual(bool isVirtual)
+            {
+                _isVirtual = isVirtual;
+                return this;
+            }
+        
+            public Builder WithSealed(bool isSealed)
+            {
+                _isSealed = isSealed;
+                return this;
+            }
+        
+            public Builder WithAbstract(bool isAbstract)
+            {
+                _isAbstract = isAbstract;
+                return this;
+            }
+        
+            public Builder WithStatic(bool isStatic)
+            {
+                _isStatic = isStatic;
+                return this;
+            }
+
+            public Builder WithReturnType(Type type)
+            {
+                _returnType = type;
+                return this;
+            }
+
+            public Builder WithParameters(List<Parameter> parameters)
+            {
+                _parameters = parameters;
+                return this;
+            }
+
+            public Method Build()
+            {
+                var method = new Method(_name, _accessLevel, _returnType, _isStatic, _isAbstract);
+
+                method.Parameters = _parameters;
+                method.GenericArguments = _genericArguments;
+                method.IsVirtual = _isVirtual;
+                method.IsSealed = _isSealed;
+                
+                return method;
+            }
+        }
     }
+
 }

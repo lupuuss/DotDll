@@ -5,7 +5,7 @@ namespace DotDll.Presentation.Navigation
 {
     public class WpfUserInputService : IUserInputService
     {
-        public Task<string> PickFilePath()
+        public Task<string?> PickFilePath()
         {
             var fileDialog = new OpenFileDialog
             {
@@ -16,10 +16,10 @@ namespace DotDll.Presentation.Navigation
 
             var result = fileDialog.ShowDialog();
 
-            if (result != true) return Task.FromResult<string>(null);
+            if (result != true) return Task.FromResult<string?>(null);
 
             var filename = fileDialog.FileName;
-            return Task.FromResult(filename);
+            return Task.FromResult<string?>(filename);
         }
     }
 }

@@ -18,7 +18,7 @@ namespace DotDll.Presentation.ViewModel
             LoadData();
         }
 
-        public ObservableCollection<Source> Sources { get; set; } = new ObservableCollection<Source>();
+        public ObservableCollection<Source> Sources { get; } = new ObservableCollection<Source>();
 
         private async void LoadData()
         {

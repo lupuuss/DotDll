@@ -11,9 +11,9 @@ namespace DotDll.Presentation.ViewModel
         private readonly IUserInputService _userInputService;
 
         private bool _pathErrorMessageShown;
-        private string _pickedFilePath;
+        private string? _pickedFilePath;
 
-        private ICommand _pickFileCommand;
+        private ICommand? _pickFileCommand;
 
         public MenuViewModel(
             INavigator navigator,
@@ -37,7 +37,7 @@ namespace DotDll.Presentation.ViewModel
             }
         }
 
-        public string PickedFilePath
+        public string? PickedFilePath
         {
             get => _pickedFilePath;
             set
@@ -46,7 +46,7 @@ namespace DotDll.Presentation.ViewModel
 
                 PathErrorMessageShown = false;
 
-                if (!_service.IsValidFileSourcePath(value))
+                if (value == null || !_service.IsValidFileSourcePath(value))
                 {
                     PathErrorMessageShown = true;
                     return;
@@ -55,14 +55,14 @@ namespace DotDll.Presentation.ViewModel
                 _pickedFilePath = value;
 
                 OnPropertyChangedAuto();
-                NavigateToMetaData();
+                NavigateToMetaData(value);
             }
         }
 
         public ICommand PickFileCommand =>
-            _pickFileCommand ?? (_pickFileCommand = new RelayCommand(
+            _pickFileCommand ??= new RelayCommand(
                 o => PickFile()
-            ));
+            );
 
         private async void PickFile()
         {
@@ -71,9 +71,9 @@ namespace DotDll.Presentation.ViewModel
             PickedFilePath = path;
         }
 
-        private void NavigateToMetaData()
+        private void NavigateToMetaData(string path)
         {
-            Source = _service.CreateFileSource(PickedFilePath);
+            Source = _service.CreateFileSource(path);
             NavigateToMetaDataCommand.Execute(null);
         }
     }

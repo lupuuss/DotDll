@@ -55,7 +55,7 @@ namespace DotDll.Model.Data.Members
             Parameters.Add(parameter);
         }
 
-        public override List<Type> GetRelatedTypes()
+        public override IEnumerable<Type> GetRelatedTypes()
         {
             var list = Parameters
                 .Select(param => param.ParameterType)

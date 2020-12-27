@@ -4,13 +4,13 @@ using DotDll.Presentation.Navigation;
 
 namespace DotDll.Presentation
 {
-    public partial class DotDllApp : Application
+    public partial class DotDllApp
     {
-        internal INavigator Navigator { get; set; }
+        internal INavigator Navigator { get; set; } = null!;
 
-        internal IMetadataService MetadataService { get; private set; }
+        internal IMetadataService MetadataService { get; private set; } = null!;
 
-        internal IUserInputService UserInputService { get; private set; }
+        internal IUserInputService UserInputService { get; private set; } = null!;
 
         protected override void OnStartup(StartupEventArgs e)
         {

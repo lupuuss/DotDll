@@ -11,8 +11,8 @@ namespace DotDll.Logic.Metadata.Map
 {
     public class MetadataMapper : IMetadataMapper
     {
-
         private readonly Dictionary<Type, DType> _typesMapping = new Dictionary<Type, DType>();
+
         public MetadataDeclarations Map(MetadataInfo metadataInfo)
         {
             _typesMapping.Clear();
@@ -20,7 +20,7 @@ namespace DotDll.Logic.Metadata.Map
             var namespaces = metadataInfo.Namespaces
                 .Select(MapNamespace)
                 .ToList();
-            
+
             return new MetadataDeclarations(metadataInfo.Name, namespaces);
         }
 
@@ -36,7 +36,7 @@ namespace DotDll.Logic.Metadata.Map
         private DType MapType(Type type)
         {
             if (_typesMapping.ContainsKey(type)) return _typesMapping[type];
-            
+
             if (type.TypeKind is Type.Kind.GenericArg) return new DType(type.Name);
 
             var declaration = GetAccessString(type.Access);
@@ -87,54 +87,35 @@ namespace DotDll.Logic.Metadata.Map
 
             _typesMapping[type] = dType;
 
-            foreach (var member in type.Members)
-            {
-                dType.Members.Add(MapMember(member));
-            }
-            
+            foreach (var member in type.Members) dType.Members.Add(MapMember(member));
+
             return dType;
         }
 
         private DMember MapMember(Member member)
         {
-            switch (member)
+            return member switch
             {
-                case Event eve:
-                    return MapEvent(eve);
-                case Constructor constructor:
-                    return MapConstructor(constructor);
-                case Field field:
-                    return MapField(field);
-                case Method method:
-                    return MapMethod(method);
-                case NestedType nestedType:
-                    return MapNestedType(nestedType);
-                case Property property:
-                    return MapProperty(property);
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(member));
-            }
+                Event eve => MapEvent(eve),
+                Constructor constructor => MapConstructor(constructor),
+                Field field => MapField(field),
+                Method method => MapMethod(method),
+                NestedType nestedType => MapNestedType(nestedType),
+                Property property => MapProperty(property),
+                _ => throw new ArgumentOutOfRangeException(nameof(member))
+            };
         }
 
         private DMember MapProperty(Property property)
         {
             var declaration = $"(property) {property.Getter.ReturnType.Name} {property.Name}";
 
-            if (property.CanRead)
-            {
-                declaration += $"{{ {GetAccessString(property.AccessLevel)} get; ";
-            }
+            if (property.CanRead) declaration += $"{{ {GetAccessString(property.AccessLevel)} get; ";
 
-            if (property.CanWrite)
-            {
-                declaration += $"{GetAccessString(property.AccessLevel)} set; ";
-            }
+            if (property.CanWrite) declaration += $"{GetAccessString(property.AccessLevel)} set; ";
 
-            if (property.CanRead)
-            {
-                declaration += "}";
-            }
-            
+            if (property.CanRead) declaration += "}";
+
             return new DMember(declaration, property.GetRelatedTypes().Select(MapType).ToList());
         }
 
@@ -144,8 +125,8 @@ namespace DotDll.Logic.Metadata.Map
             var dType = MapType(nestedType.Type);
 
             declaration += dType.Declaration;
-            
-            return new DMember(declaration, new List<DType> { dType });
+
+            return new DMember(declaration, new List<DType> {dType});
         }
 
         private DMember MapMethod(Method method)
@@ -153,14 +134,9 @@ namespace DotDll.Logic.Metadata.Map
             var declaration = GetAccessString(method.AccessLevel) + " ";
 
             if (method.IsStatic)
-            {
                 declaration += "static ";
-            }
-            else if (method.IsAbstract)
-            {
-                declaration += "abstract ";
-            }
-            
+            else if (method.IsAbstract) declaration += "abstract ";
+
             declaration += $"{method.ReturnType.Name} {method.Name}";
 
             declaration += MapParameters(method.Parameters);
@@ -171,7 +147,7 @@ namespace DotDll.Logic.Metadata.Map
         private DMember MapField(Field field)
         {
             var declaration = $"{GetAccessString(field.AccessLevel)} {field.ReturnType.Name} {field.Name}";
-            
+
             return new DMember(declaration, field.GetRelatedTypes().Select(MapType).ToList());
         }
 
@@ -180,46 +156,39 @@ namespace DotDll.Logic.Metadata.Map
             return MapMethod(constructor);
         }
 
-        private String MapParameters(List<Parameter> parameters)
+        private string MapParameters(IEnumerable<Parameter> parameters)
         {
             return "(" + string.Join(
                 ", ",
                 parameters.Select(param => $"{param.ParameterType.Name} {param.Name}")
             ) + ")";
         }
-        
+
         private DMember MapEvent(Event eve)
         {
             var declaration = $"(event) {eve.AddMethod.ReturnType.Name} {eve.Name}";
 
             declaration += $"{{ {GetAccessString(eve.AddMethod.AccessLevel)} add; ";
-            
+
             declaration += $"{{ {GetAccessString(eve.RemoveMethod.AccessLevel)} remove; ";
-            
+
             declaration += $"{{ {GetAccessString(eve.RaiseMethod.AccessLevel)} raise; }}";
-            
+
             return new DMember(declaration, eve.GetRelatedTypes().Select(MapType).ToList());
         }
 
         private string GetAccessString(Access typeAccess)
         {
-            switch (typeAccess)
+            return typeAccess switch
             {
-                case Access.Public:
-                    return "public";
-                case Access.Internal:
-                    return "public";
-                case Access.Protected:
-                    return "protected";
-                case Access.InternalProtected:
-                    return "internal protected";
-                case Access.Private:
-                    return "private";
-                case Access.Inner:
-                    return "";
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(typeAccess), typeAccess, null);
-            }
+                Access.Public => "public",
+                Access.Internal => "public",
+                Access.Protected => "protected",
+                Access.InternalProtected => "internal protected",
+                Access.Private => "private",
+                Access.Inner => "",
+                _ => throw new ArgumentOutOfRangeException(nameof(typeAccess), typeAccess, null)
+            };
         }
     }
 }

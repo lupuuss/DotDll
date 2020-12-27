@@ -14,7 +14,8 @@ namespace DotDll.Logic.Metadata
 {
     public class MetadataService : IMetadataService
     {
-        private readonly Dictionary<FileSource, MetadataInfo> _analyzeCache = new Dictionary<FileSource, MetadataInfo>();
+        private readonly Dictionary<FileSource, MetadataInfo>
+            _analyzeCache = new Dictionary<FileSource, MetadataInfo>();
 
         private readonly IDllAnalyzer _analyzer;
 
@@ -64,30 +65,24 @@ namespace DotDll.Logic.Metadata
 
         public Task<MetadataDeclarations> LoadMetaData(Source source)
         {
-            switch (source)
+            return source switch
             {
-                case FileSource fileSource:
+                FileSource fileSource => Task.Run(delegate
+                {
+                    var dllInfo = _analyzer.Analyze(fileSource.FilePath);
 
-                    return Task.Run(delegate
-                    {
-                        var dllInfo = _analyzer.Analyze(fileSource.FilePath);
+                    _analyzeCache[fileSource] = dllInfo;
 
-                        _analyzeCache[fileSource] = dllInfo;
+                    return _mapper.Map(dllInfo);
+                }),
+                SerializedSource serializedSource => Task.Run(delegate
+                {
+                    var dllInfo = _serializer.Deserialize(serializedSource.Identifier);
 
-                        return _mapper.Map(dllInfo);
-                    });
-
-                case SerializedSource serializedSource:
-
-                    return Task.Run(delegate
-                    {
-                        var dllInfo = _serializer.Deserialize(serializedSource.Identifier);
-
-                        return _mapper.Map(dllInfo);
-                    });
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(source));
-            }
+                    return _mapper.Map(dllInfo);
+                }),
+                _ => throw new ArgumentOutOfRangeException(nameof(source))
+            };
         }
 
         public Task<bool> SaveMetaData(Source source)

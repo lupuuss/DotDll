@@ -5,7 +5,7 @@ namespace DotDll.Model.Serialization
 {
     public interface IMetadataSerializer
     {
-        List<string> GetAllIds();
+        IEnumerable<string> GetAllIds();
 
         MetadataInfo Deserialize(string id);
 

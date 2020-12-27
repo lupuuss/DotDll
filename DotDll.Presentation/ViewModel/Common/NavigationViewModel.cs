@@ -6,24 +6,24 @@ namespace DotDll.Presentation.ViewModel.Common
 {
     public class NavigationViewModel : BaseViewModel
     {
-        protected readonly INavigator Navigator;
+        private readonly INavigator _navigator;
 
-        private ICommand _navigateBackwardsCommand;
+        private ICommand? _navigateBackwardsCommand;
 
-        private ICommand _navigateForwardsCommand;
+        private ICommand? _navigateForwardsCommand;
 
-        private ICommand _navigateToCommand;
+        private ICommand? _navigateToCommand;
 
-        private ICommand _navigateToMetaDataCommand;
+        private ICommand? _navigateToMetaDataCommand;
 
-        private Source _source;
+        private Source? _source;
 
         public NavigationViewModel(INavigator navigator)
         {
-            Navigator = navigator;
+            _navigator = navigator;
         }
 
-        public Source Source
+        public Source? Source
         {
             get => _source;
             set
@@ -39,34 +39,31 @@ namespace DotDll.Presentation.ViewModel.Common
         {
             get
             {
-                return _navigateToCommand ?? (_navigateToCommand = new RelayCommand(
-                    o => Navigator.NavigateTo((TargetView) o)
-                ));
+                return _navigateToCommand ??= new RelayCommand(
+                    o => _navigator.NavigateTo((TargetView) o)
+                );
             }
-            set => _navigateToCommand = value;
         }
 
         public ICommand NavigateBackwardsCommand
         {
             get
             {
-                return _navigateBackwardsCommand ?? (_navigateBackwardsCommand = new RelayCommand(
-                    o => Navigator.NavigateBackward(),
-                    o => Navigator.CanGoBackwards()
-                ));
+                return _navigateBackwardsCommand ??= new RelayCommand(
+                    o => _navigator.NavigateBackward(),
+                    o => _navigator.CanGoBackwards()
+                );
             }
-
-            set => _navigateBackwardsCommand = value;
         }
 
         public ICommand NavigateForwardsCommand
         {
             get
             {
-                return _navigateForwardsCommand ?? (_navigateForwardsCommand = new RelayCommand(
-                    o => Navigator.NavigateForwards(),
-                    o => Navigator.CanGoForwards()
-                ));
+                return _navigateForwardsCommand ??= new RelayCommand(
+                    o => _navigator.NavigateForwards(),
+                    o => _navigator.CanGoForwards()
+                );
             }
         }
 
@@ -74,10 +71,10 @@ namespace DotDll.Presentation.ViewModel.Common
         {
             get
             {
-                return _navigateToMetaDataCommand ?? (_navigateToMetaDataCommand = new RelayCommand(
-                    o => Navigator.NavigateTo(TargetView.MetaData, Source),
+                return _navigateToMetaDataCommand ??= new RelayCommand(
+                    o => _navigator.NavigateTo(TargetView.MetaData, Source!),
                     o => Source != null
-                ));
+                );
             }
         }
     }

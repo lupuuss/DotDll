@@ -4,6 +4,6 @@ namespace DotDll.Presentation.Navigation
 {
     public interface IUserInputService
     {
-        Task<string> PickFilePath();
+        Task<string?> PickFilePath();
     }
 }

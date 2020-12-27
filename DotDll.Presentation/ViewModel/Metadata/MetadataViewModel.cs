@@ -17,11 +17,11 @@ namespace DotDll.Presentation.ViewModel.Metadata
 
         private bool _alreadySerialized;
 
-        private MetadataDeclarations _metadata;
+        private MetadataDeclarations? _metadata;
 
-        private string _metaDataName = "...";
+        private string _metadataName = "...";
 
-        private RelayCommand _serializeCommand;
+        private RelayCommand? _serializeCommand;
 
         public MetadataViewModel(INavigator navigator, IMetadataService service, Source source) : base(navigator)
         {
@@ -37,12 +37,12 @@ namespace DotDll.Presentation.ViewModel.Metadata
 
         public string MetaDataName
         {
-            get => _metaDataName;
+            get => _metadataName;
             set
             {
-                if (_metaDataName == value) return;
+                if (_metadataName == value) return;
 
-                _metaDataName = value;
+                _metadataName = value;
                 OnPropertyChangedAuto();
             }
         }
@@ -50,13 +50,13 @@ namespace DotDll.Presentation.ViewModel.Metadata
         public ObservableCollection<MetadataNode> Nodes { get; } = new ObservableCollection<MetadataNode>();
 
         public ICommand SerializeCommand =>
-            _serializeCommand ?? (_serializeCommand = new RelayCommand(
+            _serializeCommand ??= new RelayCommand(
                 o => SaveData(),
                 o => !_alreadySerialized &&
                      !IsLoading &&
                      IsContentShown &&
                      _metadata != null
-            ));
+            );
 
         private async void LoadData()
         {
@@ -67,7 +67,7 @@ namespace DotDll.Presentation.ViewModel.Metadata
             try
             {
                 _metadata = await _service.LoadMetaData(_source);
-                LoadFirstLayer();
+                LoadFirstLayer(_metadata);
                 IsContentShown = true;
                 MetaDataName = _metadata.Name;
             }
@@ -92,9 +92,9 @@ namespace DotDll.Presentation.ViewModel.Metadata
             _serializeCommand?.RaiseCanExecuteChanged();
         }
 
-        private void LoadFirstLayer()
+        private void LoadFirstLayer(MetadataDeclarations metadata)
         {
-            foreach (var node in _metadata.Namespaces.Select(nSpace => new MetadataNode(nSpace)))
+            foreach (var node in metadata.Namespaces.Select(nSpace => new MetadataNode(nSpace)))
             {
                 Nodes.Add(node);
 

@@ -33,6 +33,6 @@ namespace DotDll.Model.Data.Base
 
         public bool IsAbstract { get; }
 
-        public abstract List<Type> GetRelatedTypes();
+        public abstract IEnumerable<Type> GetRelatedTypes();
     }
 }

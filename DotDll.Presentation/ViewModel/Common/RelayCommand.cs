@@ -6,9 +6,9 @@ namespace DotDll.Presentation.ViewModel.Common
     public class RelayCommand : ICommand
     {
         private readonly Action<object> _action;
-        private readonly Predicate<object> _predicate;
+        private readonly Predicate<object>? _predicate;
 
-        public RelayCommand(Action<object> action, Predicate<object> predicate = null)
+        public RelayCommand(Action<object> action, Predicate<object>? predicate = null)
         {
             _action = action ?? throw new ArgumentNullException(nameof(action));
             _predicate = predicate;

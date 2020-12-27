@@ -8,7 +8,6 @@ namespace DotDll.Tests.Logic.Metadata
         [SetUp]
         public void SetUp()
         {
-            
         }
     }
 }

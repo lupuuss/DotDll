@@ -39,6 +39,7 @@
             &gt;&gt;
         </Button>
 
+        <!-- ReSharper disable once UnusedMember.Global -->
         <Frame
             Grid.Row="1"
             Grid.Column="0"

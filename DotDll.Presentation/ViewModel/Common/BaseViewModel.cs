@@ -5,16 +5,12 @@ namespace DotDll.Presentation.ViewModel.Common
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
-        protected virtual void OnPropertyChanged(string propertyName)
+        private void OnPropertyChanged(string propertyName)
         {
-            var handler = PropertyChanged;
-
-            if (handler == null) return;
-
             var e = new PropertyChangedEventArgs(propertyName);
-            handler(this, e);
+            PropertyChanged?.Invoke(this, e);
         }
 
         protected void OnPropertyChangedAuto([CallerMemberName] string propertyName = "")

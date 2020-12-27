@@ -14,7 +14,7 @@ namespace DotDll.Model.Data.Members
 
         public Type ReturnType { get; }
 
-        public override List<Type> GetRelatedTypes()
+        public override IEnumerable<Type> GetRelatedTypes()
         {
             return new List<Type>
             {

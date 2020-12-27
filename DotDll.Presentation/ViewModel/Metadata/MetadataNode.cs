@@ -7,7 +7,7 @@ using DotDll.Logic.Metadata.Data.Base;
 
 namespace DotDll.Presentation.ViewModel.Metadata
 {
-    public class MetadataNode : INotifyPropertyChanged
+    public sealed class MetadataNode : INotifyPropertyChanged
     {
         private readonly Declared _relatedDefinition;
 
@@ -19,6 +19,9 @@ namespace DotDll.Presentation.ViewModel.Metadata
         }
 
         public string Name => _relatedDefinition.Declaration;
+
+        public ObservableCollection<MetadataNode> Nodes { get; } = new ObservableCollection<MetadataNode>();
+
 
         public bool IsExpanded
         {
@@ -35,9 +38,7 @@ namespace DotDll.Presentation.ViewModel.Metadata
             }
         }
 
-        public ObservableCollection<MetadataNode> Nodes { get; } = new ObservableCollection<MetadataNode>();
-
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         private void PrepareLayers(bool isExpanded)
         {
@@ -95,14 +96,10 @@ namespace DotDll.Presentation.ViewModel.Metadata
             Nodes.Clear();
         }
 
-        protected virtual void OnPropertyChanged(string propertyName)
+        private void OnPropertyChanged(string propertyName)
         {
-            var handler = PropertyChanged;
-
-            if (handler == null) return;
-
             var e = new PropertyChangedEventArgs(propertyName);
-            handler(this, e);
+            PropertyChanged?.Invoke(this, e);
         }
     }
 }

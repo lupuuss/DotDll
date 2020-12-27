@@ -20,7 +20,7 @@ namespace DotDll.Model.Data.Members
         public Method RemoveMethod { get; }
 
 
-        public override List<Type> GetRelatedTypes()
+        public override IEnumerable<Type> GetRelatedTypes()
         {
             return new List<Type>
             {

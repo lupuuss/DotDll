@@ -2,13 +2,13 @@
 
 namespace DotDll.Logic.MetaData.Data
 {
-    public class MetaDataObject
+    public class MetaDataDeclarations
     {
-        public readonly List<Namespace> Namespaces;
+        public readonly List<DNamespace> Namespaces;
 
         public string Name { get; }
         
-        internal MetaDataObject(string name, List<Namespace> namespaces)
+        internal MetaDataDeclarations(string name, List<DNamespace> namespaces)
         {
             Name = name;
             Namespaces = namespaces;

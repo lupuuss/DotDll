@@ -3,13 +3,13 @@ using DotDll.Logic.MetaData.Data.Base;
 
 namespace DotDll.Logic.MetaData.Data
 {
-    public class Namespace : Defined
+    public class DNamespace : Declared
     {
-        internal Namespace(string definition, List<Type> types) : base(definition)
+        internal DNamespace(string declaration, List<DType> types) : base(declaration)
         {
             Types = types;
         }
 
-        public List<Type> Types { get; }
+        public List<DType> Types { get; }
     }
 }

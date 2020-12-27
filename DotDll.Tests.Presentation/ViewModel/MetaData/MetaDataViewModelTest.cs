@@ -8,7 +8,6 @@ using DotDll.Presentation.Navigation;
 using DotDll.Presentation.ViewModel.MetaData;
 using Moq;
 using NUnit.Framework;
-using Type = DotDll.Logic.MetaData.Data.Type;
 
 namespace DotDll.Tests.Presentation.ViewModel.MetaData
 {
@@ -21,11 +20,11 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
             _navigatorMock = new Mock<INavigator>();
             _serviceMock = new Mock<IMetaDataService>();
 
-            _metaDataObject = new MetaDataObject("Project", _namespaces);
+            _metaData = new MetaDataDeclarations("Project", _namespaces);
 
             _serviceMock
                 .Setup(service => service.LoadMetaData(It.IsAny<Source>()))
-                .Returns(Task.FromResult(_metaDataObject));
+                .Returns(Task.FromResult(_metaData));
 
             _serviceMock
                 .Setup(service => service.SaveMetaData(It.IsAny<Source>()))
@@ -39,14 +38,14 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
 
         private Source _targetSource;
 
-        private readonly List<Namespace> _namespaces = new List<Namespace>
+        private readonly List<DNamespace> _namespaces = new List<DNamespace>
         {
-            new Namespace("Namespace1", new List<Type>()),
-            new Namespace("Namespace2", new List<Type>()),
-            new Namespace("Namespace3", new List<Type>())
+            new DNamespace("Namespace1", new List<DType>()),
+            new DNamespace("Namespace2", new List<DType>()),
+            new DNamespace("Namespace3", new List<DType>())
         };
 
-        private MetaDataObject _metaDataObject;
+        private MetaDataDeclarations _metaData;
 
         private void InitViewModel()
         {
@@ -92,7 +91,7 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
             Assert.True(_viewModel.IsContentShown);
 
             Assert.AreEqual(_targetSource.Identifier, _viewModel.MetaDataSource);
-            Assert.AreEqual(_metaDataObject.Name, _viewModel.MetaDataName);
+            Assert.AreEqual(_metaData.Name, _viewModel.MetaDataName);
             Assert.AreEqual(_namespaces.Count, _viewModel.Nodes.Count);
         }
 

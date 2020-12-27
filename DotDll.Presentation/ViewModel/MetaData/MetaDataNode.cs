@@ -4,22 +4,21 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using DotDll.Logic.MetaData.Data;
 using DotDll.Logic.MetaData.Data.Base;
-using Type = DotDll.Logic.MetaData.Data.Type;
 
 namespace DotDll.Presentation.ViewModel.MetaData
 {
     public class MetaDataNode : INotifyPropertyChanged
     {
-        private readonly Defined _relatedDefinition;
+        private readonly Declared _relatedDefinition;
 
         private bool _isExpanded;
 
-        public MetaDataNode(Defined definition)
+        public MetaDataNode(Declared definition)
         {
             _relatedDefinition = definition;
         }
 
-        public string Name => _relatedDefinition.Definition;
+        public string Name => _relatedDefinition.Declaration;
 
         public bool IsExpanded
         {
@@ -68,13 +67,13 @@ namespace DotDll.Presentation.ViewModel.MetaData
 
             switch (_relatedDefinition)
             {
-                case Member member:
+                case DMember member:
                     LoadChildren(member.RelatedTypes);
                     break;
-                case Namespace ns:
+                case DNamespace ns:
                     LoadChildren(ns.Types);
                     break;
-                case Type type:
+                case DType type:
                     LoadChildren(type.Members);
                     break;
                 default:
@@ -84,7 +83,7 @@ namespace DotDll.Presentation.ViewModel.MetaData
             }
         }
 
-        private void LoadChildren<T>(IEnumerable<T> subItems) where T : Defined
+        private void LoadChildren<T>(IEnumerable<T> subItems) where T : Declared
         {
             foreach (var item in subItems) Nodes.Add(new MetaDataNode(item));
         }

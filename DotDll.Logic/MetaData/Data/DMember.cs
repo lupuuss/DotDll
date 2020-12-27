@@ -3,13 +3,13 @@ using DotDll.Logic.MetaData.Data.Base;
 
 namespace DotDll.Logic.MetaData.Data
 {
-    public class Member : Defined
+    public class DMember : Declared
     {
-        internal Member(string definition, List<Type> relatedTypes) : base(definition)
+        internal DMember(string declaration, List<DType> relatedTypes) : base(declaration)
         {
             RelatedTypes = relatedTypes;
         }
 
-        public List<Type> RelatedTypes { get; }
+        public List<DType> RelatedTypes { get; }
     }
 }

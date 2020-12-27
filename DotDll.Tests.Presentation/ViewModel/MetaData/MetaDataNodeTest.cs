@@ -12,38 +12,38 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
         [SetUp]
         public void SetUp()
         {
-            var stringType = new Type("class String");
+            var stringType = new DType("class String");
 
-            var firstNameMember = new Member(
+            var firstNameMember = new DMember(
                 "(property) public String FirstName",
-                new List<Type> {stringType}
+                new List<DType> {stringType}
             );
 
-            var lastNameMember = new Member(
+            var lastNameMember = new DMember(
                 "(property) public String LastName",
-                new List<Type> {stringType}
+                new List<DType> {stringType}
             );
 
-            var relatedPersonField = new Member(
+            var relatedPersonField = new DMember(
                 "(field) private Person _relatedPerson",
-                new List<Type>());
+                new List<DType>());
 
-            var personType = new Type(
+            var personType = new DType(
                 "public class Person",
-                new List<Member> {firstNameMember, lastNameMember, relatedPersonField}
+                new List<DMember> {firstNameMember, lastNameMember, relatedPersonField}
             );
 
             relatedPersonField.RelatedTypes.Add(personType);
 
-            var namespaceObject = new Namespace("Project", new List<Type> {personType});
+            var namespaceObject = new DNamespace("Project", new List<DType> {personType});
 
-            _metaData = new MetaDataObject(
+            _metaData = new MetaDataDeclarations(
                 "Project.dll",
-                new List<Namespace> {namespaceObject}
+                new List<DNamespace> {namespaceObject}
             );
         }
 
-        private MetaDataObject _metaData;
+        private MetaDataDeclarations _metaData;
 
         [Test]
         public void Constructor_EveryTypeOfDefinition_LoadsZeroNodes()
@@ -70,7 +70,7 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
 
             Assert.AreEqual(expectedSize, node.Nodes.Count);
 
-            var typesNames = nSpace.Types.Select(type => type.Definition);
+            var typesNames = nSpace.Types.Select(type => type.Declaration);
             var nodesNames = node.Nodes.Select(n => n.Name);
 
             CollectionAssert.AreEqual(typesNames, nodesNames);
@@ -88,7 +88,7 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
 
             Assert.AreEqual(expectedSize, node.Nodes.Count);
 
-            var membersNames = type.Members.Select(member => member.Definition);
+            var membersNames = type.Members.Select(member => member.Declaration);
             var nodesNames = node.Nodes.Select(n => n.Name);
 
             CollectionAssert.AreEqual(membersNames, nodesNames);
@@ -106,7 +106,7 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
 
             Assert.AreEqual(expectedSize, node.Nodes.Count);
 
-            var typesNames = member.RelatedTypes.Select(type => type.Definition);
+            var typesNames = member.RelatedTypes.Select(type => type.Declaration);
             var nodesNames = node.Nodes.Select(n => n.Name);
 
             CollectionAssert.AreEqual(typesNames, nodesNames);

@@ -67,7 +67,7 @@ namespace DotDll.Logic.MetaData
             });
         }
 
-        public Task<MetaDataObject> LoadMetaData(Source source)
+        public Task<MetaDataDeclarations> LoadMetaData(Source source)
         {
             switch (source)
             {

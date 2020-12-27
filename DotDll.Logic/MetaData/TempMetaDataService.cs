@@ -5,7 +5,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using DotDll.Logic.MetaData.Data;
 using DotDll.Logic.MetaData.Sources;
-using Type = DotDll.Logic.MetaData.Data.Type;
 
 #if DEBUG
 namespace DotDll.Logic.MetaData
@@ -42,40 +41,40 @@ namespace DotDll.Logic.MetaData
             });
         }
 
-        public Task<MetaDataObject> LoadMetaData(Source source)
+        public Task<MetaDataDeclarations> LoadMetaData(Source source)
         {
             return Task.Run(() =>
             {
                 Thread.Sleep(1500);
 
-                var stringType = new Type("class String");
+                var stringType = new DType("class String");
 
-                var firstNameMember = new Member(
+                var firstNameMember = new DMember(
                     "(property) public String FirstName",
-                    new List<Type> {stringType}
+                    new List<DType> {stringType}
                 );
 
-                var lastNameMember = new Member(
+                var lastNameMember = new DMember(
                     "(property) public String LastName",
-                    new List<Type> {stringType}
+                    new List<DType> {stringType}
                 );
 
-                var relatedPersonField = new Member(
+                var relatedPersonField = new DMember(
                     "(field) private Person _relatedPerson",
-                    new List<Type>());
+                    new List<DType>());
 
-                var personType = new Type(
+                var personType = new DType(
                     "public class Person",
-                    new List<Member> {firstNameMember, lastNameMember, relatedPersonField}
+                    new List<DMember> {firstNameMember, lastNameMember, relatedPersonField}
                 );
 
                 relatedPersonField.RelatedTypes.Add(personType);
 
-                var namespaceObject = new Namespace("Project", new List<Type> {personType});
+                var namespaceObject = new DNamespace("Project", new List<DType> {personType});
 
-                return new MetaDataObject(
+                return new MetaDataDeclarations(
                     "Project.dll",
-                    new List<Namespace> {namespaceObject}
+                    new List<DNamespace> {namespaceObject}
                 );
             });
         }

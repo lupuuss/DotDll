@@ -17,7 +17,7 @@ namespace DotDll.Presentation.ViewModel.MetaData
 
         private bool _alreadySerialized;
 
-        private MetaDataObject _metaData;
+        private MetaDataDeclarations _metaData;
 
         private string _metaDataName = "...";
 

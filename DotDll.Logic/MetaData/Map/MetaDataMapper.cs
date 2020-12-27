@@ -4,38 +4,35 @@ using DotDll.Logic.MetaData.Data;
 using DotDll.Model.Data;
 using DotDll.Model.Data.Base;
 using DotDll.Model.Data.Members;
-using Member = DotDll.Logic.MetaData.Data.Member;
-using Namespace = DotDll.Logic.MetaData.Data.Namespace;
-using Type = DotDll.Logic.MetaData.Data.Type;
 
 namespace DotDll.Logic.MetaData.Map
 {
     public class MetaDataMapper : IMetaDataMapper
     {
-        public MetaDataObject Map(DllInfo dllInfo)
+        public MetaDataDeclarations Map(DllInfo dllInfo)
         {
             var namespaces = dllInfo.Namespaces
                 .Select(MapNamespace)
                 .ToList();
 
-            return new MetaDataObject(dllInfo.Name, namespaces);
+            return new MetaDataDeclarations(dllInfo.Name, namespaces);
         }
 
-        private Namespace MapNamespace(DotDll.Model.Data.Namespace nSpace)
+        private DNamespace MapNamespace(DotDll.Model.Data.Namespace nSpace)
         {
             var types = nSpace.Types
                 .Select(MapType)
                 .ToList();
 
-            return new Namespace(nSpace.Name, types);
+            return new DNamespace(nSpace.Name, types);
         }
 
-        private Type MapType(Model.Data.Type type)
+        private DType MapType(Model.Data.Type type)
         {
 
             if (type.TypeKind is Model.Data.Type.Kind.GenericArg)
             {
-                return new Type(type.Name);
+                return new DType(type.Name);
             }
             
             string name = GetAccessString(type.Access);
@@ -86,10 +83,10 @@ namespace DotDll.Logic.MetaData.Map
                 name += ">";
             }
 
-            return new Type(name, type.Members.Select(MapMember).ToList());
+            return new DType(name, type.Members.Select(MapMember).ToList());
         }
 
-        private Member MapMember(Model.Data.Base.Member member)
+        private DMember MapMember(Model.Data.Base.Member member)
         {
 
             switch (member)
@@ -111,32 +108,32 @@ namespace DotDll.Logic.MetaData.Map
             }
         }
 
-        private Member MapProperty(Property property)
+        private DMember MapProperty(Property property)
         {
             throw new NotImplementedException();
         }
 
-        private Member MapNestedType(NestedType nestedType)
+        private DMember MapNestedType(NestedType nestedType)
         {
             throw new NotImplementedException();
         }
 
-        private Member MapMethod(Method method)
+        private DMember MapMethod(Method method)
         {
             throw new NotImplementedException();
         }
 
-        private Member MapField(Field field)
+        private DMember MapField(Field field)
         {
             throw new NotImplementedException();
         }
 
-        private Member MapConstructor(Constructor constructor)
+        private DMember MapConstructor(Constructor constructor)
         {
             throw new NotImplementedException();
         }
 
-        private Member MapEvent(Event eve)
+        private DMember MapEvent(Event eve)
         {
             throw new NotImplementedException();
         }

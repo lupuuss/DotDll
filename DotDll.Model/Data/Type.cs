@@ -15,7 +15,7 @@ namespace DotDll.Model.Data
             GenericArg
         }
 
-        private string _name;
+        private readonly string _name;
 
         internal Type(
             string name,
@@ -37,16 +37,6 @@ namespace DotDll.Model.Data
             GenericArguments = genericArguments;
         }
 
-        internal Type(
-            string name,
-            Access access,
-            Kind typeKind,
-            bool isSealed,
-            bool isAbstract
-        ) : this(name, access, typeKind, isSealed, isAbstract, new List<Member>(), new List<Type>())
-        {
-        }
-
         public string Name
         {
             get
@@ -57,10 +47,11 @@ namespace DotDll.Model.Data
                 return _name;
             }
         }
+
         public Access Access { get; }
-        
+
         public Kind TypeKind { get; }
-        
+
         public bool IsSealed { get; }
 
         public bool IsAbstract { get; }
@@ -74,11 +65,6 @@ namespace DotDll.Model.Data
         internal void AddMember(Member member)
         {
             Members.Add(member);
-        }
-
-        internal void AddGenericArgument(Type genericArgument)
-        {
-            GenericArguments.Add(genericArgument);
         }
     }
 }

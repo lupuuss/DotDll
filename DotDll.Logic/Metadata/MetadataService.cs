@@ -120,7 +120,7 @@ namespace DotDll.Logic.Metadata
                 new XmlMetadataSerializer(),
                 new ReflectionDllAnalyzer(Assembly.LoadFrom),
                 new MetadataMapper()
-                );
+            );
         }
     }
 

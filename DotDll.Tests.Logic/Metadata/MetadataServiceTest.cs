@@ -18,22 +18,6 @@ namespace DotDll.Tests.Logic.Metadata
     [TestFixture]
     public class MetadataServiceTest
     {
-
-        private Mock<IDllAnalyzer> _analyzerMock;
-        private Mock<IFilesManager> _filesManager;
-        private Mock<IMetadataMapper> _metadataMapper;
-        private Mock<IMetadataSerializer> _metadataSerializer;
-
-        private readonly List<string> _allIds = new List<string>()
-        {
-            "id0",
-            "id1",
-            "id2"
-        };
-        
-
-        private MetadataService _service;
-
         [SetUp]
         public void SetUp()
         {
@@ -41,7 +25,7 @@ namespace DotDll.Tests.Logic.Metadata
             _filesManager = new Mock<IFilesManager>();
             _metadataMapper = new Mock<IMetadataMapper>();
             _metadataSerializer = new Mock<IMetadataSerializer>();
-            
+
             _analyzerMock.Setup(a => a.Analyze(It.IsAny<string>()))
                 .Returns(new MetadataInfo("Test"));
 
@@ -61,6 +45,21 @@ namespace DotDll.Tests.Logic.Metadata
             _metadataSerializer.Setup(a => a.Deserialize(It.IsAny<string>()))
                 .Returns(new MetadataInfo("Test1"));
         }
+
+        private Mock<IDllAnalyzer> _analyzerMock;
+        private Mock<IFilesManager> _filesManager;
+        private Mock<IMetadataMapper> _metadataMapper;
+        private Mock<IMetadataSerializer> _metadataSerializer;
+
+        private readonly List<string> _allIds = new List<string>
+        {
+            "id0",
+            "id1",
+            "id2"
+        };
+
+
+        private MetadataService _service;
 
         private void InitService()
         {
@@ -115,7 +114,6 @@ namespace DotDll.Tests.Logic.Metadata
             Assert.False(actual);
 
             _filesManager.Verify(f => f.FileExists("test/path.dll"), Times.Once);
-
         }
 
         [Test]
@@ -127,7 +125,6 @@ namespace DotDll.Tests.Logic.Metadata
             InitService();
 
             Assert.Catch<InvalidFileException>(() => _service.CreateFileSource("TestPath.txt"));
-
         }
 
         [Test]
@@ -142,13 +139,11 @@ namespace DotDll.Tests.Logic.Metadata
 
             Assert.IsInstanceOf<FileSource>(actual);
             Assert.AreEqual("TestPath.dll", ((FileSource) actual).FilePath);
-
         }
 
         [Test]
         public void GetSerializedSources_Always_ReturnsValidIdList()
         {
-
             InitService();
 
             var actual = _service.GetSerializedSources().Result;
@@ -159,26 +154,25 @@ namespace DotDll.Tests.Logic.Metadata
         }
 
         [Test]
-        public void LoadMetaData_FileSource_ReturnsDataFromAnalyzer() 
+        public void LoadMetaData_FileSource_ReturnsDataFromAnalyzer()
         {
             InitService();
 
             var actual = _service.LoadMetadata(new FileSource("Test/path.dll")).Result;
 
             Assert.NotNull(actual);
-            
+
             _analyzerMock.Verify(
                 a => a.Analyze(It.IsAny<string>()),
                 Times.Once
-                );
-            
+            );
+
             _metadataMapper.Verify(
                 a => a.Map(It.IsAny<MetadataInfo>()),
                 Times.Once
-                );
-
+            );
         }
-        
+
         [Test]
         public void LoadMetaData_SerializedSource_ReturnsDataFromSerializer()
         {
@@ -187,25 +181,23 @@ namespace DotDll.Tests.Logic.Metadata
             var actual = _service.LoadMetadata(new SerializedSource("id0")).Result;
 
             Assert.NotNull(actual);
-            
+
             _metadataSerializer.Verify(
                 s => s.Deserialize("id0")
-                );
-            
+            );
+
             _metadataMapper.Verify(
                 a => a.Map(It.IsAny<MetadataInfo>()),
                 Times.Once
-                );
-
+            );
         }
-        
+
         [Test]
-        public void LoadMetaData_NullSource_ThrowsException() 
+        public void LoadMetaData_NullSource_ThrowsException()
         {
             InitService();
 
             Assert.Catch<ArgumentOutOfRangeException>(() => _service.LoadMetadata(null!));
-            
         }
 
         [Test]
@@ -215,7 +207,7 @@ namespace DotDll.Tests.Logic.Metadata
 
             Assert.Catch<AlreadySerializedException>(
                 () => _service.SaveMetadata(new SerializedSource("test/path.dll"))
-                ); 
+            );
         }
 
         [Test]
@@ -224,7 +216,6 @@ namespace DotDll.Tests.Logic.Metadata
             InitService();
 
             Assert.Catch<SourceNotSerializableException>(() => _service.SaveMetadata(null!));
-            
         }
 
         [Test]
@@ -233,30 +224,29 @@ namespace DotDll.Tests.Logic.Metadata
             InitService();
 
             var actual = _service.SaveMetadata(new FileSource("test1")).Result;
-            
+
             Assert.True(actual);
-            
+
             _metadataSerializer.Verify(
                 a => a.Serialize(It.IsAny<MetadataInfo>()), Times.Once
-                );
-            
+            );
         }
-        
+
 
         [Test]
         public void SaveMetadata_ValidSourceSerializationError_ReturnFalse()
         {
             _metadataSerializer.Setup(a => a.Serialize(It.IsAny<MetadataInfo>()))
                 .Throws(new Exception());
-            
+
             InitService();
 
             var actual = _service.SaveMetadata(new FileSource("test/path.dll")).Result;
-            
+
             _metadataSerializer.Verify(
                 s => s.Serialize(It.IsAny<MetadataInfo>()), Times.Once
-                );
-            
+            );
+
             Assert.False(actual);
         }
     }

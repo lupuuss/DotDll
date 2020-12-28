@@ -15,7 +15,7 @@ namespace DotDll.Model.Data
         }
 
         public string Name { get; }
-        
+
         public List<Type> Types { get; }
 
         public void AddType(Type type)

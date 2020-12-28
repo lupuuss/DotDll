@@ -27,16 +27,6 @@ namespace DotDll.Model.Data.Members
 
         public List<Type> GenericArguments { get; private set; } = new List<Type>();
 
-        internal void AddParameter(Parameter parameter)
-        {
-            Parameters.Add(parameter);
-        }
-
-        internal void AddGenericArgument(Type type)
-        {
-            GenericArguments.Add(type);
-        }
-
         public override IEnumerable<Type> GetRelatedTypes()
         {
             var list = Parameters
@@ -111,14 +101,13 @@ namespace DotDll.Model.Data.Members
 
             public Method Build()
             {
-                var method = new Method(_name, _accessLevel, _returnType, _isStatic, _isAbstract);
-
-                method.Parameters = _parameters;
-                method.GenericArguments = _genericArguments;
-                method.IsVirtual = _isVirtual;
-                method.IsSealed = _isSealed;
-
-                return method;
+                return new Method(_name, _accessLevel, _returnType, _isStatic, _isAbstract)
+                {
+                    Parameters = _parameters,
+                    GenericArguments = _genericArguments,
+                    IsVirtual = _isVirtual,
+                    IsSealed = _isSealed
+                };
             }
         }
     }

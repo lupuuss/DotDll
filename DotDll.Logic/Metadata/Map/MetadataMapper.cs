@@ -7,6 +7,8 @@ using DotDll.Model.Data.Base;
 using DotDll.Model.Data.Members;
 using Type = DotDll.Model.Data.Type;
 
+// ReSharper disable MemberCanBeMadeStatic.Local
+
 namespace DotDll.Logic.Metadata.Map
 {
     public class MetadataMapper : IMetadataMapper

@@ -49,9 +49,9 @@ namespace DotDll.Logic.Metadata.Map
             }
             else
             {
-                if (type.IsSealed) declaration += " sealed";
+                if (type.TypeKind != Type.Kind.Enum && type.IsSealed) declaration += " sealed";
 
-                if (type.IsAbstract) declaration += " abstract";
+                if (type.TypeKind != Type.Kind.Interface && type.IsAbstract) declaration += " abstract";
             }
 
             declaration += " ";
@@ -166,7 +166,9 @@ namespace DotDll.Logic.Metadata.Map
 
         private DMember MapConstructor(Constructor constructor)
         {
-            return MapMethod(constructor);
+            var declaration = $"{GetAccessString(constructor.AccessLevel)} {constructor.Name}{MapParameters(constructor.Parameters)}";
+
+            return new DMember(declaration, constructor.GetRelatedTypes().Select(MapType).ToList());
         }
 
         private string MapParameters(IEnumerable<Parameter> parameters)

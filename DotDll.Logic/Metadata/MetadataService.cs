@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using DotDll.Logic.Metadata.Data;
 using DotDll.Logic.Metadata.Map;
@@ -110,6 +111,16 @@ namespace DotDll.Logic.Metadata
                     return false;
                 }
             });
+        }
+
+        public static MetadataService CreateDefault()
+        {
+            return new MetadataService(
+                new FilesManager(),
+                new XmlMetadataSerializer(),
+                new ReflectionDllAnalyzer(Assembly.LoadFrom),
+                new MetadataMapper()
+                );
         }
     }
 

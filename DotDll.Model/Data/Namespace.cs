@@ -10,7 +10,17 @@ namespace DotDll.Model.Data
             Types = types;
         }
 
+        public Namespace(string name) : this(name, new List<Type>())
+        {
+        }
+
         public string Name { get; }
+        
         public List<Type> Types { get; }
+
+        public void AddType(Type type)
+        {
+            Types.Add(type);
+        }
     }
 }

@@ -9,7 +9,7 @@ namespace DotDll.Presentation.View
         {
             InitializeComponent();
             var app = Application.Current.AsDotDllApp();
-            DataContext = new DeserializeListViewModel(app.Navigator, app.MetadataService);
+            DataContext = new DeserializeListViewModel(app.Navigator, app.MetadataServiceImpl);
         }
     }
 }

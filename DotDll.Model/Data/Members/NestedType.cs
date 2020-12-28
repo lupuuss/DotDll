@@ -5,7 +5,7 @@ namespace DotDll.Model.Data.Members
 {
     public class NestedType : Member
     {
-        private NestedType(Type type) : base(type.Name, type.Access, type.IsStatic, type.IsAbstract)
+        internal NestedType(Type type) : base(type.Name, type.Access, type.IsStatic, type.IsAbstract)
         {
             Type = type;
         }

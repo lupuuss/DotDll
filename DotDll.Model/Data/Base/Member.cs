@@ -16,9 +16,9 @@ namespace DotDll.Model.Data.Base
 
         public Access AccessLevel { get; }
 
-        public bool IsStatic { get; }
+        public bool IsStatic { get; protected set; }
 
-        public bool IsAbstract { get; }
+        public bool IsAbstract { get; protected set; }
 
         public abstract IEnumerable<Type> GetRelatedTypes();
     }

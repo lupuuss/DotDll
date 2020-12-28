@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using DotDll.Model.Data.Base;
 
 namespace DotDll.Model.Data
@@ -14,6 +15,8 @@ namespace DotDll.Model.Data
             GenericArg
         }
 
+        private string _name;
+
         internal Type(
             string name,
             Access access,
@@ -24,7 +27,7 @@ namespace DotDll.Model.Data
             List<Type> genericArguments
         )
         {
-            Name = name;
+            _name = name;
             Access = access;
             TypeKind = typeKind;
             IsSealed = isSealed;
@@ -39,15 +42,25 @@ namespace DotDll.Model.Data
             Access access,
             Kind typeKind,
             bool isSealed,
-            bool isAbstract,
-            List<Type> genericArguments
+            bool isAbstract
         ) : this(name, access, typeKind, isSealed, isAbstract, new List<Member>(), new List<Type>())
         {
         }
 
-        public string Name { get; }
+        public string Name
+        {
+            get
+            {
+                if (GenericArguments.Any())
+                    return _name + $"<{string.Join(", ", GenericArguments.Select(arg => arg.Name))}>";
+
+                return _name;
+            }
+        }
         public Access Access { get; }
+        
         public Kind TypeKind { get; }
+        
         public bool IsSealed { get; }
 
         public bool IsAbstract { get; }

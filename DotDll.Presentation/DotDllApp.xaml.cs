@@ -8,7 +8,7 @@ namespace DotDll.Presentation
     {
         internal INavigator Navigator { get; set; } = null!;
 
-        internal IMetadataService MetadataService { get; private set; } = null!;
+        internal IMetadataService MetadataServiceImpl { get; private set; } = null!;
 
         internal IUserInputService UserInputService { get; private set; } = null!;
 
@@ -16,7 +16,7 @@ namespace DotDll.Presentation
         {
             base.OnStartup(e);
 
-            MetadataService = new TempMetadataService();
+            MetadataServiceImpl = MetadataService.CreateDefault();
             UserInputService = new WpfUserInputService();
         }
     }

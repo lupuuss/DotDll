@@ -108,11 +108,11 @@ namespace DotDll.Logic.Metadata.Map
 
         private DMember MapProperty(Property property)
         {
-            var declaration = $"(property) {property.ReturnType.Name} {property.Name}";
+            var declaration = $"(property) {property.ReturnType.Name} {property.Name} ";
 
-            if (property.CanRead) declaration += $"{{ {GetAccessString(property.AccessLevel)} get; ";
+            if (property.CanRead) declaration += $"{{ {GetAccessString(property.Getter!.AccessLevel)} get; ";
 
-            if (property.CanWrite) declaration += $"{GetAccessString(property.AccessLevel)} set; ";
+            if (property.CanWrite) declaration += $"{GetAccessString(property.Setter!.AccessLevel)} set; ";
 
             if (property.CanRead) declaration += "}";
 
@@ -180,13 +180,15 @@ namespace DotDll.Logic.Metadata.Map
 
         private DMember MapEvent(Event eve)
         {
-            var declaration = $"(event) {eve.AddMethod.ReturnType.Name} {eve.Name}";
+            var declaration = $"(event) {eve.EventType} {eve.Name} {{";
 
-            declaration += $"{{ {GetAccessString(eve.AddMethod.AccessLevel)} add; ";
+            if (eve.AddMethod != null) declaration += $" {GetAccessString(eve.AddMethod.AccessLevel)} add; ";
 
-            declaration += $"{GetAccessString(eve.RemoveMethod.AccessLevel)} remove; ";
+            if (eve.RemoveMethod != null) declaration += $"{GetAccessString(eve.RemoveMethod.AccessLevel)} remove; ";
 
-            declaration += $"{GetAccessString(eve.RaiseMethod.AccessLevel)} raise; }}";
+            if (eve.RaiseMethod != null) declaration += $"{GetAccessString(eve.RaiseMethod.AccessLevel)} raise; ";
+
+            declaration += "}";
 
             return new DMember(declaration, eve.GetRelatedTypes().Select(MapType).ToList());
         }

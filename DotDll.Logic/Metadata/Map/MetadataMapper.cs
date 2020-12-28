@@ -132,6 +132,10 @@ namespace DotDll.Logic.Metadata.Map
                 declaration += "static ";
             else if (method.IsAbstract)
                 declaration += "abstract ";
+            else if (method.IsVirtual) 
+                declaration += "virtual ";
+
+            if (method.IsSealed) declaration += "sealed ";
 
             declaration += $"{method.ReturnType.Name} {method.Name}";
 

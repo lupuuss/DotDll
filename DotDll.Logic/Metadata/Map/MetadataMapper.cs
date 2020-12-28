@@ -76,13 +76,6 @@ namespace DotDll.Logic.Metadata.Map
 
             declaration += " " + type.Name;
 
-            if (type.GenericArguments.Any())
-            {
-                declaration += "<";
-                declaration += string.Join(", ", type.GenericArguments.Select(arg => arg.Name));
-                declaration += ">";
-            }
-
             var dType = new DType(declaration);
 
             _typesMapping[type] = dType;

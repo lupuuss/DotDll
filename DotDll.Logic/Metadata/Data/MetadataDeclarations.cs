@@ -6,7 +6,7 @@ namespace DotDll.Logic.Metadata.Data
     {
         public readonly List<DNamespace> Namespaces;
 
-        internal MetadataDeclarations(string name, List<DNamespace> namespaces)
+        public MetadataDeclarations(string name, List<DNamespace> namespaces)
         {
             Name = name;
             Namespaces = namespaces;

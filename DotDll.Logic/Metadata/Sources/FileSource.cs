@@ -4,7 +4,7 @@ namespace DotDll.Logic.Metadata.Sources
 {
     public class FileSource : Source
     {
-        internal FileSource(string path)
+        public FileSource(string path)
         {
             Identifier = Path.GetFileName(path);
             FilePath = path;

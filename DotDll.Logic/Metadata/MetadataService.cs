@@ -41,7 +41,7 @@ namespace DotDll.Logic.Metadata
         public bool IsValidFileSourcePath(string path)
         {
             return _filesManager.FileExists(path) &&
-                   (_filesManager.GetExtension(path) == "dll" || _filesManager.GetExtension(path) == "exe");
+                   (_filesManager.GetExtension(path) == ".dll" || _filesManager.GetExtension(path) == ".exe");
         }
 
         public Source CreateFileSource(string path)

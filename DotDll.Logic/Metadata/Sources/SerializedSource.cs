@@ -2,7 +2,7 @@
 {
     public class SerializedSource : Source
     {
-        internal SerializedSource(string identifier)
+        public SerializedSource(string identifier)
         {
             Identifier = identifier;
         }

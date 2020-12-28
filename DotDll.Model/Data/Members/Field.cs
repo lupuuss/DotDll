@@ -7,8 +7,11 @@ namespace DotDll.Model.Data.Members
     {
         public enum Constraint
         {
-            None, ReadOnly, Const
+            None,
+            ReadOnly,
+            Const
         }
+
         public Field(
             string name, Access accessLevel, Type returnType, bool isStatic, Constraint constraint = Constraint.None
         ) : base(name, accessLevel, isStatic, false)
@@ -18,7 +21,7 @@ namespace DotDll.Model.Data.Members
         }
 
         public Constraint FieldConstraint { get; }
-        
+
         public Type ReturnType { get; }
 
         public override IEnumerable<Type> GetRelatedTypes()

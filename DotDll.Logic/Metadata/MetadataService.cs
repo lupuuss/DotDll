@@ -63,7 +63,7 @@ namespace DotDll.Logic.Metadata
             });
         }
 
-        public Task<MetadataDeclarations> LoadMetaData(Source source)
+        public Task<MetadataDeclarations> LoadMetadata(Source source)
         {
             return source switch
             {
@@ -85,7 +85,7 @@ namespace DotDll.Logic.Metadata
             };
         }
 
-        public Task<bool> SaveMetaData(Source source)
+        public Task<bool> SaveMetadata(Source source)
         {
             if (source is SerializedSource) throw new AlreadySerializedException();
 

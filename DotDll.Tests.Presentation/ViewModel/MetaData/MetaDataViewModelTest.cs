@@ -23,11 +23,11 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
             _metadata = new MetadataDeclarations("Project", _namespaces);
 
             _serviceMock
-                .Setup(service => service.LoadMetaData(It.IsAny<Source>()))
+                .Setup(service => service.LoadMetadata(It.IsAny<Source>()))
                 .Returns(Task.FromResult(_metadata));
 
             _serviceMock
-                .Setup(service => service.SaveMetaData(It.IsAny<Source>()))
+                .Setup(service => service.SaveMetadata(It.IsAny<Source>()))
                 .Returns(Task.FromResult(true));
         }
 
@@ -63,7 +63,7 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
             InitViewModel();
 
             _serviceMock.Verify(
-                service => service.LoadMetaData(_targetSource),
+                service => service.LoadMetadata(_targetSource),
                 Times.Once
             );
         }
@@ -75,7 +75,7 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
             InitViewModel();
 
             _serviceMock.Verify(
-                service => service.LoadMetaData(_targetSource),
+                service => service.LoadMetadata(_targetSource),
                 Times.Once
             );
         }
@@ -99,7 +99,7 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
         public void Constructor_BadMetaDataLoad_ShowsError()
         {
             _serviceMock
-                .Setup(service => service.LoadMetaData(It.IsAny<Source>()))
+                .Setup(service => service.LoadMetadata(It.IsAny<Source>()))
                 .Throws(new Exception("Data failed!"));
 
             _targetSource = new SerializedSource("Example1");
@@ -116,7 +116,7 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
         public void SerializeCommand_MetaDataBad_CanExecuteReturnsFalse()
         {
             _serviceMock
-                .Setup(service => service.LoadMetaData(It.IsAny<Source>()))
+                .Setup(service => service.LoadMetadata(It.IsAny<Source>()))
                 .Throws(new Exception("Data failed!"));
 
             _targetSource = new FileSource("path/to/file");
@@ -157,7 +157,7 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
         public void SerializeCommand_MetaDataOkAndAfterFailedSerialization_CanExecuteReturnsTrue()
         {
             _serviceMock
-                .Setup(service => service.SaveMetaData(It.IsAny<Source>()))
+                .Setup(service => service.SaveMetadata(It.IsAny<Source>()))
                 .Returns(Task.FromResult(false));
 
             _targetSource = new FileSource("path/to/file");

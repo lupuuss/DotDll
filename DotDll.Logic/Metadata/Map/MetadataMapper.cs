@@ -155,10 +155,10 @@ namespace DotDll.Logic.Metadata.Map
                 _ => throw new ArgumentOutOfRangeException()
             };
 
-            var declaration = (constraint != "")
+            var declaration = constraint != ""
                 ? $"{GetAccessString(field.AccessLevel)} {constraint} "
                 : $"{GetAccessString(field.AccessLevel)} ";
-                
+
 
             declaration += $"{field.ReturnType.Name} {field.Name}";
 
@@ -184,9 +184,9 @@ namespace DotDll.Logic.Metadata.Map
 
             declaration += $"{{ {GetAccessString(eve.AddMethod.AccessLevel)} add; ";
 
-            declaration += $"{{ {GetAccessString(eve.RemoveMethod.AccessLevel)} remove; ";
+            declaration += $"{GetAccessString(eve.RemoveMethod.AccessLevel)} remove; ";
 
-            declaration += $"{{ {GetAccessString(eve.RaiseMethod.AccessLevel)} raise; }}";
+            declaration += $"{GetAccessString(eve.RaiseMethod.AccessLevel)} raise; }}";
 
             return new DMember(declaration, eve.GetRelatedTypes().Select(MapType).ToList());
         }

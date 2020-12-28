@@ -66,7 +66,7 @@ namespace DotDll.Presentation.ViewModel.Metadata
 
             try
             {
-                _metadata = await _service.LoadMetaData(_source);
+                _metadata = await _service.LoadMetadata(_source);
                 LoadFirstLayer(_metadata);
                 IsContentShown = true;
                 MetaDataName = _metadata.Name;
@@ -85,7 +85,7 @@ namespace DotDll.Presentation.ViewModel.Metadata
             IsLoading = true;
             ErrorOccured = false;
 
-            _alreadySerialized = await _service.SaveMetaData(_source);
+            _alreadySerialized = await _service.SaveMetadata(_source);
 
             ErrorOccured = !_alreadySerialized;
             IsLoading = false;

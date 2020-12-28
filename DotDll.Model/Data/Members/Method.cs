@@ -18,9 +18,9 @@ namespace DotDll.Model.Data.Members
         }
 
         public bool IsVirtual { get; private set; }
-        
+
         public bool IsSealed { get; private set; }
-        
+
         public Type ReturnType { get; }
 
         public List<Parameter> Parameters { get; protected set; } = new List<Parameter>();
@@ -48,19 +48,19 @@ namespace DotDll.Model.Data.Members
                 ReturnType
             };
         }
-        
+
         public class Builder
         {
-            private readonly string _name;
             private readonly Access _accessLevel;
-            private bool _isVirtual;
+            private readonly string _name;
+            private List<Type> _genericArguments = new List<Type>();
+            private bool _isAbstract;
             private bool _isSealed;
             private bool _isStatic;
-            private bool _isAbstract;
-            private Type _returnType = null!;
+            private bool _isVirtual;
             private List<Parameter> _parameters = new List<Parameter>();
-            private List<Type> _genericArguments = new List<Type>();
-            
+            private Type _returnType = null!;
+
             public Builder(string name, Access accessLevel)
             {
                 _name = name;
@@ -72,19 +72,19 @@ namespace DotDll.Model.Data.Members
                 _isVirtual = isVirtual;
                 return this;
             }
-        
+
             public Builder WithSealed(bool isSealed)
             {
                 _isSealed = isSealed;
                 return this;
             }
-        
+
             public Builder WithAbstract(bool isAbstract)
             {
                 _isAbstract = isAbstract;
                 return this;
             }
-        
+
             public Builder WithStatic(bool isStatic)
             {
                 _isStatic = isStatic;
@@ -108,7 +108,7 @@ namespace DotDll.Model.Data.Members
                 _genericArguments = genericArguments;
                 return this;
             }
-            
+
             public Method Build()
             {
                 var method = new Method(_name, _accessLevel, _returnType, _isStatic, _isAbstract);
@@ -117,10 +117,9 @@ namespace DotDll.Model.Data.Members
                 method.GenericArguments = _genericArguments;
                 method.IsVirtual = _isVirtual;
                 method.IsSealed = _isSealed;
-                
+
                 return method;
             }
         }
     }
-
 }

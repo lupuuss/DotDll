@@ -59,7 +59,7 @@
         <Compile Include="Files\IFilesManager.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="Serialization\IMetadataSerializer.cs" />
-        <Compile Include="Serialization\XmlMetadataSerializer.cs" />
+        <Compile Include="Serialization\Xml\XmlMetadataSerializer.cs" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

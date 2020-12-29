@@ -2,7 +2,7 @@
 using System.Linq;
 using DotDll.Model.Data;
 
-namespace DotDll.Model.Serialization
+namespace DotDll.Model.Serialization.Xml
 {
     public class XmlMetadataSerializer : IMetadataSerializer
     {

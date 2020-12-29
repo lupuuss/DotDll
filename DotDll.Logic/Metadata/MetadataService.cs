@@ -10,6 +10,7 @@ using DotDll.Model.Analysis;
 using DotDll.Model.Data;
 using DotDll.Model.Files;
 using DotDll.Model.Serialization;
+using DotDll.Model.Serialization.Xml;
 
 namespace DotDll.Logic.Metadata
 {

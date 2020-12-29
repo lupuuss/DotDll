@@ -14,7 +14,7 @@ namespace DotDll.Model.Analysis
     {
         public delegate Assembly AssemblyProvider(string path);
 
-        private const BindingFlags Flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance |
+        private const BindingFlags Flags = BindingFlags.Public | BindingFlags.Instance |
                                            BindingFlags.Static;
 
         private readonly AssemblyProvider _provider;

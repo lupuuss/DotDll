@@ -14,6 +14,12 @@ namespace DotDll.Model.Data
         {
         }
 
+        private Namespace()
+        {
+            Name = null!;
+            Types = null!;
+        }
+        
         public string Name { get; }
 
         public List<Type> Types { get; }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ using DotDll.Model.Data;
 using DotDll.Model.Files;
 using DotDll.Model.Serialization;
 using DotDll.Model.Serialization.Xml;
+using DotDll.Model.Serialization.Xml.Map;
 
 namespace DotDll.Logic.Metadata
 {
@@ -116,9 +118,11 @@ namespace DotDll.Logic.Metadata
 
         public static MetadataService CreateDefault()
         {
+            var files = new FilesManager();
+            
             return new MetadataService(
-                new FilesManager(),
-                new XmlMetadataSerializer(),
+                files,
+                new XmlMetadataSerializer(".\\serialization\\", new XmlMapper(), files),
                 new ReflectionDllAnalyzer(Assembly.LoadFrom),
                 new MetadataMapper()
             );

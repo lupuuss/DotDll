@@ -10,6 +10,11 @@ namespace DotDll.Model.Data.Members
             Type = type;
         }
 
+        private NestedType()
+        {
+            Type = null!;
+        }
+        
         public Type Type { get; }
 
         public override IEnumerable<Type> GetRelatedTypes()

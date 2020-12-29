@@ -14,6 +14,12 @@ namespace DotDll.Model.Data
         {
         }
 
+        private MetadataInfo()
+        {
+            Name = null!;
+            Namespaces = null!;
+        }
+
         public string Name { get; }
 
         public List<Namespace> Namespaces { get; }

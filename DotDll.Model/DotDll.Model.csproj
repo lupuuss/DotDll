@@ -34,10 +34,15 @@
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
+        <Reference Include="AutoMapper, Version=10.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005">
+          <HintPath>..\packages\AutoMapper.10.1.1\lib\net461\AutoMapper.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
         <Reference Include="Microsoft.CSharp" />
         <Reference Include="System" />
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />
+        <Reference Include="System.Runtime.Serialization" />
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
@@ -59,7 +64,24 @@
         <Compile Include="Files\IFilesManager.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="Serialization\IMetadataSerializer.cs" />
+        <Compile Include="Serialization\Xml\Data\Base\XmlMember.cs" />
+        <Compile Include="Serialization\Xml\Data\Base\XmlParameter.cs" />
+        <Compile Include="Serialization\Xml\Data\Members\XmlConstructor.cs" />
+        <Compile Include="Serialization\Xml\Data\Members\XmlEvent.cs" />
+        <Compile Include="Serialization\Xml\Data\Members\XmlField.cs" />
+        <Compile Include="Serialization\Xml\Data\Members\XmlMethod.cs" />
+        <Compile Include="Serialization\Xml\Data\Members\XmlNestedType.cs" />
+        <Compile Include="Serialization\Xml\Data\Members\XmlProperty.cs" />
+        <Compile Include="Serialization\Xml\Data\XmlMetadataInfo.cs" />
+        <Compile Include="Serialization\Xml\Data\XmlNamespace.cs" />
+        <Compile Include="Serialization\Xml\Data\XmlType.cs" />
+        <Compile Include="Serialization\Xml\Map\IXmlMapper.cs" />
+        <Compile Include="Serialization\Xml\Map\XmlMapper.cs" />
+        <Compile Include="Serialization\Xml\XmlIndex.cs" />
         <Compile Include="Serialization\Xml\XmlMetadataSerializer.cs" />
+    </ItemGroup>
+    <ItemGroup>
+      <None Include="packages.config" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

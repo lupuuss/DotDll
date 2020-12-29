@@ -37,6 +37,13 @@ namespace DotDll.Model.Data
             GenericArguments = genericArguments;
         }
 
+        public Type()
+        {
+            _name = null!;
+            Members = null!;
+            GenericArguments = null!;
+        }
+
         public string Name
         {
             get

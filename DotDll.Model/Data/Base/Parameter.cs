@@ -8,6 +8,12 @@
             ParameterType = parameterType;
         }
 
+        private Parameter()
+        {
+            Name = null!;
+            ParameterType = null!;
+        }
+
         public string Name { get; }
 
         public Type ParameterType { get; }

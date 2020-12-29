@@ -11,5 +11,9 @@ namespace DotDll.Model.Data.Members
         {
             Parameters = parameters;
         }
+
+        private Constructor()
+        {
+        }
     }
 }

@@ -12,6 +12,11 @@ namespace DotDll.Model.Data.Base
             IsAbstract = isAbstract;
         }
 
+        protected Member()
+        {
+            Name = null!;
+        }
+
         public string Name { get; }
 
         public Access AccessLevel { get; }

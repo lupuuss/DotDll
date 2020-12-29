@@ -20,6 +20,11 @@ namespace DotDll.Model.Data.Members
             FieldConstraint = constraint;
         }
 
+        private Field()
+        {
+            ReturnType = null!;
+        }
+
         public Constraint FieldConstraint { get; }
 
         public Type ReturnType { get; }

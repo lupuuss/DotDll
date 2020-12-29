@@ -23,6 +23,10 @@ namespace DotDll.Model.Data.Members
             CanWrite = Setter != null;
         }
 
+        private Property()
+        {
+        }
+
         public Method? Getter { get; }
 
         public Method? Setter { get; }

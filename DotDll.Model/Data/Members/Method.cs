@@ -17,6 +17,11 @@ namespace DotDll.Model.Data.Members
             ReturnType = returnType;
         }
 
+        protected Method()
+        {
+            ReturnType = null!;
+        }
+
         public bool IsVirtual { get; private set; }
 
         public bool IsSealed { get; private set; }

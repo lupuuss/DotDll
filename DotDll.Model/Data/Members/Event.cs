@@ -26,6 +26,11 @@ namespace DotDll.Model.Data.Members
             EventType = anyMethod.Parameters.First().ParameterType;
         }
 
+        private Event()
+        {
+            EventType = null!;
+        }
+        
         public Method? RaiseMethod { get; }
         public Method? AddMethod { get; }
         public Method? RemoveMethod { get; }

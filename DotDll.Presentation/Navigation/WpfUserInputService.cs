@@ -9,9 +9,7 @@ namespace DotDll.Presentation.Navigation
         {
             var fileDialog = new OpenFileDialog
             {
-                DefaultExt = ".dll",
-                Filter =
-                    "DLL (*.dll)|*.dll|EXE (*.exe)|*.exe"
+                Filter = "Assembly (*.exe;*.dll)|*.exe;*.dll"
             };
 
             var result = fileDialog.ShowDialog();

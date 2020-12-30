@@ -31,7 +31,7 @@ namespace DotDll.Model.Analysis
 
             _typesMapping.Clear();
 
-            var metadataInfo = new MetadataInfo(assembly.FullName);
+            var metadataInfo = new MetadataInfo(assembly.GetName().Name);
 
             var namespaces = assembly
                 .GetTypes()

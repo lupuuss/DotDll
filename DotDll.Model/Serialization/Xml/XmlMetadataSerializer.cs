@@ -32,7 +32,7 @@ namespace DotDll.Model.Serialization.Xml
                 var index = (XmlIndex?) _indexSerializer.ReadObject(file) ?? new XmlIndex();
                 
                 index.Invalidate(_filesManager, _filesPath);
-
+                
                 return index;
             }
             catch (Exception)
@@ -90,15 +90,15 @@ namespace DotDll.Model.Serialization.Xml
         {
             MakeMainDirectoryIfNotExists();
 
-            var guid = Guid.NewGuid();
-            var name = $"{guid.ToString()}.xml";
-            var filePath = _filesManager.FileInPath(_filesPath, $"{guid.ToString()}.xml");
+            var fileName = Index.NextFileName(metadataInfo.Name);
+            
+            var filePath = _filesManager.FileInPath(_filesPath, fileName);
 
             using var stream = _filesManager.OpenFileWrite(filePath);
 
             _serializer.WriteObject(stream, _mapper.Map(metadataInfo));
             
-            Index.SerializedFiles.Add(name);
+            Index.SerializedFiles.Add(fileName);
             SerializeIndex();
         }
 

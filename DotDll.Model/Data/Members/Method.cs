@@ -2,6 +2,9 @@
 using System.Linq;
 using DotDll.Model.Data.Base;
 
+// ReSharper disable AutoPropertyCanBeMadeGetOnly.Local
+// ReSharper disable UnusedMember.Local
+
 namespace DotDll.Model.Data.Members
 {
     public class Method : Member
@@ -26,7 +29,7 @@ namespace DotDll.Model.Data.Members
 
         public bool IsSealed { get; private set; }
 
-        public Type ReturnType { get; }
+        public Type ReturnType { get; private set; }
 
         public List<Parameter> Parameters { get; protected set; } = new List<Parameter>();
 

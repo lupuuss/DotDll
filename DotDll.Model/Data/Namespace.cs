@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
 
+// ReSharper disable AutoPropertyCanBeMadeGetOnly.Local
+// ReSharper disable UnusedMember.Local
+
 namespace DotDll.Model.Data
 {
     public class Namespace
@@ -20,9 +23,9 @@ namespace DotDll.Model.Data
             Types = null!;
         }
         
-        public string Name { get; }
+        public string Name { get; private set; }
 
-        public List<Type> Types { get; }
+        public List<Type> Types { get; private set; }
 
         public void AddType(Type type)
         {

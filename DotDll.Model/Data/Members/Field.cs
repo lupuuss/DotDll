@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using DotDll.Model.Data.Base;
 
+// ReSharper disable AutoPropertyCanBeMadeGetOnly.Local
+// ReSharper disable UnusedMember.Local
+
 namespace DotDll.Model.Data.Members
 {
     public class Field : Member
@@ -25,9 +28,9 @@ namespace DotDll.Model.Data.Members
             ReturnType = null!;
         }
 
-        public Constraint FieldConstraint { get; }
+        public Constraint FieldConstraint { get; private set; }
 
-        public Type ReturnType { get; }
+        public Type ReturnType { get; private set; }
 
         public override IEnumerable<Type> GetRelatedTypes()
         {

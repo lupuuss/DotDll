@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using DotDll.Model.Data.Base;
 
+// ReSharper disable UnusedMember.Local
+
 namespace DotDll.Model.Data.Members
 {
     public class Constructor : Method

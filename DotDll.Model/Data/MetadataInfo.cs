@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
 
+// ReSharper disable AutoPropertyCanBeMadeGetOnly.Local
+// ReSharper disable UnusedMember.Local
+
 namespace DotDll.Model.Data
 {
     public class MetadataInfo
@@ -20,9 +23,9 @@ namespace DotDll.Model.Data
             Namespaces = null!;
         }
 
-        public string Name { get; }
+        public string Name { get; private set; }
 
-        public List<Namespace> Namespaces { get; }
+        public List<Namespace> Namespaces { get; private set; }
 
         internal void AddNamespace(Namespace nSpace)
         {

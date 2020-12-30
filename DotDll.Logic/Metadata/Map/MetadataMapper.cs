@@ -76,7 +76,7 @@ namespace DotDll.Logic.Metadata.Map
                     throw new ArgumentOutOfRangeException();
             }
 
-            declaration += " " + type.Name;
+            declaration += " " + type.FullName();
 
             var dType = new DType(declaration);
 
@@ -103,7 +103,7 @@ namespace DotDll.Logic.Metadata.Map
 
         private DMember MapProperty(Property property)
         {
-            var declaration = $"(property) {property.ReturnType.Name} {property.Name} ";
+            var declaration = $"(property) {property.ReturnType.FullName()} {property.Name} ";
 
             if (property.CanRead) declaration += $"{{ {GetAccessString(property.Getter!.AccessLevel)} get; ";
 
@@ -137,7 +137,7 @@ namespace DotDll.Logic.Metadata.Map
 
             if (method.IsSealed) declaration += "sealed ";
 
-            declaration += $"{method.ReturnType.Name} {method.Name}";
+            declaration += $"{method.ReturnType.FullName()} {method.Name}";
 
             declaration += MapParameters(method.Parameters);
 
@@ -159,7 +159,7 @@ namespace DotDll.Logic.Metadata.Map
                 : $"{GetAccessString(field.AccessLevel)} ";
 
 
-            declaration += $"{field.ReturnType.Name} {field.Name}";
+            declaration += $"{field.ReturnType.FullName()} {field.Name}";
 
             return new DMember(declaration, field.GetRelatedTypes().Select(MapType).ToList());
         }
@@ -175,7 +175,7 @@ namespace DotDll.Logic.Metadata.Map
         {
             return "(" + string.Join(
                 ", ",
-                parameters.Select(param => $"{param.ParameterType.Name} {param.Name}")
+                parameters.Select(param => $"{param.ParameterType.FullName()} {param.Name}")
             ) + ")";
         }
 

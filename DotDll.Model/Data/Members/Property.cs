@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using DotDll.Model.Data.Base;
 
+// ReSharper disable AutoPropertyCanBeMadeGetOnly.Local
+// ReSharper disable UnusedMember.Local
+
 namespace DotDll.Model.Data.Members
 {
     public class Property : Member
@@ -27,13 +30,13 @@ namespace DotDll.Model.Data.Members
         {
         }
 
-        public Method? Getter { get; }
+        public Method? Getter { get; private set; }
 
-        public Method? Setter { get; }
+        public Method? Setter { get; private set; }
 
-        public bool CanRead { get; }
+        public bool CanRead { get; private set; }
 
-        public bool CanWrite { get; }
+        public bool CanWrite { get; private set; }
 
         public Type ReturnType =>
             Getter?.ReturnType

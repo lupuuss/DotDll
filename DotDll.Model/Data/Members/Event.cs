@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using DotDll.Model.Data.Base;
 
+// ReSharper disable AutoPropertyCanBeMadeGetOnly.Local
+// ReSharper disable UnusedMember.Local
+
 namespace DotDll.Model.Data.Members
 {
     public class Event : Member
@@ -31,10 +34,10 @@ namespace DotDll.Model.Data.Members
             EventType = null!;
         }
         
-        public Method? RaiseMethod { get; }
-        public Method? AddMethod { get; }
-        public Method? RemoveMethod { get; }
-        public Type EventType { get; }
+        public Method? RaiseMethod { get; private set; }
+        public Method? AddMethod { get; private set; }
+        public Method? RemoveMethod { get; private set; }
+        public Type EventType { get; private set; }
 
         public override IEnumerable<Type> GetRelatedTypes()
         {

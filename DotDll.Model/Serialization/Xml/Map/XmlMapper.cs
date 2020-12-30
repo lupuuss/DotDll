@@ -10,41 +10,38 @@ namespace DotDll.Model.Serialization.Xml.Map
 {
     public class XmlMapper : IXmlMapper
     {
-        private IMapper _mapper;
+        private readonly IMapper _mapper;
 
         public XmlMapper()
         {
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<MetadataInfo, XmlMetadataInfo>().PreserveReferences();
+                cfg.CreateMap<MetadataInfo, XmlMetadataInfo>().ReverseMap();
 
-                cfg.CreateMap<Member, XmlMember>().PreserveReferences();
-                cfg.CreateMap<Event, XmlEvent>().IncludeBase<Member, XmlMember>().PreserveReferences();
-                cfg.CreateMap<Field, XmlField>().IncludeBase<Member, XmlMember>().PreserveReferences();
-                cfg.CreateMap<Method, XmlMethod>().IncludeBase<Member, XmlMember>().PreserveReferences();
-                cfg.CreateMap<NestedType, XmlNestedType>().IncludeBase<Member, XmlMember>().PreserveReferences();
-                cfg.CreateMap<Property, XmlProperty>().IncludeBase<Member, XmlMember>().PreserveReferences();
-                cfg.CreateMap<Constructor, XmlMethod>().IncludeBase<Member, XmlMember>().PreserveReferences();
-                cfg.CreateMap<Constructor, XmlConstructor>().IncludeBase<Method, XmlMethod>().PreserveReferences();
+                cfg.CreateMap<Member, XmlMember>()
+                    .Include<Event, XmlEvent>()
+                    .Include<Field, XmlField>()
+                    .Include<NestedType, XmlNestedType>()
+                    .Include<Property, XmlProperty>()
+                    .Include<Method, XmlMethod>()
+                    .Include<Constructor, XmlConstructor>()
+                    .ReverseMap();
 
-                cfg.CreateMap<Parameter, XmlParameter>().PreserveReferences();
-                cfg.CreateMap<Namespace, XmlNamespace>().PreserveReferences();
-                cfg.CreateMap<Type, XmlType>().PreserveReferences();
+
+                cfg.CreateMap<Event, XmlEvent>().ReverseMap();
+                cfg.CreateMap<Field, XmlField>().ReverseMap();
+                cfg.CreateMap<NestedType, XmlNestedType>().ReverseMap();
+                cfg.CreateMap<Property, XmlProperty>().ReverseMap();
+                cfg.CreateMap<Method, XmlMethod>().ReverseMap();
+                cfg.CreateMap<Constructor, XmlConstructor>().ReverseMap();
+
+                cfg.CreateMap<Parameter, XmlParameter>().ReverseMap();
+                cfg.CreateMap<Namespace, XmlNamespace>().ReverseMap();
+                cfg.CreateMap<Type, XmlType>().ReverseMap();
                 
-                cfg.CreateMap<XmlMetadataInfo, MetadataInfo>().PreserveReferences();
+                cfg.ForAllMaps((map, exp) => exp.PreserveReferences());
 
-                cfg.CreateMap<XmlMember, Member>().PreserveReferences();
-                cfg.CreateMap<XmlEvent, Event>().IncludeBase<XmlMember, Member>().PreserveReferences();
-                cfg.CreateMap<XmlField, Field>().IncludeBase<XmlMember, Member>().PreserveReferences();
-                cfg.CreateMap<XmlMethod, Method>().IncludeBase<XmlMember, Member>().PreserveReferences();
-                cfg.CreateMap<XmlNestedType, NestedType>().IncludeBase<XmlMember, Member>().PreserveReferences();
-                cfg.CreateMap<XmlProperty, Property>().IncludeBase<XmlMember, Member>().PreserveReferences();
-                cfg.CreateMap<XmlMethod, Constructor>().IncludeBase<XmlMember, Member>().PreserveReferences();
-                cfg.CreateMap<XmlConstructor, Constructor>().IncludeBase<Method, XmlMethod>().PreserveReferences();
-
-                cfg.CreateMap<XmlParameter, Parameter>().PreserveReferences();
-                cfg.CreateMap<XmlNamespace, Namespace>().PreserveReferences();
-                cfg.CreateMap<XmlType, Type>().PreserveReferences();
+                cfg.DisableConstructorMapping();
             });
             
             _mapper = config.CreateMapper();

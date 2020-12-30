@@ -2,6 +2,9 @@
 using System.Linq;
 using DotDll.Model.Data.Base;
 
+// ReSharper disable AutoPropertyCanBeMadeGetOnly.Local
+// ReSharper disable UnusedMember.Local
+
 namespace DotDll.Model.Data
 {
     public class Type
@@ -15,8 +18,6 @@ namespace DotDll.Model.Data
             GenericArg
         }
 
-        private readonly string _name;
-
         internal Type(
             string name,
             Access access,
@@ -27,7 +28,7 @@ namespace DotDll.Model.Data
             List<Type> genericArguments
         )
         {
-            _name = name;
+            Name = name;
             Access = access;
             TypeKind = typeKind;
             IsSealed = isSealed;
@@ -37,37 +38,36 @@ namespace DotDll.Model.Data
             GenericArguments = genericArguments;
         }
 
-        public Type()
+        private Type()
         {
-            _name = null!;
+            Name = null!;
             Members = null!;
             GenericArguments = null!;
         }
 
-        public string Name
-        {
-            get
-            {
-                if (GenericArguments.Any())
-                    return _name + $"<{string.Join(", ", GenericArguments.Select(arg => arg.Name))}>";
+        public string Name { get; private set; }
 
-                return _name;
-            }
+        public string FullName()
+        {
+            if (GenericArguments.Any())
+                return Name + $"<{string.Join(", ", GenericArguments.Select(arg => arg.Name))}>";
+
+            return Name;
         }
 
-        public Access Access { get; }
+        public Access Access { get; private set; }
 
-        public Kind TypeKind { get; }
+        public Kind TypeKind { get; private set; }
 
-        public bool IsSealed { get; }
+        public bool IsSealed { get; private set; }
 
-        public bool IsAbstract { get; }
+        public bool IsAbstract { get; private set; }
 
-        public bool IsStatic { get; }
+        public bool IsStatic { get; private set; }
 
-        public List<Member> Members { get; }
+        public List<Member> Members { get; private set; }
 
-        public List<Type> GenericArguments { get; }
+        public List<Type> GenericArguments { get; private set; }
 
         internal void AddMember(Member member)
         {

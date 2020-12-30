@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
 
+// ReSharper disable AutoPropertyCanBeMadeGetOnly.Local
+// ReSharper disable UnusedMember.Local
+
 namespace DotDll.Model.Data.Base
 {
     public abstract class Member
@@ -17,9 +20,9 @@ namespace DotDll.Model.Data.Base
             Name = null!;
         }
 
-        public string Name { get; }
+        public string Name { get; private set; }
 
-        public Access AccessLevel { get; }
+        public Access AccessLevel { get; private set; }
 
         public bool IsStatic { get; protected set; }
 

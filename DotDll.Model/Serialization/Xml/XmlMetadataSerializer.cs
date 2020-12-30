@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Xml;
 using DotDll.Model.Data;
 using DotDll.Model.Files;
 using DotDll.Model.Serialization.Xml.Data;
@@ -39,10 +35,8 @@ namespace DotDll.Model.Serialization.Xml
 
                 return index;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                
-                Debug.WriteLine(e);
                 return new XmlIndex();
             }
         }
@@ -60,6 +54,8 @@ namespace DotDll.Model.Serialization.Xml
             {
                 // ignore
             }
+            
+            Index.Invalidate(_filesManager, _filesPath);
         }
         
         public XmlMetadataSerializer(string filesPath, IXmlMapper mapper, IFilesManager filesManager)
@@ -74,6 +70,8 @@ namespace DotDll.Model.Serialization.Xml
         
         public IEnumerable<string> GetAllIds()
         {
+            Index.Invalidate(_filesManager, _filesPath);
+            
             return Index.SerializedFiles;
         }
 

@@ -5,7 +5,7 @@ using DotDll.Model.Serialization.Xml.Data.Base;
 namespace DotDll.Model.Serialization.Xml.Data.Members
 {
     [KnownType(typeof(XmlConstructor))]
-    [DataContract(Namespace = "", IsReference = true)]
+    [DataContract(Namespace = "")]
     public class XmlMethod : XmlMember
     {
         [DataMember]

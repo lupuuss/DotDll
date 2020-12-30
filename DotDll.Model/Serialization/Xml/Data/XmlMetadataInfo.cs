@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 namespace DotDll.Model.Serialization.Xml.Data
 {
-    [DataContract(Namespace = "", IsReference = true)]
+    [DataContract(Namespace = "")]
     public class XmlMetadataInfo
     {
         [DataMember]

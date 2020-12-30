@@ -3,7 +3,7 @@
 namespace DotDll.Model.Serialization.Xml.Data.Base
 {
  
-    [DataContract(Namespace = "", IsReference = true)]
+    [DataContract(Namespace = "")]
     public class XmlParameter
     {
         [DataMember]

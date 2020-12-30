@@ -2,7 +2,7 @@
 
 namespace DotDll.Model.Serialization.Xml.Data.Members
 {
-    [DataContract(Namespace = "", IsReference = true)]
+    [DataContract(Namespace = "")]
     public class XmlConstructor : XmlMethod
     {
         

@@ -9,7 +9,7 @@ namespace DotDll.Model.Serialization.Xml.Data.Base
     [KnownType(typeof(XmlMethod))]
     [KnownType(typeof(XmlNestedType))]
     [KnownType(typeof(XmlProperty))]
-    [DataContract(Namespace = "", IsReference = true)]
+    [DataContract(Namespace = "")]
     public abstract class XmlMember
     {
         [DataMember]

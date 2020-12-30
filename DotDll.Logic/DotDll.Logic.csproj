@@ -52,7 +52,6 @@
         <Compile Include="Metadata\Sources\FileSource.cs" />
         <Compile Include="Metadata\Sources\Source.cs" />
         <Compile Include="Metadata\Sources\SerializedSource.cs" />
-        <Compile Include="Metadata\TempMetadataService.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <ItemGroup>

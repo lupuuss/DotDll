@@ -43,6 +43,7 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Analysis\ReflectionDllAnalyzerTest.cs" />
+        <Compile Include="Analysis\TestAssemblyGenerator.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <ItemGroup>

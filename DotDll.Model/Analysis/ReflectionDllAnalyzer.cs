@@ -14,15 +14,24 @@ namespace DotDll.Model.Analysis
     {
         public delegate Assembly AssemblyProvider(string path);
 
-        private const BindingFlags Flags = BindingFlags.Public | BindingFlags.Instance |
-                                           BindingFlags.Static;
+        private readonly BindingFlags _flags;
 
         private readonly AssemblyProvider _provider;
         private readonly Dictionary<Type, Data.Type> _typesMapping = new Dictionary<Type, Data.Type>();
 
-        public ReflectionDllAnalyzer(AssemblyProvider provider)
+        public ReflectionDllAnalyzer(AssemblyProvider provider, bool accessNonPublic = false)
         {
             _provider = provider;
+
+            if (accessNonPublic)
+            {
+                _flags = BindingFlags.Public | BindingFlags.Instance |
+                        BindingFlags.Static | BindingFlags.NonPublic;
+                return;
+            }
+           
+            _flags = BindingFlags.Public | BindingFlags.Instance |
+                     BindingFlags.Static;
         }
 
         public MetadataInfo Analyze(string path)
@@ -94,7 +103,7 @@ namespace DotDll.Model.Analysis
 
         private void AnalyzeTypeConstructor(Data.Type type, Type systemType)
         {
-            foreach (var constructorInfo in systemType.GetConstructors(Flags))
+            foreach (var constructorInfo in systemType.GetConstructors(_flags))
                 type.AddMember(new Constructor(
                     type,
                     AnalyzeAccessLevel(constructorInfo),
@@ -104,7 +113,7 @@ namespace DotDll.Model.Analysis
 
         private void AnalyzeTypeField(Data.Type type, IReflect systemType)
         {
-            foreach (var fieldInfo in systemType.GetFields(Flags))
+            foreach (var fieldInfo in systemType.GetFields(_flags))
             {
                 Field.Constraint constraint;
 
@@ -140,7 +149,7 @@ namespace DotDll.Model.Analysis
 
         private void AnalyzeTypeEvents(Data.Type type, Type systemType)
         {
-            foreach (var eventInfo in systemType.GetEvents(Flags))
+            foreach (var eventInfo in systemType.GetEvents(_flags))
             {
                 var eve = new Event(
                     eventInfo.Name,
@@ -156,14 +165,14 @@ namespace DotDll.Model.Analysis
 
         private void AnalyzeNestedType(Data.Type type, Type systemType)
         {
-            foreach (var nested in systemType.GetNestedTypes(Flags))
+            foreach (var nested in systemType.GetNestedTypes(_flags))
                 type.AddMember(new NestedType(AnalyzeType(nested)));
         }
 
 
         private void AnalyzeTypeProperties(Data.Type type, IReflect systemType)
         {
-            foreach (var propertyInfo in systemType.GetProperties(Flags))
+            foreach (var propertyInfo in systemType.GetProperties(_flags))
             {
                 var getter = propertyInfo.GetMethod;
                 var setter = propertyInfo.SetMethod;
@@ -175,7 +184,7 @@ namespace DotDll.Model.Analysis
 
         private void AnalyzeTypeMethods(Data.Type type, IReflect systemType)
         {
-            foreach (var methodInfo in systemType.GetMethods(Flags))
+            foreach (var methodInfo in systemType.GetMethods(_flags))
             {
                 var method = AnalyzeMethod(methodInfo);
 

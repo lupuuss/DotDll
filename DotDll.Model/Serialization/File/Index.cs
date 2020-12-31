@@ -7,7 +7,7 @@ namespace DotDll.Model.Serialization.File
 {
     public class Index
     {
-        public SortedSet<string> SerializedFiles { get; set; } = new SortedSet<string>();
+        public SortedSet<string> SerializedFiles { get; } = new SortedSet<string>();
 
         public void Invalidate(IFilesManager filesManager, string filesPath, string ext)
         {

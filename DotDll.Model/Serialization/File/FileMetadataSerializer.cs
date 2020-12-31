@@ -1,7 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using AutoMapper;
 using DotDll.Model.Data;
+using DotDll.Model.Data.Base;
+using DotDll.Model.Data.Members;
 using DotDll.Model.Files;
+using DotDll.Model.Serialization.File.Data;
+using DotDll.Model.Serialization.File.Data.Base;
+using DotDll.Model.Serialization.File.Data.Members;
 using DotDll.Model.Serialization.File.Json;
 using DotDll.Model.Serialization.File.Xml;
 
@@ -35,7 +40,7 @@ namespace DotDll.Model.Serialization.File
                 
                 return index;
             }
-            catch (Exception)
+            catch (System.Exception)
             {
                 return new Index();
             }
@@ -50,7 +55,7 @@ namespace DotDll.Model.Serialization.File
 
                 _internalSerializer.SerializeIndex(stream, Index);
             }
-            catch (Exception)
+            catch (System.Exception)
             {
                 // ignore
             }
@@ -111,12 +116,45 @@ namespace DotDll.Model.Serialization.File
 
         public static FileMetadataSerializer Create(string filesPath, IFilesManager filesManager, FileType fileType)
         {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<MetadataInfo, SMetadataInfo>().ReverseMap();
+
+                cfg.CreateMap<Member, SMember>()
+                    .Include<Event, SEvent>()
+                    .Include<Field, SField>()
+                    .Include<NestedType, SNestedType>()
+                    .Include<Property, SProperty>()
+                    .Include<Method, SMethod>()
+                    .Include<Constructor, SConstructor>()
+                    .ReverseMap();
+
+
+                cfg.CreateMap<Event, SEvent>().ReverseMap();
+                cfg.CreateMap<Field, SField>().ReverseMap();
+                cfg.CreateMap<NestedType, SNestedType>().ReverseMap();
+                cfg.CreateMap<Property, SProperty>().ReverseMap();
+                cfg.CreateMap<Method, SMethod>().ReverseMap();
+                cfg.CreateMap<Constructor, SConstructor>().ReverseMap();
+
+                cfg.CreateMap<Parameter, SParameter>().ReverseMap();
+                cfg.CreateMap<Namespace, SNamespace>().ReverseMap();
+                cfg.CreateMap<Type, SType>().ReverseMap();
+
+                cfg.CreateMap<Index, SIndex>().ReverseMap();
+                
+                cfg.ForAllMaps((map, exp) => exp.PreserveReferences());
+
+                cfg.DisableConstructorMapping();
+            });
+            
+            var mapper = config.CreateMapper();
 
             IFileInternalSerializer internalSerializer = fileType switch
             {
-                FileType.Xml => new XmlFileInternalSerializer(),
-                FileType.Json => new JsonFileInternalSerializer(),
-                _ => throw new ArgumentOutOfRangeException(nameof(fileType), fileType, null)
+                FileType.Xml => new XmlFileInternalSerializer(mapper),
+                FileType.Json => new JsonFileInternalSerializer(mapper),
+                _ => throw new System.ArgumentOutOfRangeException(nameof(fileType), fileType, null)
             };
 
             return new FileMetadataSerializer(filesPath, filesManager, internalSerializer);

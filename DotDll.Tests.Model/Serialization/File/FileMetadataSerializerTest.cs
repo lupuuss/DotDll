@@ -49,11 +49,11 @@ namespace DotDll.Tests.Model.Serialization.File
             
             _filesManagerMock
                 .Setup(f => f.OpenFileRead(It.IsAny<string>()))
-                .Returns<string>((path) => new MemoryStream(_streams[path].ToArray()));
+                .Returns<string>(path => new MemoryStream(_streams[path].ToArray()));
             
             _filesManagerMock
                 .Setup(f => f.OpenFileWrite(It.IsAny<string>()))
-                .Returns<string>((path) =>
+                .Returns<string>(path =>
                 {
                     _streams[path] = new MemoryStream();
                     return _streams[path];
@@ -248,8 +248,8 @@ namespace DotDll.Tests.Model.Serialization.File
                 .WithStatic(isStatic)
                 .WithAbstract(isAbstract)
                 .WithVirtual(isVirtual)
-                .WithParameters(new List<Parameter>() {new Parameter("str", argType), new Parameter("generic", genericType)})
-                .WithGenericArguments(new List<Type>() {genericType})
+                .WithParameters(new List<Parameter> {new Parameter("str", argType), new Parameter("generic", genericType)})
+                .WithGenericArguments(new List<Type> {genericType})
                 .Build();
             
             type.Members.Add(method);

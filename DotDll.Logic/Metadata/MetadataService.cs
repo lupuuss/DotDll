@@ -11,7 +11,6 @@ using DotDll.Model.Data;
 using DotDll.Model.Files;
 using DotDll.Model.Serialization;
 using DotDll.Model.Serialization.File;
-using DotDll.Model.Serialization.File.Xml;
 
 namespace DotDll.Logic.Metadata
 {

@@ -27,7 +27,7 @@ namespace DotDll.Model.Data
 
         public List<Namespace> Namespaces { get; private set; }
 
-        internal void AddNamespace(Namespace nSpace)
+        public void AddNamespace(Namespace nSpace)
         {
             Namespaces.Add(nSpace);
         }

@@ -9,7 +9,7 @@ namespace DotDll.Model.Data.Members
 {
     public class Method : Member
     {
-        protected Method(
+        public Method(
             string name,
             Access accessLevel,
             Type returnType,

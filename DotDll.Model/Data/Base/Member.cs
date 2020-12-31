@@ -7,7 +7,7 @@ namespace DotDll.Model.Data.Base
 {
     public abstract class Member
     {
-        internal Member(string name, Access accessLevel, bool isStatic, bool isAbstract)
+        protected Member(string name, Access accessLevel, bool isStatic, bool isAbstract)
         {
             Name = name;
             AccessLevel = accessLevel;

@@ -9,7 +9,7 @@ namespace DotDll.Model.Data.Members
 {
     public class Property : Member
     {
-        internal Property(
+        public Property(
             string name, Method? getter = null, Method? setter = null
         ) : base(
             name,

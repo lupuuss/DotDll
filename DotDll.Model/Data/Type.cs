@@ -18,7 +18,7 @@ namespace DotDll.Model.Data
             GenericArg
         }
 
-        internal Type(
+        public Type(
             string name,
             Access access,
             Kind typeKind,

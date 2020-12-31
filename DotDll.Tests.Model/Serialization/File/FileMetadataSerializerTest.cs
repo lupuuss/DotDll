@@ -13,6 +13,7 @@ using NUnit.Framework;
 namespace DotDll.Tests.Model.Serialization.File
 {
     [TestFixture(FileType.Xml)]
+    [TestFixture(FileType.Json)]
     public class FileMetadataSerializerTest
     {
         private readonly FileType _type;

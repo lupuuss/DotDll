@@ -121,7 +121,7 @@ namespace DotDll.Logic.Metadata
             
             return new MetadataService(
                 files,
-                FileMetadataSerializer.Create(".\\serialization\\", files, FileType.Xml),
+                FileMetadataSerializer.Create(".\\serialization\\", files, FileType.Json),
                 new ReflectionDllAnalyzer(Assembly.LoadFrom),
                 new MetadataMapper()
             );

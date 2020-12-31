@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using DotDll.Model.Data;
 using DotDll.Model.Files;
+using DotDll.Model.Serialization.File.Json;
 using DotDll.Model.Serialization.File.Xml;
 
 namespace DotDll.Model.Serialization.File
@@ -9,7 +10,7 @@ namespace DotDll.Model.Serialization.File
 
     public enum FileType
     {
-        Xml
+        Xml, Json
     }
     
     public class FileMetadataSerializer : IMetadataSerializer
@@ -114,6 +115,7 @@ namespace DotDll.Model.Serialization.File
             IFileInternalSerializer internalSerializer = fileType switch
             {
                 FileType.Xml => new XmlFileInternalSerializer(),
+                FileType.Json => new JsonFileInternalSerializer(),
                 _ => throw new ArgumentOutOfRangeException(nameof(fileType), fileType, null)
             };
 

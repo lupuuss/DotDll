@@ -1,9 +1,8 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
-using DotDll.Model.Serialization.Xml.Data.Base;
+using DotDll.Model.Serialization.File.Xml.Data.Base;
 
-namespace DotDll.Model.Serialization.Xml.Data
+namespace DotDll.Model.Serialization.File.Xml.Data
 {
     [DataContract(Namespace = "", IsReference = true, Name = "T")]
     public class XmlType

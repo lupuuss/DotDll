@@ -6,17 +6,22 @@ using DotDll.Model.Data.Base;
 using DotDll.Model.Data.Members;
 using DotDll.Model.Files;
 using DotDll.Model.Serialization;
-using DotDll.Model.Serialization.Xml;
-using DotDll.Model.Serialization.Xml.Map;
+using DotDll.Model.Serialization.File;
 using Moq;
 using NUnit.Framework;
 
-namespace DotDll.Tests.Model.Serialization.Xml
+namespace DotDll.Tests.Model.Serialization.File
 {
-    [TestFixture]
-    public class XmlMetadataSerializerTest
+    [TestFixture(FileType.Xml)]
+    public class FileMetadataSerializerTest
     {
+        private readonly FileType _type;
 
+        public FileMetadataSerializerTest(FileType type)
+        {
+            _type = type;
+        }
+        
         private IMetadataSerializer _serializer;
         private Mock<IFilesManager> _filesManagerMock;
         private IFilesManager _filesManager;
@@ -53,7 +58,7 @@ namespace DotDll.Tests.Model.Serialization.Xml
                     return _streams[path];
                 });
             _filesManager = _filesManagerMock.Object;
-            _serializer = new XmlMetadataSerializer(".\\files\\", new XmlMapper(), _filesManager);
+            _serializer = FileMetadataSerializer.Create(".\\files\\", _filesManager, _type);
         }
 
         [Test]
@@ -66,13 +71,13 @@ namespace DotDll.Tests.Model.Serialization.Xml
 
             var ids = _serializer.GetAllIds();
             
-            CollectionAssert.AreEqual(new [] {"Name1_0.xml"}, ids);
+            CollectionAssert.AreEqual(new [] {"Name1_0"}, ids);
             
             _serializer.Serialize(metadata2);
             
             ids = _serializer.GetAllIds();
 
-            CollectionAssert.AreEqual(new [] {"Name1_0.xml", "Name2_0.xml"}, ids);
+            CollectionAssert.AreEqual(new [] {"Name1_0", "Name2_0"}, ids);
         }
 
         [Test]
@@ -84,10 +89,11 @@ namespace DotDll.Tests.Model.Serialization.Xml
             _serializer.Serialize(metadata1);
             _serializer.Serialize(metadata2);
 
-            _streams.Remove(".\\files\\Name2_0.xml");
+            var key = _streams.Keys.First(x => x.Contains("Name2_0"));
+            _streams.Remove(key);
 
             var actual = _serializer.GetAllIds();
-            CollectionAssert.AreEqual(new []{"Name1_0.xml"}, actual);
+            CollectionAssert.AreEqual(new []{"Name1_0"}, actual);
         }
 
         [Test]
@@ -101,7 +107,7 @@ namespace DotDll.Tests.Model.Serialization.Xml
 
             var ids = _serializer.GetAllIds();
             
-            CollectionAssert.AreEqual(new [] {"Name_0.xml", "Name_1.xml", "Name_2.xml"}, ids);
+            CollectionAssert.AreEqual(new [] {"Name_0", "Name_1", "Name_2"}, ids);
         }
 
         [Test]
@@ -124,7 +130,7 @@ namespace DotDll.Tests.Model.Serialization.Xml
             
             _serializer.Serialize(metadataInfo);
 
-            var deserializedMetadataInfo = _serializer.Deserialize("TestMetadataInfo_0.xml");
+            var deserializedMetadataInfo = _serializer.Deserialize("TestMetadataInfo_0");
             
             // ASSERT
             
@@ -197,7 +203,7 @@ namespace DotDll.Tests.Model.Serialization.Xml
             
             _serializer.Serialize(metadataInfo);
 
-            var deserialized = _serializer.Deserialize("TestMetadataInfo_0.xml");
+            var deserialized = _serializer.Deserialize("TestMetadataInfo_0");
 
             var deserializedType = deserialized.Namespaces[0].Types[0];
             
@@ -256,7 +262,7 @@ namespace DotDll.Tests.Model.Serialization.Xml
             
             _serializer.Serialize(metadataInfo);
 
-            var deserialized = _serializer.Deserialize("TestMetadataInfo_0.xml");
+            var deserialized = _serializer.Deserialize("TestMetadataInfo_0");
 
             var deserializedType = deserialized.Namespaces[0].Types[0];
             var deserializedArgType = deserialized.Namespaces[0].Types[1];
@@ -322,7 +328,7 @@ namespace DotDll.Tests.Model.Serialization.Xml
             
             _serializer.Serialize(metadataInfo);
 
-            var deserialized = _serializer.Deserialize("TestMetadataInfo_0.xml");
+            var deserialized = _serializer.Deserialize("TestMetadataInfo_0");
 
             var deserializedType = deserialized.Namespaces[0].Types[0];
 
@@ -381,7 +387,7 @@ namespace DotDll.Tests.Model.Serialization.Xml
             
             _serializer.Serialize(metadataInfo);
 
-            var deserialized = _serializer.Deserialize("TestMetadataInfo_0.xml");
+            var deserialized = _serializer.Deserialize("TestMetadataInfo_0");
 
             var deserializedType = deserialized.Namespaces[0].Types[0];
             
@@ -416,7 +422,7 @@ namespace DotDll.Tests.Model.Serialization.Xml
             
             _serializer.Serialize(metadataInfo);
 
-            var deserialized = _serializer.Deserialize("TestMetadataInfo_0.xml");
+            var deserialized = _serializer.Deserialize("TestMetadataInfo_0");
 
             var deserializedType = deserialized.Namespaces[0].Types[0];
             
@@ -455,7 +461,7 @@ namespace DotDll.Tests.Model.Serialization.Xml
             
             _serializer.Serialize(metadataInfo);
 
-            var deserialized = _serializer.Deserialize("TestMetadataInfo_0.xml");
+            var deserialized = _serializer.Deserialize("TestMetadataInfo_0");
 
             var deserializedType = deserialized.Namespaces[0].Types[0];
 

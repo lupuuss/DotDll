@@ -10,8 +10,8 @@ using DotDll.Model.Analysis;
 using DotDll.Model.Data;
 using DotDll.Model.Files;
 using DotDll.Model.Serialization;
-using DotDll.Model.Serialization.Xml;
-using DotDll.Model.Serialization.Xml.Map;
+using DotDll.Model.Serialization.File;
+using DotDll.Model.Serialization.File.Xml;
 
 namespace DotDll.Logic.Metadata
 {
@@ -121,7 +121,7 @@ namespace DotDll.Logic.Metadata
             
             return new MetadataService(
                 files,
-                new XmlMetadataSerializer(".\\serialization\\", new XmlMapper(), files),
+                FileMetadataSerializer.Create(".\\serialization\\", files, FileType.Xml),
                 new ReflectionDllAnalyzer(Assembly.LoadFrom),
                 new MetadataMapper()
             );

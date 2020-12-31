@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace DotDll.Model.Serialization.Xml.Data
+namespace DotDll.Model.Serialization.File.Xml.Data
 {
     [DataContract(Namespace = "", Name = "N")]
     public class XmlNamespace

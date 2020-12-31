@@ -65,7 +65,7 @@
         <Compile Include="Analysis\ReflectionDllAnalyzerTest.cs" />
         <Compile Include="Analysis\TestAssemblyGenerator.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
-        <Compile Include="Serialization\Xml\XmlMetadataSerializerTest.cs" />
+        <Compile Include="Serialization\File\FileMetadataSerializerTest.cs" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\DotDll.Model\DotDll.Model.csproj">

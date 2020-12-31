@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace DotDll.Model.Serialization.Xml.Data.Base
+namespace DotDll.Model.Serialization.File.Xml.Data.Base
 {
  
     [DataContract(Namespace = "", Name = "PA")]

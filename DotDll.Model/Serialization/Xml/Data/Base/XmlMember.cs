@@ -9,19 +9,19 @@ namespace DotDll.Model.Serialization.Xml.Data.Base
     [KnownType(typeof(XmlMethod))]
     [KnownType(typeof(XmlNestedType))]
     [KnownType(typeof(XmlProperty))]
-    [DataContract(Namespace = "")]
+    [DataContract(Namespace = "", Name = "M")]
     public abstract class XmlMember
     {
-        [DataMember]
+        [DataMember(Name = "n")]
         public string Name = null!;
 
-        [DataMember]
+        [DataMember(Name = "al")]
         public int AccessLevel;
 
-        [DataMember]
+        [DataMember(Name = "is")]
         public bool IsStatic;
 
-        [DataMember]
+        [DataMember(Name = "ia")]
         public bool IsAbstract;
     }
 }

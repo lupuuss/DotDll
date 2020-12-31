@@ -3,19 +3,19 @@ using DotDll.Model.Serialization.Xml.Data.Base;
 
 namespace DotDll.Model.Serialization.Xml.Data.Members
 {
-    [DataContract(Namespace = "")]
+    [DataContract(Namespace = "", Name = "E")]
     public class XmlEvent : XmlMember
     {
-        [DataMember]
+        [DataMember(Name = "ram")]
         public XmlMethod? RaiseMethod;
         
-        [DataMember]
+        [DataMember(Name = "am")]
         public XmlMethod? AddMethod;
         
-        [DataMember]
+        [DataMember(Name = "rem")]
         public XmlMethod? RemoveMethod;
         
-        [DataMember]
+        [DataMember(Name = "et")]
         public XmlType EventType = null!;
     }
 }

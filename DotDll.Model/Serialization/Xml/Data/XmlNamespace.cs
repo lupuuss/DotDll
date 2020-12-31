@@ -3,13 +3,13 @@ using System.Runtime.Serialization;
 
 namespace DotDll.Model.Serialization.Xml.Data
 {
-    [DataContract(Namespace = "")]
+    [DataContract(Namespace = "", Name = "N")]
     public class XmlNamespace
     {
-        [DataMember]
+        [DataMember(Name = "n")]
         public string Name = null!;
 
-        [DataMember]
+        [DataMember(Name = "t")]
         public List<XmlType> Types = null!;
     }
 }

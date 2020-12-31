@@ -3,19 +3,19 @@ using DotDll.Model.Serialization.Xml.Data.Base;
 
 namespace DotDll.Model.Serialization.Xml.Data.Members
 {
-    [DataContract(Namespace = "")]
+    [DataContract(Namespace = "", Name = "P")]
     public class XmlProperty : XmlMember
     {
-        [DataMember]
+        [DataMember(Name = "g")]
         public XmlMethod? Getter;
 
-        [DataMember]
+        [DataMember(Name = "s")]
         public XmlMethod? Setter;
 
-        [DataMember]
+        [DataMember(Name = "cr")]
         public bool CanRead;
 
-        [DataMember]
+        [DataMember(Name = "cw")]
         public bool CanWrite;
     }
 }

@@ -3,13 +3,13 @@
 namespace DotDll.Model.Serialization.Xml.Data.Base
 {
  
-    [DataContract(Namespace = "")]
+    [DataContract(Namespace = "", Name = "PA")]
     public class XmlParameter
     {
-        [DataMember]
+        [DataMember(Name = "n")]
         public string Name = null!;
 
-        [DataMember]
+        [DataMember(Name = "pt")]
         public XmlType ParameterType = null!;
     }
 }

@@ -6,10 +6,10 @@ namespace DotDll.Model.Serialization.Xml.Data
     [DataContract(Namespace = "")]
     public class XmlMetadataInfo
     {
-        [DataMember]
+        [DataMember(Name = "n")]
         public string Name = null!;
         
-        [DataMember]
+        [DataMember(Name = "ns")]
         public List<XmlNamespace> Namespaces = null!;
     }
 }

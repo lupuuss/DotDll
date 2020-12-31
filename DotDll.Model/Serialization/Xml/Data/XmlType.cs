@@ -5,37 +5,37 @@ using DotDll.Model.Serialization.Xml.Data.Base;
 
 namespace DotDll.Model.Serialization.Xml.Data
 {
-    [DataContract(Namespace = "", IsReference = true)]
+    [DataContract(Namespace = "", IsReference = true, Name = "T")]
     public class XmlType
     {
-        [DataMember]
+        [DataMember(Name = "n")]
         public string Name = null!;
 
-        [DataMember]
+        [DataMember(Name = "a")]
         public int Access;
         
-        [DataMember]
+        [DataMember(Name = "tk")]
         public int TypeKind;
 
-        [DataMember]
+        [DataMember(Name = "is")]
         public bool IsSealed;
 
-        [DataMember]
+        [DataMember(Name = "ia")]
         public bool IsAbstract;
 
-        [DataMember]
+        [DataMember(Name = "ist")]
         public bool IsStatic;
 
-        [DataMember]
+        [DataMember(Name = "m")]
         public List<XmlMember> Members = null!;
         
-        [DataMember]
+        [DataMember(Name = "ga")]
         public List<XmlType> GenericArguments = null!;
 
-        [DataMember]
+        [DataMember(Name = "gc")]
         public List<XmlType> GenericConstraints = null!;
         
-        [DataMember]
+        [DataMember(Name = "bt")]
         public List<XmlType> BaseTypes = null!;
     }
 }

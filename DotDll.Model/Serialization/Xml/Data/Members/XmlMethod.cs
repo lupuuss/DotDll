@@ -5,22 +5,22 @@ using DotDll.Model.Serialization.Xml.Data.Base;
 namespace DotDll.Model.Serialization.Xml.Data.Members
 {
     [KnownType(typeof(XmlConstructor))]
-    [DataContract(Namespace = "")]
+    [DataContract(Namespace = "", Name = "ME")]
     public class XmlMethod : XmlMember
     {
-        [DataMember]
+        [DataMember(Name = "iv")]
         public bool IsVirtual;
 
-        [DataMember]
+        [DataMember(Name = "ise")]
         public bool IsSealed;
 
-        [DataMember]
+        [DataMember(Name = "rt")]
         public XmlType ReturnType = null!;
 
-        [DataMember]
+        [DataMember(Name = "p")]
         public List<XmlParameter> Parameters = null!;
 
-        [DataMember]
+        [DataMember(Name = "ga")]
         public List<XmlType> GenericArguments = null!;
     }
 }

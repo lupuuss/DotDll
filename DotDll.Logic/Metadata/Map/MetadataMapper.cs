@@ -54,29 +54,7 @@ namespace DotDll.Logic.Metadata.Map
                 if (type.TypeKind != Type.Kind.Interface && type.IsAbstract) declaration += " abstract";
             }
 
-            declaration += " ";
-
-            switch (type.TypeKind)
-            {
-                case Type.Kind.Interface:
-                    declaration += "interface";
-                    break;
-                case Type.Kind.Class:
-                    declaration += "class";
-                    break;
-                case Type.Kind.Enum:
-                    declaration += "enum";
-                    break;
-                case Type.Kind.Array:
-                    declaration += "[]";
-                    break;
-                case Type.Kind.GenericArg:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
-            declaration += " " + type.FullName();
+            declaration += $" {MapTypeKind(type.TypeKind)} {type.FullName()}";
 
             if (type.BaseTypes.Any())
             {
@@ -90,6 +68,19 @@ namespace DotDll.Logic.Metadata.Map
             foreach (var member in type.Members) dType.Members.Add(MapMember(member));
 
             return dType;
+        }
+
+        private string MapTypeKind(Type.Kind kind)
+        {
+            return kind switch
+            {
+                Type.Kind.Interface => "interface",
+                Type.Kind.Class => "class",
+                Type.Kind.Enum => "enum",
+                Type.Kind.Array => "[]",
+                Type.Kind.GenericArg => "",
+                _ => throw new ArgumentOutOfRangeException()
+            };
         }
 
         private DMember MapMember(Member member)

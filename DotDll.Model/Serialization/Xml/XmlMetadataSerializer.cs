@@ -18,10 +18,7 @@ namespace DotDll.Model.Serialization.Xml
 
         private XmlIndex? _index;
 
-        private XmlIndex Index
-        {
-            get => _index ??= DeserializeIndex();
-        }
+        private XmlIndex Index => _index ??= DeserializeIndex();
 
         private XmlIndex DeserializeIndex()
         {

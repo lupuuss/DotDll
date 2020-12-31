@@ -78,6 +78,11 @@ namespace DotDll.Logic.Metadata.Map
 
             declaration += " " + type.FullName();
 
+            if (type.BaseTypes.Any())
+            {
+                declaration += $" : {string.Join(", ", type.BaseTypes.Select(t => t.FullName()))}";
+            }
+            
             var dType = new DType(declaration);
 
             _typesMapping[type] = dType;

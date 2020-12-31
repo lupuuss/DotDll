@@ -69,6 +69,8 @@ namespace DotDll.Model.Data
         public List<Type> GenericArguments { get; private set; } = new List<Type>();
 
         public List<Type> GenericConstraints { get; private set; } = new List<Type>();
+        
+        public List<Type> BaseTypes { get; private set; } = new List<Type>();
 
         internal void AddMember(Member member)
         {

@@ -4,7 +4,6 @@ using System.Reflection;
 using DotDll.Model.Data;
 using DotDll.Model.Data.Base;
 using DotDll.Model.Data.Members;
-using Type = System.Type;
 
 // ReSharper disable MemberCanBeMadeStatic.Local
 
@@ -17,9 +16,9 @@ namespace DotDll.Model.Analysis
         private readonly BindingFlags _flags;
 
         private readonly AssemblyProvider _provider;
-        private readonly Dictionary<Type, Data.Type> _typesMapping = new Dictionary<Type, Data.Type>();
+        private readonly Dictionary<System.Type, Type> _typesMapping = new Dictionary<System.Type, Type>();
 
-        public ReflectionDllAnalyzer(AssemblyProvider provider, bool accessNonPublic = true)
+        public ReflectionDllAnalyzer(AssemblyProvider provider, bool accessNonPublic = false)
         {
             _provider = provider;
 
@@ -57,7 +56,7 @@ namespace DotDll.Model.Analysis
             return metadataInfo;
         }
 
-        private Namespace AnalyzeNamespace(string namespaceName, IEnumerable<Type> namespaceTypes)
+        private Namespace AnalyzeNamespace(string namespaceName, IEnumerable<System.Type> namespaceTypes)
         {
             var nSpace = new Namespace(namespaceName);
 
@@ -70,11 +69,11 @@ namespace DotDll.Model.Analysis
             return nSpace;
         }
 
-        private Data.Type AnalyzeType(Type systemType)
+        private Type AnalyzeType(System.Type systemType)
         {
             if (_typesMapping.ContainsKey(systemType)) return _typesMapping[systemType];
 
-            var type = new Data.Type(
+            var type = new Type(
                 systemType.Name,
                 AnalyzeTypeAccessLevel(systemType),
                 AnalyzeTypeKind(systemType),
@@ -84,6 +83,17 @@ namespace DotDll.Model.Analysis
 
             _typesMapping[systemType] = type;
 
+            var baseTypes = new List<Type>();
+
+            if (systemType.BaseType != null && systemType.BaseType != typeof(object))
+            {
+                baseTypes.Add(AnalyzeType(systemType.BaseType));   
+            }
+
+            baseTypes.AddRange(systemType.GetInterfaces().Select(AnalyzeType));
+            
+            type.BaseTypes.AddRange(baseTypes);
+            
             var genericArgs = systemType.GetGenericArguments().Select(AnalyzeType);
 
             type.GenericArguments.AddRange(genericArgs);
@@ -99,7 +109,7 @@ namespace DotDll.Model.Analysis
             return type;
         }
 
-        private void AnalyzeTypeMembers(Data.Type type, Type systemType)
+        private void AnalyzeTypeMembers(Type type, System.Type systemType)
         {
             AnalyzeTypeConstructor(type, systemType);
             AnalyzeTypeField(type, systemType);
@@ -109,7 +119,7 @@ namespace DotDll.Model.Analysis
             AnalyzeNestedType(type, systemType);
         }
 
-        private void AnalyzeTypeConstructor(Data.Type type, Type systemType)
+        private void AnalyzeTypeConstructor(Type type, System.Type systemType)
         {
             foreach (var constructorInfo in systemType.GetConstructors(_flags))
                 type.AddMember(new Constructor(
@@ -119,7 +129,7 @@ namespace DotDll.Model.Analysis
                 ));
         }
 
-        private void AnalyzeTypeField(Data.Type type, IReflect systemType)
+        private void AnalyzeTypeField(Type type, IReflect systemType)
         {
             foreach (var fieldInfo in systemType.GetFields(_flags))
             {
@@ -155,7 +165,7 @@ namespace DotDll.Model.Analysis
         }
 
 
-        private void AnalyzeTypeEvents(Data.Type type, Type systemType)
+        private void AnalyzeTypeEvents(Type type, System.Type systemType)
         {
             foreach (var eventInfo in systemType.GetEvents(_flags))
             {
@@ -171,14 +181,14 @@ namespace DotDll.Model.Analysis
         }
 
 
-        private void AnalyzeNestedType(Data.Type type, Type systemType)
+        private void AnalyzeNestedType(Type type, System.Type systemType)
         {
             foreach (var nested in systemType.GetNestedTypes(_flags))
                 type.AddMember(new NestedType(AnalyzeType(nested)));
         }
 
 
-        private void AnalyzeTypeProperties(Data.Type type, IReflect systemType)
+        private void AnalyzeTypeProperties(Type type, IReflect systemType)
         {
             foreach (var propertyInfo in systemType.GetProperties(_flags))
             {
@@ -190,7 +200,7 @@ namespace DotDll.Model.Analysis
             }
         }
 
-        private void AnalyzeTypeMethods(Data.Type type, IReflect systemType)
+        private void AnalyzeTypeMethods(Type type, IReflect systemType)
         {
             foreach (var methodInfo in systemType.GetMethods(_flags))
             {
@@ -225,18 +235,18 @@ namespace DotDll.Model.Analysis
                 .ToList();
         }
 
-        private Data.Type.Kind AnalyzeTypeKind(Type type)
+        private Type.Kind AnalyzeTypeKind(System.Type type)
         {
-            if (type.IsArray) return Data.Type.Kind.Array;
+            if (type.IsArray) return Type.Kind.Array;
 
-            if (type.IsEnum) return Data.Type.Kind.Enum;
+            if (type.IsEnum) return Type.Kind.Enum;
 
-            if (type.IsInterface) return Data.Type.Kind.Interface;
+            if (type.IsInterface) return Type.Kind.Interface;
 
-            return type.IsGenericParameter ? Data.Type.Kind.GenericArg : Data.Type.Kind.Class;
+            return type.IsGenericParameter ? Type.Kind.GenericArg : Type.Kind.Class;
         }
 
-        private Access AnalyzeTypeAccessLevel(Type type)
+        private Access AnalyzeTypeAccessLevel(System.Type type)
         {
             if (type.IsPublic || type.IsNestedPublic) return Access.Public;
 

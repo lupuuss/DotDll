@@ -26,7 +26,7 @@ namespace DotDll.Model.Files
 
         public Stream OpenFileWrite(string path)
         {
-            return File.Open(path, FileMode.OpenOrCreate, FileAccess.Write);
+            return File.Open(path, FileMode.Create, FileAccess.Write);
         }
 
         public Stream OpenFileRead(string path)

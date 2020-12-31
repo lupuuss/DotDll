@@ -40,7 +40,7 @@ namespace DotDll.Model.Data.Members
 
         public Type ReturnType =>
             Getter?.ReturnType
-            ?? Setter?.ReturnType
+            ?? Setter?.Parameters[0].ParameterType
             ?? throw new InvalidOperationException("Getter or setter must be not null!");
 
         public override IEnumerable<Type> GetRelatedTypes()

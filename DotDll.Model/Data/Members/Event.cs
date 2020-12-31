@@ -14,14 +14,14 @@ namespace DotDll.Model.Data.Members
             string name, Method? removeMethod, Method? addMethod, Method? raiseMethod
         ) : base(name, Access.Inner, false, false)
         {
-            if (removeMethod == null && addMethod == null && raiseMethod == null)
-                throw new ArgumentException("One of event methods must not be null!");
+            if (removeMethod == null && addMethod == null)
+                throw new ArgumentException("Add or remove method must not be null!");
 
             RemoveMethod = removeMethod;
             AddMethod = addMethod;
             RaiseMethod = raiseMethod;
 
-            Method anyMethod = (addMethod ?? removeMethod ?? raiseMethod)!;
+            Method anyMethod = (addMethod ?? removeMethod)!;
 
             IsStatic = anyMethod.IsStatic;
             IsAbstract = anyMethod.IsAbstract;

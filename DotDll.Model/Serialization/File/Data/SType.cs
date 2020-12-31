@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
-using DotDll.Model.Serialization.File.Xml.Data.Base;
+using DotDll.Model.Serialization.File.Data.Base;
 
-namespace DotDll.Model.Serialization.File.Xml.Data
+namespace DotDll.Model.Serialization.File.Data
 {
     [DataContract(Namespace = "", IsReference = true, Name = "T")]
-    public class XmlType
+    public class SType
     {
         [DataMember(Name = "n")]
         public string Name = null!;
@@ -26,15 +26,15 @@ namespace DotDll.Model.Serialization.File.Xml.Data
         public bool IsStatic;
 
         [DataMember(Name = "m")]
-        public List<XmlMember> Members = null!;
+        public List<SMember> Members = null!;
         
         [DataMember(Name = "ga")]
-        public List<XmlType> GenericArguments = null!;
+        public List<SType> GenericArguments = null!;
 
         [DataMember(Name = "gc")]
-        public List<XmlType> GenericConstraints = null!;
+        public List<SType> GenericConstraints = null!;
         
         [DataMember(Name = "bt")]
-        public List<XmlType> BaseTypes = null!;
+        public List<SType> BaseTypes = null!;
     }
 }

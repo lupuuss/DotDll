@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace DotDll.Model.Serialization.File.Json.Data
+namespace DotDll.Model.Serialization.File.Data
 {
-    public class JsonIndex
+    [DataContract]
+    public class SIndex
     {
+    
+        [DataMember]
         public SortedSet<string> SerializedFiles { get; set; } = new SortedSet<string>();
     }
 }

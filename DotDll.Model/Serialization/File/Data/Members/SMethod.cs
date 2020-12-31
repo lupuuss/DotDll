@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
-using DotDll.Model.Serialization.File.Xml.Data.Base;
+using DotDll.Model.Serialization.File.Data.Base;
 
-namespace DotDll.Model.Serialization.File.Xml.Data.Members
+namespace DotDll.Model.Serialization.File.Data.Members
 {
-    [KnownType(typeof(XmlConstructor))]
+    [KnownType(typeof(SConstructor))]
     [DataContract(Namespace = "", Name = "ME")]
-    public class XmlMethod : XmlMember
+    public class SMethod : SMember
     {
         [DataMember(Name = "iv")]
         public bool IsVirtual;
@@ -15,12 +15,12 @@ namespace DotDll.Model.Serialization.File.Xml.Data.Members
         public bool IsSealed;
 
         [DataMember(Name = "rt")]
-        public XmlType ReturnType = null!;
+        public SType ReturnType = null!;
 
         [DataMember(Name = "p")]
-        public List<XmlParameter> Parameters = null!;
+        public List<SParameter> Parameters = null!;
 
         [DataMember(Name = "ga")]
-        public List<XmlType> GenericArguments = null!;
+        public List<SType> GenericArguments = null!;
     }
 }

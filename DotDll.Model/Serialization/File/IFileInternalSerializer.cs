@@ -10,7 +10,6 @@ namespace DotDll.Model.Serialization.File
         
         public void SerializeIndex(Stream indexStream, Index index);
         
-        
         public Index DeserializeIndex(Stream indexStream);
 
         public void SerializeMetadata(Stream stream, MetadataInfo metadataInfo);

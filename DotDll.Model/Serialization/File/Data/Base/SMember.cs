@@ -1,16 +1,16 @@
 ﻿using System.Runtime.Serialization;
-using DotDll.Model.Serialization.File.Xml.Data.Members;
+using DotDll.Model.Serialization.File.Data.Members;
 
-namespace DotDll.Model.Serialization.File.Xml.Data.Base
+namespace DotDll.Model.Serialization.File.Data.Base
 {
 
-    [KnownType(typeof(XmlEvent))]
-    [KnownType(typeof(XmlField))]
-    [KnownType(typeof(XmlMethod))]
-    [KnownType(typeof(XmlNestedType))]
-    [KnownType(typeof(XmlProperty))]
+    [KnownType(typeof(SEvent))]
+    [KnownType(typeof(SField))]
+    [KnownType(typeof(SMethod))]
+    [KnownType(typeof(SNestedType))]
+    [KnownType(typeof(SProperty))]
     [DataContract(Namespace = "", Name = "M")]
-    public abstract class XmlMember
+    public abstract class SMember
     {
         [DataMember(Name = "n")]
         public string Name = null!;

@@ -1,9 +1,9 @@
 ﻿using System.Runtime.Serialization;
 
-namespace DotDll.Model.Serialization.File.Xml.Data.Members
+namespace DotDll.Model.Serialization.File.Data.Members
 {
     [DataContract(Namespace = "", Name = "C")]
-    public class XmlConstructor : XmlMethod
+    public class SConstructor : SMethod
     {
         
     }

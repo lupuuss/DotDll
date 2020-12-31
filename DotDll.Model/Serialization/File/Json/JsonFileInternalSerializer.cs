@@ -4,9 +4,9 @@ using DotDll.Model.Data;
 using AutoMapper;
 using DotDll.Model.Data.Base;
 using DotDll.Model.Data.Members;
-using DotDll.Model.Serialization.File.Json.Data;
-using DotDll.Model.Serialization.File.Json.Data.Base;
-using DotDll.Model.Serialization.File.Json.Data.Members;
+using DotDll.Model.Serialization.File.Data;
+using DotDll.Model.Serialization.File.Data.Base;
+using DotDll.Model.Serialization.File.Data.Members;
 using Newtonsoft.Json;
 
 namespace DotDll.Model.Serialization.File.Json
@@ -18,37 +18,37 @@ namespace DotDll.Model.Serialization.File.Json
         private readonly JsonSerializerSettings _settings = new JsonSerializerSettings()
         {
             PreserveReferencesHandling = PreserveReferencesHandling.All,
-            TypeNameHandling = TypeNameHandling.Auto 
+            TypeNameHandling = TypeNameHandling.Auto
         };
 
         public JsonFileInternalSerializer()
         {
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<MetadataInfo, JsonMetadataInfo>().ReverseMap();
+                cfg.CreateMap<MetadataInfo, SMetadataInfo>().ReverseMap();
 
-                cfg.CreateMap<Member, JsonMember>()
-                    .Include<Event, JsonEvent>()
-                    .Include<Field, JsonField>()
-                    .Include<NestedType, JsonNestedType>()
-                    .Include<Property, JsonProperty>()
-                    .Include<Method, JsonMethod>()
-                    .Include<Constructor, JsonConstructor>()
+                cfg.CreateMap<Member, SMember>()
+                    .Include<Event, SEvent>()
+                    .Include<Field, SField>()
+                    .Include<NestedType, SNestedType>()
+                    .Include<Property, SProperty>()
+                    .Include<Method, SMethod>()
+                    .Include<Constructor, SConstructor>()
                     .ReverseMap();
 
 
-                cfg.CreateMap<Event, JsonEvent>().ReverseMap();
-                cfg.CreateMap<Field, JsonField>().ReverseMap();
-                cfg.CreateMap<NestedType, JsonNestedType>().ReverseMap();
-                cfg.CreateMap<Property, JsonProperty>().ReverseMap();
-                cfg.CreateMap<Method, JsonMethod>().ReverseMap();
-                cfg.CreateMap<Constructor, JsonConstructor>().ReverseMap();
+                cfg.CreateMap<Event, SEvent>().ReverseMap();
+                cfg.CreateMap<Field, SField>().ReverseMap();
+                cfg.CreateMap<NestedType, SNestedType>().ReverseMap();
+                cfg.CreateMap<Property, SProperty>().ReverseMap();
+                cfg.CreateMap<Method, SMethod>().ReverseMap();
+                cfg.CreateMap<Constructor, SConstructor>().ReverseMap();
 
-                cfg.CreateMap<Parameter, JsonParameter>().ReverseMap();
-                cfg.CreateMap<Namespace, JsonNamespace>().ReverseMap();
-                cfg.CreateMap<Type, JsonType>().ReverseMap();
+                cfg.CreateMap<Parameter, SParameter>().ReverseMap();
+                cfg.CreateMap<Namespace, SNamespace>().ReverseMap();
+                cfg.CreateMap<Type, SType>().ReverseMap();
 
-                cfg.CreateMap<Index, JsonIndex>().ReverseMap();
+                cfg.CreateMap<Index, SIndex>().ReverseMap();
                 
                 cfg.ForAllMaps((map, exp) => exp.PreserveReferences());
 
@@ -63,7 +63,7 @@ namespace DotDll.Model.Serialization.File.Json
         {
             var serializer = JsonSerializer.Create(_settings);
             using var jsonWriter = new StreamWriter(indexStream);
-            serializer.Serialize(jsonWriter, _mapper.Map<JsonIndex>(index));
+            serializer.Serialize(jsonWriter, _mapper.Map<SIndex>(index));
         }
 
         public Index DeserializeIndex(Stream indexStream)
@@ -71,14 +71,14 @@ namespace DotDll.Model.Serialization.File.Json
             var serializer = JsonSerializer.Create(_settings);
             using var reader = new StreamReader(indexStream, Encoding.UTF8);
 
-            return _mapper.Map<Index>((JsonIndex) serializer.Deserialize(reader, typeof(JsonIndex))!);
+            return _mapper.Map<Index>((SIndex) serializer.Deserialize(reader, typeof(SIndex))!);
         }
 
         public void SerializeMetadata(Stream stream, MetadataInfo metadataInfo)
         {
             var serializer = JsonSerializer.Create(_settings);
             using var jsonWriter = new StreamWriter(stream);
-            serializer.Serialize(jsonWriter, _mapper.Map<JsonMetadataInfo>(metadataInfo));
+            serializer.Serialize(jsonWriter, _mapper.Map<SMetadataInfo>(metadataInfo));
         }
 
         public MetadataInfo DeserializeMetadata(Stream stream)
@@ -86,7 +86,7 @@ namespace DotDll.Model.Serialization.File.Json
             var serializer = JsonSerializer.Create(_settings);
             using var reader = new StreamReader(stream, Encoding.UTF8);
 
-            return _mapper.Map<MetadataInfo>((JsonMetadataInfo) serializer.Deserialize(reader, typeof(JsonMetadataInfo))!);
+            return _mapper.Map<MetadataInfo>((SMetadataInfo) serializer.Deserialize(reader, typeof(SMetadataInfo))!);
         }
     }
 }

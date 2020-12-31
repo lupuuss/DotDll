@@ -1,16 +1,16 @@
 ﻿using System.Runtime.Serialization;
-using DotDll.Model.Serialization.File.Xml.Data.Base;
+using DotDll.Model.Serialization.File.Data.Base;
 
-namespace DotDll.Model.Serialization.File.Xml.Data.Members
+namespace DotDll.Model.Serialization.File.Data.Members
 {
     [DataContract(Namespace = "", Name = "P")]
-    public class XmlProperty : XmlMember
+    public class SProperty : SMember
     {
         [DataMember(Name = "g")]
-        public XmlMethod? Getter;
+        public SMethod? Getter;
 
         [DataMember(Name = "s")]
-        public XmlMethod? Setter;
+        public SMethod? Setter;
 
         [DataMember(Name = "cr")]
         public bool CanRead;

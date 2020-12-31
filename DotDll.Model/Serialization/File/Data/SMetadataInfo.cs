@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace DotDll.Model.Serialization.File.Xml.Data
+namespace DotDll.Model.Serialization.File.Data
 {
     [DataContract(Namespace = "")]
-    public class XmlMetadataInfo
+    public class SMetadataInfo
     {
         [DataMember(Name = "n")]
         public string Name = null!;
         
         [DataMember(Name = "ns")]
-        public List<XmlNamespace> Namespaces = null!;
+        public List<SNamespace> Namespaces = null!;
     }
 }

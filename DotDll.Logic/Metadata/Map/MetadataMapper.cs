@@ -139,9 +139,20 @@ namespace DotDll.Logic.Metadata.Map
 
             declaration += $"{method.ReturnType.FullName()} {method.Name}";
 
+            if (method.GenericArguments.Any())
+                declaration += MapGenericArguments(method.GenericArguments);
+
             declaration += MapParameters(method.Parameters);
 
             return new DMember(declaration, method.GetRelatedTypes().Select(MapType).ToList());
+        }
+
+        private string MapGenericArguments(IEnumerable<Type> methodGenericArguments)
+        {
+
+            var args = string.Join(", ", methodGenericArguments.Select(arg => arg.FullName()));
+            
+            return $"<{args}>";
         }
 
         private DMember MapField(Field field)

@@ -31,5 +31,8 @@ namespace DotDll.Model.Serialization.Xml.Data
         
         [DataMember]
         public List<XmlType> GenericArguments = null!;
+
+        [DataMember]
+        public List<XmlType> GenericConstraints = null!;
     }
 }

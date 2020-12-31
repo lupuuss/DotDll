@@ -19,7 +19,7 @@ namespace DotDll.Model.Analysis
         private readonly AssemblyProvider _provider;
         private readonly Dictionary<Type, Data.Type> _typesMapping = new Dictionary<Type, Data.Type>();
 
-        public ReflectionDllAnalyzer(AssemblyProvider provider, bool accessNonPublic = false)
+        public ReflectionDllAnalyzer(AssemblyProvider provider, bool accessNonPublic = true)
         {
             _provider = provider;
 
@@ -79,12 +79,20 @@ namespace DotDll.Model.Analysis
                 AnalyzeTypeAccessLevel(systemType),
                 AnalyzeTypeKind(systemType),
                 systemType.IsSealed,
-                systemType.IsAbstract,
-                new List<Member>(),
-                AnalyzeGenericArguments(systemType.GetGenericArguments())
+                systemType.IsAbstract
             );
 
             _typesMapping[systemType] = type;
+
+            var genericArgs = systemType.GetGenericArguments().Select(AnalyzeType);
+
+            type.GenericArguments.AddRange(genericArgs);
+
+            if (systemType.IsGenericParameter)
+            {
+                var genericConstraints = systemType.GetGenericParameterConstraints().Select(AnalyzeType);
+                type.GenericConstraints.AddRange(genericConstraints);
+            }
 
             AnalyzeTypeMembers(type, systemType);
 
@@ -205,7 +213,7 @@ namespace DotDll.Model.Analysis
                 .WithVirtual(methodInfo.IsVirtual)
                 .WithReturnType(AnalyzeType(methodInfo.ReturnType))
                 .WithParameters(AnalyzeMethodParameters(methodInfo.GetParameters()))
-                .WithGenericArguments(AnalyzeGenericArguments(methodInfo.GetGenericArguments()))
+                .WithGenericArguments(methodInfo.GetGenericArguments().Select(AnalyzeType).ToList())
                 .Build();
 
             return method;
@@ -215,11 +223,6 @@ namespace DotDll.Model.Analysis
         {
             return parameters.Select(param => new Parameter(param.Name, AnalyzeType(param.ParameterType)))
                 .ToList();
-        }
-
-        private List<Data.Type> AnalyzeGenericArguments(IEnumerable<Type> genericArguments)
-        {
-            return genericArguments.Select(AnalyzeType).ToList();
         }
 
         private Data.Type.Kind AnalyzeTypeKind(Type type)

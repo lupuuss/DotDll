@@ -219,7 +219,7 @@ namespace DotDll.Logic.Metadata.Map
             return typeAccess switch
             {
                 Access.Public => "public",
-                Access.Internal => "public",
+                Access.Internal => "internal",
                 Access.Protected => "protected",
                 Access.InternalProtected => "internal protected",
                 Access.Private => "private",

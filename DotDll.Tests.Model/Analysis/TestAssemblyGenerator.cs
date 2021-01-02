@@ -60,7 +60,7 @@ namespace DotDll.Tests.Model.Analysis
         public Assembly Generate()
         {
             var builder = AssemblyBuilder.DefineDynamicAssembly(
-                new AssemblyName("Test.Assembly"), AssemblyBuilderAccess.ReflectionOnly
+                new AssemblyName("Test.Assembly"), AssemblyBuilderAccess.RunAndSave
             );
 
             var moduleBuilder = builder.DefineDynamicModule("Test.Assembly.Module");

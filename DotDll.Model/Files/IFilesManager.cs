@@ -15,7 +15,7 @@ namespace DotDll.Model.Files
         public Stream OpenFileWrite(string path);
 
         public Stream OpenFileRead(string path);
-        
+
         string FileInPath(string filesPath, string filename);
     }
 }

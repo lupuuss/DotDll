@@ -22,7 +22,7 @@ namespace DotDll.Model.Data
             Name = null!;
             Types = null!;
         }
-        
+
         public string Name { get; private set; }
 
         public List<Type> Types { get; private set; }

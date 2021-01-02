@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Text;
-using DotDll.Model.Data;
 using AutoMapper;
+using DotDll.Model.Data;
 using DotDll.Model.Serialization.File.Data;
 using Newtonsoft.Json;
 
@@ -21,8 +21,9 @@ namespace DotDll.Model.Serialization.File.Json
         {
             _mapper = mapper;
         }
-        
+
         public string Extension { get; } = "json";
+
         public void SerializeIndex(Stream indexStream, Index index)
         {
             var serializer = JsonSerializer.Create(_settings);

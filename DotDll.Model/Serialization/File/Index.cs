@@ -24,8 +24,8 @@ namespace DotDll.Model.Serialization.File
 
             lastTaken = lastTaken.Replace($"{metadataInfoName}_", "");
 
-            return int.TryParse(lastTaken, out var result) 
-                ? $"{metadataInfoName}_{result + 1}" 
+            return int.TryParse(lastTaken, out var result)
+                ? $"{metadataInfoName}_{result + 1}"
                 : $"{metadataInfoName}_{new Random().Next()}";
         }
     }

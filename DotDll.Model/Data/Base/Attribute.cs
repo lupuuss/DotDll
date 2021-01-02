@@ -6,10 +6,6 @@ namespace DotDll.Model.Data.Base
 {
     public class Attribute
     {
-        public string Name { get; private set; }
-
-        public Dictionary<string, string> Values { get; private set; }
-        
         public Attribute(string name, Dictionary<string, string> values)
         {
             Name = name;
@@ -21,5 +17,9 @@ namespace DotDll.Model.Data.Base
             Name = null!;
             Values = null!;
         }
+
+        public string Name { get; private set; }
+
+        public Dictionary<string, string> Values { get; private set; }
     }
 }

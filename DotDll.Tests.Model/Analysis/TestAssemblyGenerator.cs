@@ -1,60 +1,60 @@
 ﻿using System;
 using System.Reflection;
 using System.Reflection.Emit;
+
 // ReSharper disable MemberCanBeMadeStatic.Local
 
 namespace DotDll.Tests.Model.Analysis
 {
-    /// 
     /// TestAssemblyGenerator generates assembly with 2 namespaces { Namespace1, Namespace2 }
     /// namespace Namespace1
     /// {
     ///     class TestClass
     ///     {
     ///         public virtual string PublicVirtualMethod(int index, string str) {}
-    ///
+    /// 
     ///         private sealed string PrivateSealed(int) {}
-    ///
+    /// 
     ///         protected const string ConstProtectedField;
-    ///
+    /// 
     ///         protected internal object ProtectedInternalField;
-    ///
+    /// 
     ///         internal readonly int ReadOnlyInternalField;
-    ///
+    /// 
     ///         public static int StaticField;
-    ///
+    /// 
     ///         public event Action TestEvent;
-    ///
+    /// 
     ///         public int TestProperty { get; set; }
     ///     }
-    ///
+    /// 
+    /// 
     ///     public interface Interface
     ///     {
-    ///        public string AbstractMethod(int);
-    ///
-    ///        public class PublicNestedType{}
+    ///         public string AbstractMethod(int);
     /// 
-    ///        protected class ProtectedNestedType{}
+    ///         public class PublicNestedType {}
     /// 
-    ///        protected internal class ProtectedInternalNestedType{}
+    ///         protected class ProtectedNestedType {}
     /// 
-    ///        internal class InternalNestedType{}
+    ///         protected internal class ProtectedInternalNestedType {}
     /// 
-    ///        private class PrivateNestedType{}
+    ///         internal class InternalNestedType {}
+    /// 
+    ///         private class PrivateNestedType {}
     ///     }
-    ///
+    /// 
     ///     public static class StaticClass
     ///     {
     ///     }
     /// }
-    ///
+    /// 
     /// namespace Namespace2
     /// {
     ///     public enum EmptyEnum
     ///     {
     ///     }
     /// }
-    ///
     public class TestAssemblyGenerator
     {
         public Assembly Generate()
@@ -78,7 +78,7 @@ namespace DotDll.Tests.Model.Analysis
 
         private void DefineStaticClass(string nSpace, ModuleBuilder moduleBuilder)
         {
-            const TypeAttributes attr = 
+            const TypeAttributes attr =
                 TypeAttributes.Class | TypeAttributes.Sealed | TypeAttributes.Abstract | TypeAttributes.Public;
 
             moduleBuilder.DefineType($"{nSpace}.StaticClass", attr).CreateType();
@@ -86,7 +86,7 @@ namespace DotDll.Tests.Model.Analysis
 
         private void DefineInterface(string nSpace, ModuleBuilder moduleBuilder)
         {
-            const TypeAttributes attrs = 
+            const TypeAttributes attrs =
                 TypeAttributes.Interface | TypeAttributes.Abstract | TypeAttributes.Public;
 
             var typeBuilder = moduleBuilder

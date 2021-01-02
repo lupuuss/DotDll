@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -118,7 +117,7 @@ namespace DotDll.Logic.Metadata
         public static MetadataService CreateDefault()
         {
             var files = new FilesManager();
-            
+
             return new MetadataService(
                 files,
                 FileMetadataSerializer.Create(".\\serialization\\", files, FileType.Xml),

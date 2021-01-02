@@ -6,16 +6,12 @@ namespace DotDll.Model.Serialization.File.Data.Members
     [DataContract(Namespace = "", Name = "P")]
     public class SProperty : SMember
     {
-        [DataMember(Name = "g")]
-        public SMethod? Getter;
+        [DataMember(Name = "cr")] public bool CanRead;
 
-        [DataMember(Name = "s")]
-        public SMethod? Setter;
+        [DataMember(Name = "cw")] public bool CanWrite;
 
-        [DataMember(Name = "cr")]
-        public bool CanRead;
+        [DataMember(Name = "g")] public SMethod? Getter;
 
-        [DataMember(Name = "cw")]
-        public bool CanWrite;
+        [DataMember(Name = "s")] public SMethod? Setter;
     }
 }

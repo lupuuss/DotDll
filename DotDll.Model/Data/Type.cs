@@ -23,7 +23,7 @@ namespace DotDll.Model.Data
             Access access,
             Kind typeKind,
             bool isSealed,
-            bool isAbstract 
+            bool isAbstract
         )
         {
             Name = name;
@@ -43,17 +43,6 @@ namespace DotDll.Model.Data
 
         public string Name { get; private set; }
 
-        public string FullName()
-        {
-            if (GenericArguments.Any())
-                return Name + $"<{string.Join(", ", GenericArguments.Select(arg => arg.Name))}>";
-
-            if (GenericConstraints.Any())
-                return Name + $" : {string.Join(", ", GenericConstraints.Select(arg => arg.Name))}";
-
-            return Name;
-        }
-
         public Access Access { get; private set; }
 
         public Kind TypeKind { get; private set; }
@@ -69,9 +58,21 @@ namespace DotDll.Model.Data
         public List<Type> GenericArguments { get; private set; } = new List<Type>();
 
         public List<Type> GenericConstraints { get; private set; } = new List<Type>();
-        
+
         public List<Type> BaseTypes { get; private set; } = new List<Type>();
+        
         public List<Attribute> Attributes { get; private set; } = new List<Attribute>();
+
+        public string FullName()
+        {
+            if (GenericArguments.Any())
+                return Name + $"<{string.Join(", ", GenericArguments.Select(arg => arg.Name))}>";
+
+            if (GenericConstraints.Any())
+                return Name + $" : {string.Join(", ", GenericConstraints.Select(arg => arg.Name))}";
+
+            return Name;
+        }
 
         internal void AddMember(Member member)
         {

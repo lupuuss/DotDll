@@ -16,25 +16,13 @@ namespace DotDll.Tests.Model.Serialization.File
     [TestFixture(FileType.Json)]
     public class FileMetadataSerializerTest
     {
-        private readonly FileType _type;
-
-        public FileMetadataSerializerTest(FileType type)
-        {
-            _type = type;
-        }
-        
-        private IMetadataSerializer _serializer;
-        private Mock<IFilesManager> _filesManagerMock;
-        private IFilesManager _filesManager;
-        private Dictionary<string, MemoryStream> _streams;
-
         [SetUp]
         public void SetUp()
         {
             _filesManagerMock = new Mock<IFilesManager>();
 
             _streams = new Dictionary<string, MemoryStream>();
-            
+
             _filesManagerMock
                 .Setup(f => f.FileExists(It.IsAny<string>()))
                 .Returns<string>(path => _streams.ContainsKey(path));
@@ -46,11 +34,11 @@ namespace DotDll.Tests.Model.Serialization.File
             _filesManagerMock
                 .Setup(f => f.FileInPath(It.IsAny<string>(), It.IsAny<string>()))
                 .Returns<string, string>(Path.Combine);
-            
+
             _filesManagerMock
                 .Setup(f => f.OpenFileRead(It.IsAny<string>()))
                 .Returns<string>(path => new MemoryStream(_streams[path].ToArray()));
-            
+
             _filesManagerMock
                 .Setup(f => f.OpenFileWrite(It.IsAny<string>()))
                 .Returns<string>(path =>
@@ -62,6 +50,18 @@ namespace DotDll.Tests.Model.Serialization.File
             _serializer = FileMetadataSerializer.Create(".\\files\\", _filesManager, _type);
         }
 
+        private readonly FileType _type;
+
+        public FileMetadataSerializerTest(FileType type)
+        {
+            _type = type;
+        }
+
+        private IMetadataSerializer _serializer;
+        private Mock<IFilesManager> _filesManagerMock;
+        private IFilesManager _filesManager;
+        private Dictionary<string, MemoryStream> _streams;
+
         [Test]
         public void GetAllIds_Always_ReturnsSerializedIds()
         {
@@ -71,14 +71,14 @@ namespace DotDll.Tests.Model.Serialization.File
             _serializer.Serialize(metadata1);
 
             var ids = _serializer.GetAllIds();
-            
-            CollectionAssert.AreEqual(new [] {"Name1_0"}, ids);
-            
+
+            CollectionAssert.AreEqual(new[] {"Name1_0"}, ids);
+
             _serializer.Serialize(metadata2);
-            
+
             ids = _serializer.GetAllIds();
 
-            CollectionAssert.AreEqual(new [] {"Name1_0", "Name2_0"}, ids);
+            CollectionAssert.AreEqual(new[] {"Name1_0", "Name2_0"}, ids);
         }
 
         [Test]
@@ -94,73 +94,72 @@ namespace DotDll.Tests.Model.Serialization.File
             _streams.Remove(key);
 
             var actual = _serializer.GetAllIds();
-            CollectionAssert.AreEqual(new []{"Name1_0"}, actual);
+            CollectionAssert.AreEqual(new[] {"Name1_0"}, actual);
         }
 
         [Test]
         public void Serialize_Always_ProvidesUniqueName()
         {
             var metadata = new MetadataInfo("Name");
-            
+
             _serializer.Serialize(metadata);
             _serializer.Serialize(metadata);
             _serializer.Serialize(metadata);
 
             var ids = _serializer.GetAllIds();
-            
-            CollectionAssert.AreEqual(new [] {"Name_0", "Name_1", "Name_2"}, ids);
+
+            CollectionAssert.AreEqual(new[] {"Name_0", "Name_1", "Name_2"}, ids);
         }
 
         [Test]
         public void Serialize_Deserialize_CheckStructureAndCircularReference()
         {
             // SETUP
-            
+
             var metadataInfo = new MetadataInfo("TestMetadataInfo");
             var nSpace = new Namespace("Namespace1");
-            
+
             var type = new Type("Class1", Access.Public, Type.Kind.Class, true, false);
 
             type.Members.Add(new Field("CircularField", Access.Protected, type, false));
-            
+
             nSpace.AddType(type);
-            
+
             metadataInfo.AddNamespace(nSpace);
 
             // CALL
-            
+
             _serializer.Serialize(metadataInfo);
 
             var deserializedMetadataInfo = _serializer.Deserialize("TestMetadataInfo_0");
-            
+
             // ASSERT
-            
+
             Assert.AreEqual("TestMetadataInfo", deserializedMetadataInfo.Name);
             Assert.AreEqual(1, deserializedMetadataInfo.Namespaces.Count);
 
             var deserializedNs = deserializedMetadataInfo.Namespaces[0];
-            
+
             Assert.AreEqual("Namespace1", deserializedNs.Name);
             Assert.AreEqual(1, deserializedMetadataInfo.Namespaces[0].Types.Count);
 
             var deserializedType = deserializedNs.Types[0];
-            
+
             Assert.AreEqual("Class1", deserializedType.Name);
             Assert.AreEqual(1, deserializedType.Members.Count);
 
             var deserializedMember = deserializedType.Members[0];
-            
+
             Assert.IsInstanceOf<Field>(deserializedMember);
 
             var deserializedField = (Field) deserializedMember;
-            
+
             Assert.AreEqual(deserializedType, deserializedField.ReturnType);
             Assert.AreEqual("CircularField", deserializedField.Name);
             Assert.AreEqual(Access.Protected, deserializedField.AccessLevel);
             Assert.False(deserializedField.IsStatic);
-
         }
-        
+
         [TestCase("Class1", Access.Public, Type.Kind.Class, true, true)]
         [TestCase("Class2", Access.Protected, Type.Kind.Interface, true, false)]
         [TestCase("Class3", Access.Internal, Type.Kind.Enum, false, true)]
@@ -168,27 +167,26 @@ namespace DotDll.Tests.Model.Serialization.File
         [TestCase("Class5", Access.Private, Type.Kind.GenericArg, true, true)]
         public void Serialize_Deserialize_CheckType(
             string typeName,
-            Access access, 
-            Type.Kind kind, 
-            bool isSealed, 
+            Access access,
+            Type.Kind kind,
+            bool isSealed,
             bool isAbstract
-            )
+        )
         {
-            
             // SETUP
-            
+
             var metadataInfo = new MetadataInfo("TestMetadataInfo");
             var nSpace = new Namespace("Namespace1");
-            
+
             var type = new Type(typeName, access, kind, isSealed, isAbstract);
             var baseType = new Type("BaseType", Access.Public, Type.Kind.Class, false, true);
             var generic = new Type("T", Access.Public, Type.Kind.GenericArg, false, false);
             generic.GenericConstraints.Add(baseType);
-            
+
             baseType.Members.Add(new NestedType(type));
 
             var field = new Field("Field1", Access.Private, type, false, Field.Constraint.ReadOnly);
-            
+
             type.BaseTypes.Add(baseType);
 
             type.Members.Add(field);
@@ -199,17 +197,17 @@ namespace DotDll.Tests.Model.Serialization.File
             nSpace.AddType(type);
             nSpace.AddType(baseType);
             metadataInfo.AddNamespace(nSpace);
-            
+
             // CALL
-            
+
             _serializer.Serialize(metadataInfo);
 
             var deserialized = _serializer.Deserialize("TestMetadataInfo_0");
 
             var deserializedType = deserialized.Namespaces[0].Types[0];
-            
+
             // ASSERT
-            
+
             Assert.AreEqual(typeName, deserializedType.Name);
             Assert.AreEqual(access, deserializedType.Access);
             Assert.AreEqual(kind, deserializedType.TypeKind);
@@ -228,39 +226,45 @@ namespace DotDll.Tests.Model.Serialization.File
         [TestCase(Access.Protected, false, false, false, false)]
         [TestCase(Access.Internal, true, false, false, true)]
         [TestCase(Access.Private, false, true, true, false)]
-        public void Serialize_Deserialize_CheckMethod(Access access, bool isSealed, bool isStatic, bool isAbstract, bool isVirtual)
+        public void Serialize_Deserialize_CheckMethod(
+            Access access,
+            bool isSealed, 
+            bool isStatic, 
+            bool isAbstract,
+            bool isVirtual
+            )
         {
-            
             // SETUP
-            
+
             var metadataInfo = new MetadataInfo("TestMetadataInfo");
             var nSpace = new Namespace("Namespace1");
-            
+
             var type = new Type("Class", Access.Public, Type.Kind.Class, false, true);
 
             var argType = new Type("String", Access.Public, Type.Kind.Class, true, false);
-            
+
             var genericType = new Type("T", Access.Public, Type.Kind.GenericArg, false, false);
-            
+
             var method = new Method.Builder("Method", access)
                 .WithReturnType(argType)
                 .WithSealed(isSealed)
                 .WithStatic(isStatic)
                 .WithAbstract(isAbstract)
                 .WithVirtual(isVirtual)
-                .WithParameters(new List<Parameter> {new Parameter("str", argType), new Parameter("generic", genericType)})
+                .WithParameters(new List<Parameter>
+                    {new Parameter("str", argType), new Parameter("generic", genericType)})
                 .WithGenericArguments(new List<Type> {genericType})
                 .Build();
-            
+
             type.Members.Add(method);
-            
+
             nSpace.AddType(type);
             nSpace.AddType(argType);
-            
+
             metadataInfo.AddNamespace(nSpace);
-            
+
             // CALL
-            
+
             _serializer.Serialize(metadataInfo);
 
             var deserialized = _serializer.Deserialize("TestMetadataInfo_0");
@@ -271,7 +275,7 @@ namespace DotDll.Tests.Model.Serialization.File
             var deserializedMethod = (Method) deserializedType.Members[0];
 
             // ASSERT
-            
+
             Assert.AreEqual("Method", deserializedMethod.Name);
             Assert.AreEqual(access, deserializedMethod.AccessLevel);
             Assert.AreEqual(isSealed, deserializedMethod.IsSealed);
@@ -281,16 +285,16 @@ namespace DotDll.Tests.Model.Serialization.File
             Assert.AreEqual(deserializedArgType, deserializedMethod.ReturnType);
 
             var param1 = deserializedMethod.Parameters[0];
-            
+
             Assert.AreEqual("str", param1.Name);
             Assert.AreEqual(deserializedArgType, param1.ParameterType);
 
             var param2 = deserializedMethod.Parameters[1];
 
             Assert.AreEqual(1, deserializedMethod.GenericArguments.Count);
-            
+
             var deserializedGenericType = deserializedMethod.GenericArguments[0];
-            
+
             Assert.AreEqual("generic", param2.Name);
             Assert.AreEqual(deserializedGenericType, param2.ParameterType);
             Assert.AreEqual("T", deserializedGenericType.Name);
@@ -307,26 +311,26 @@ namespace DotDll.Tests.Model.Serialization.File
             var propertyType = new Type("string", Access.Public, Type.Kind.Class, true, false);
             var type = new Type("Class", Access.Public, Type.Kind.Class, false, true);
 
-            var getter = applyGetter 
+            var getter = applyGetter
                 ? new Method.Builder("Getter", Access.Protected)
                     .WithReturnType(propertyType)
-                    .Build() 
+                    .Build()
                 : null;
-            
-            var setter = applySetter 
+
+            var setter = applySetter
                 ? new Method.Builder("Setter", Access.Private)
                     .WithParameters(new List<Parameter> {new Parameter("x", propertyType)})
-                    .Build() 
+                    .Build()
                 : null;
-            
+
             type.Members.Add(new Property("Property", getter, setter));
-            
+
             nSpace.AddType(type);
 
             metadataInfo.AddNamespace(nSpace);
-            
+
             // CALL
-            
+
             _serializer.Serialize(metadataInfo);
 
             var deserialized = _serializer.Deserialize("TestMetadataInfo_0");
@@ -336,10 +340,10 @@ namespace DotDll.Tests.Model.Serialization.File
             var deserializedProperty = (Property) deserializedType.Members[0];
 
             // ASSERT
-            
+
             Assert.AreEqual("Property", deserializedProperty.Name);
             Assert.AreEqual("string", deserializedProperty.ReturnType.Name);
-            
+
             if (applyGetter)
             {
                 Assert.NotNull(deserializedProperty.Getter);
@@ -351,7 +355,7 @@ namespace DotDll.Tests.Model.Serialization.File
             {
                 Assert.False(deserializedProperty.CanRead);
             }
-            
+
             if (applySetter)
             {
                 Assert.NotNull(deserializedProperty.Setter);
@@ -363,7 +367,6 @@ namespace DotDll.Tests.Model.Serialization.File
             {
                 Assert.False(deserializedProperty.CanWrite);
             }
-
         }
 
         [TestCase(Field.Constraint.None, true)]
@@ -371,7 +374,6 @@ namespace DotDll.Tests.Model.Serialization.File
         [TestCase(Field.Constraint.Const, true)]
         public void Serialize_Deserialize_CheckField(Field.Constraint constraint, bool isStatic)
         {
-
             var metadataInfo = new MetadataInfo("TestMetadataInfo");
             var nSpace = new Namespace("Namespace1");
 
@@ -383,23 +385,23 @@ namespace DotDll.Tests.Model.Serialization.File
             nSpace.AddType(type);
 
             metadataInfo.AddNamespace(nSpace);
-            
+
             // CALL
-            
+
             _serializer.Serialize(metadataInfo);
 
             var deserialized = _serializer.Deserialize("TestMetadataInfo_0");
 
             var deserializedType = deserialized.Namespaces[0].Types[0];
-            
+
             var deserializedField = (Field) deserializedType.Members[0];
 
             // ASSERT
-            
+
             Assert.AreEqual("Field", deserializedField.Name);
             Assert.AreEqual("string", deserializedField.ReturnType.Name);
             Assert.AreEqual(Access.Protected, deserializedField.AccessLevel);
-            
+
             Assert.AreEqual(isStatic, deserializedField.IsStatic);
             Assert.AreEqual(constraint, deserializedField.FieldConstraint);
         }
@@ -418,25 +420,25 @@ namespace DotDll.Tests.Model.Serialization.File
             nSpace.AddType(type);
 
             metadataInfo.AddNamespace(nSpace);
-            
+
             // CALL
-            
+
             _serializer.Serialize(metadataInfo);
 
             var deserialized = _serializer.Deserialize("TestMetadataInfo_0");
 
             var deserializedType = deserialized.Namespaces[0].Types[0];
-            
+
             var deserializedNested = (NestedType) deserializedType.Members[0];
 
             // ASSERT
-            
+
             Assert.AreEqual("Nested", deserializedNested.Name);
             Assert.AreEqual("Nested", deserializedNested.Type.Name);
             Assert.AreEqual(Access.Protected, deserializedNested.AccessLevel);
             Assert.AreEqual(Access.Protected, deserializedNested.Type.Access);
         }
-        
+
         [Test]
         public void Serialize_Deserialize_CheckEvent()
         {
@@ -449,17 +451,17 @@ namespace DotDll.Tests.Model.Serialization.File
             var parameters = new List<Parameter> {new Parameter("param", eventType)};
 
             var addMethod = new Method.Builder("_add", Access.Public).WithParameters(parameters).Build();
-            
+
             var removeMethod = new Method.Builder("_remove", Access.Public).WithParameters(parameters).Build();
-            
-            type.Members.Add(new Event("Event", removeMethod, addMethod , null));
-            
+
+            type.Members.Add(new Event("Event", removeMethod, addMethod, null));
+
             nSpace.AddType(type);
 
             metadataInfo.AddNamespace(nSpace);
-            
+
             // CALL
-            
+
             _serializer.Serialize(metadataInfo);
 
             var deserialized = _serializer.Deserialize("TestMetadataInfo_0");
@@ -471,15 +473,15 @@ namespace DotDll.Tests.Model.Serialization.File
             // ASSERT
 
             Assert.AreEqual("Event", deserializedEvent.Name);
-            
+
             Assert.NotNull(deserializedEvent.AddMethod);
             Assert.AreEqual("_add", deserializedEvent.AddMethod.Name);
-            
+
             Assert.NotNull(deserializedEvent.RemoveMethod);
             Assert.AreEqual("_remove", deserializedEvent.RemoveMethod.Name);
-            
+
             Assert.Null(deserializedEvent.RaiseMethod);
-            
+
             Assert.AreEqual("Action", deserializedEvent.EventType.Name);
         }
     }

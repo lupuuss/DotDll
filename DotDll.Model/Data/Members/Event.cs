@@ -33,10 +33,13 @@ namespace DotDll.Model.Data.Members
         {
             EventType = null!;
         }
-        
+
         public Method? RaiseMethod { get; private set; }
+        
         public Method? AddMethod { get; private set; }
+        
         public Method? RemoveMethod { get; private set; }
+        
         public Type EventType { get; private set; }
 
         public override IEnumerable<Type> GetRelatedTypes()

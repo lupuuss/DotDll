@@ -8,19 +8,14 @@ namespace DotDll.Model.Serialization.File.Data.Members
     [DataContract(Namespace = "", Name = "ME")]
     public class SMethod : SMember
     {
-        [DataMember(Name = "iv")]
-        public bool IsVirtual;
+        [DataMember(Name = "ga")] public List<SType> GenericArguments = null!;
 
-        [DataMember(Name = "ise")]
-        public bool IsSealed;
+        [DataMember(Name = "ise")] public bool IsSealed;
 
-        [DataMember(Name = "rt")]
-        public SType ReturnType = null!;
+        [DataMember(Name = "iv")] public bool IsVirtual;
 
-        [DataMember(Name = "p")]
-        public List<SParameter> Parameters = null!;
+        [DataMember(Name = "p")] public List<SParameter> Parameters = null!;
 
-        [DataMember(Name = "ga")]
-        public List<SType> GenericArguments = null!;
+        [DataMember(Name = "rt")] public SType ReturnType = null!;
     }
 }

@@ -17,7 +17,7 @@ namespace DotDll.Model.Data.Members
         {
             Type = null!;
         }
-        
+
         public Type Type { get; private set; }
 
         public override IEnumerable<Type> GetRelatedTypes()

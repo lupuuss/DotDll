@@ -4,7 +4,6 @@ using DotDll.Model.Serialization.File.Data.Members;
 
 namespace DotDll.Model.Serialization.File.Data.Base
 {
-
     [KnownType(typeof(SEvent))]
     [KnownType(typeof(SField))]
     [KnownType(typeof(SMethod))]
@@ -13,19 +12,14 @@ namespace DotDll.Model.Serialization.File.Data.Base
     [DataContract(Namespace = "", Name = "M")]
     public abstract class SMember
     {
-        [DataMember(Name = "n")]
-        public string Name = null!;
+        [DataMember(Name = "al")] public int AccessLevel;
 
-        [DataMember(Name = "al")]
-        public int AccessLevel;
+        [DataMember(Name = "atr")] public List<SAttribute> Attributes = null!;
 
-        [DataMember(Name = "is")]
-        public bool IsStatic;
+        [DataMember(Name = "ia")] public bool IsAbstract;
 
-        [DataMember(Name = "ia")]
-        public bool IsAbstract;
-        
-        [DataMember(Name = "atr")] 
-        public List<SAttribute> Attributes = null!;
+        [DataMember(Name = "is")] public bool IsStatic;
+
+        [DataMember(Name = "n")] public string Name = null!;
     }
 }

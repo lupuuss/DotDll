@@ -43,11 +43,8 @@ namespace DotDll.Logic.Metadata.Map
 
             string declaration = "";
 
-            if (type.Attributes.Any())
-            {
-                declaration = $"[{string.Join(", ", type.Attributes.Select(a => a.Name))}]\n";
-            }
-            
+            if (type.Attributes.Any()) declaration = $"[{string.Join(", ", type.Attributes.Select(a => a.Name))}]\n";
+
             declaration += GetAccessString(type.Access);
 
             if (type.IsStatic)
@@ -64,10 +61,8 @@ namespace DotDll.Logic.Metadata.Map
             declaration += $" {MapTypeKind(type.TypeKind)} {type.FullName()}";
 
             if (type.BaseTypes.Any())
-            {
                 declaration += $" : {string.Join(", ", type.BaseTypes.Select(t => t.FullName()))}";
-            }
-            
+
             var dType = new DType(declaration);
 
             _typesMapping[type] = dType;
@@ -92,9 +87,8 @@ namespace DotDll.Logic.Metadata.Map
 
         private DMember MapMember(Member member)
         {
-
             var declarationInit = GetAttributesString(member);
-            
+
             return member switch
             {
                 Event eve => MapEvent(eve, declarationInit),
@@ -138,7 +132,7 @@ namespace DotDll.Logic.Metadata.Map
                 declaration += "static ";
             else if (method.IsAbstract)
                 declaration += "abstract ";
-            else if (method.IsVirtual) 
+            else if (method.IsVirtual)
                 declaration += "virtual ";
 
             if (method.IsSealed) declaration += "sealed ";
@@ -155,9 +149,8 @@ namespace DotDll.Logic.Metadata.Map
 
         private string MapGenericArguments(IEnumerable<Type> methodGenericArguments)
         {
-
             var args = string.Join(", ", methodGenericArguments.Select(arg => arg.FullName()));
-            
+
             return $"<{args}>";
         }
 
@@ -172,7 +165,7 @@ namespace DotDll.Logic.Metadata.Map
             };
 
             var declaration = declarationInit;
-            
+
             declaration += constraint != ""
                 ? $"{GetAccessString(field.AccessLevel)} {constraint} "
                 : $"{GetAccessString(field.AccessLevel)} ";
@@ -205,7 +198,7 @@ namespace DotDll.Logic.Metadata.Map
 
             return new DMember(declaration, eve.GetRelatedTypes().Select(MapType).ToList());
         }
-        
+
         private string MapParameters(IEnumerable<Parameter> parameters)
         {
             return "(" + string.Join(
@@ -213,14 +206,14 @@ namespace DotDll.Logic.Metadata.Map
                 parameters.Select(param =>
                 {
                     var attrs = param.Attributes.Any()
-                        ? "[" + string.Join(",", param.Attributes.Select(a => a.Name)) + "]"
+                        ? "[" + string.Join(", ", param.Attributes.Select(a => a.Name)) + "] "
                         : "";
-                    
-                    return $"{attrs} {param.ParameterType.FullName()} {param.Name}";
+
+                    return $"{attrs}{param.ParameterType.FullName()} {param.Name}";
                 })
             ) + ")";
         }
-        
+
         private string GetAccessString(Access typeAccess)
         {
             return typeAccess switch

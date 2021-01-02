@@ -6,7 +6,6 @@ namespace DotDll.Model.Serialization.File.Data.Members
     [DataContract(Namespace = "", Name = "NT")]
     public class SNestedType : SMember
     {
-        [DataMember(Name = "t")]
-        public SType Type = null!;
+        [DataMember(Name = "t")] public SType Type = null!;
     }
 }

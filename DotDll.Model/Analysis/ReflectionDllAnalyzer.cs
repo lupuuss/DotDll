@@ -4,6 +4,7 @@ using System.Reflection;
 using DotDll.Model.Data;
 using DotDll.Model.Data.Base;
 using DotDll.Model.Data.Members;
+using Type = System.Type;
 
 // ReSharper disable MemberCanBeMadeStatic.Local
 
@@ -16,7 +17,7 @@ namespace DotDll.Model.Analysis
         private readonly BindingFlags _flags;
 
         private readonly AssemblyProvider _provider;
-        private readonly Dictionary<System.Type, Type> _typesMapping = new Dictionary<System.Type, Type>();
+        private readonly Dictionary<Type, Data.Type> _typesMapping = new Dictionary<Type, Data.Type>();
 
         public ReflectionDllAnalyzer(AssemblyProvider provider, bool accessNonPublic = false)
         {
@@ -25,10 +26,10 @@ namespace DotDll.Model.Analysis
             if (accessNonPublic)
             {
                 _flags = BindingFlags.Public | BindingFlags.Instance |
-                        BindingFlags.Static | BindingFlags.NonPublic;
+                         BindingFlags.Static | BindingFlags.NonPublic;
                 return;
             }
-           
+
             _flags = BindingFlags.Public | BindingFlags.Instance |
                      BindingFlags.Static;
         }
@@ -56,7 +57,7 @@ namespace DotDll.Model.Analysis
             return metadataInfo;
         }
 
-        private Namespace AnalyzeNamespace(string namespaceName, IEnumerable<System.Type> namespaceTypes)
+        private Namespace AnalyzeNamespace(string namespaceName, IEnumerable<Type> namespaceTypes)
         {
             var nSpace = new Namespace(namespaceName);
 
@@ -69,35 +70,33 @@ namespace DotDll.Model.Analysis
             return nSpace;
         }
 
-        private Type AnalyzeType(System.Type systemType)
+        private Data.Type AnalyzeType(Type systemType)
         {
             if (_typesMapping.ContainsKey(systemType)) return _typesMapping[systemType];
 
-            var type = new Type(
+            var type = new Data.Type(
                 systemType.Name,
                 AnalyzeTypeAccessLevel(systemType),
                 AnalyzeTypeKind(systemType),
                 systemType.IsSealed,
                 systemType.IsAbstract
             );
-            
+
             type.Attributes.AddRange(
                 AnalyzeAttributes(System.Attribute.GetCustomAttributes(systemType, false))
-                );
+            );
 
             _typesMapping[systemType] = type;
 
-            var baseTypes = new List<Type>();
+            var baseTypes = new List<Data.Type>();
 
             if (systemType.BaseType != null && systemType.BaseType != typeof(object))
-            {
-                baseTypes.Add(AnalyzeType(systemType.BaseType));   
-            }
+                baseTypes.Add(AnalyzeType(systemType.BaseType));
 
             baseTypes.AddRange(systemType.GetInterfaces().Select(AnalyzeType));
-            
+
             type.BaseTypes.AddRange(baseTypes);
-            
+
             var genericArgs = systemType.GetGenericArguments().Select(AnalyzeType);
 
             type.GenericArguments.AddRange(genericArgs);
@@ -112,8 +111,8 @@ namespace DotDll.Model.Analysis
 
             return type;
         }
-        
-        private void AnalyzeTypeMembers(Type type, System.Type systemType)
+
+        private void AnalyzeTypeMembers(Data.Type type, Type systemType)
         {
             AnalyzeTypeConstructor(type, systemType);
             AnalyzeTypeField(type, systemType);
@@ -123,7 +122,7 @@ namespace DotDll.Model.Analysis
             AnalyzeNestedType(type, systemType);
         }
 
-        private void AnalyzeTypeConstructor(Type type, System.Type systemType)
+        private void AnalyzeTypeConstructor(Data.Type type, Type systemType)
         {
             foreach (var constructorInfo in systemType.GetConstructors(_flags))
             {
@@ -132,14 +131,14 @@ namespace DotDll.Model.Analysis
                     AnalyzeAccessLevel(constructorInfo),
                     AnalyzeMethodParameters(constructorInfo.GetParameters())
                 );
-                
+
                 AnalyzeMemberAttributes(constr, constructorInfo);
-                
+
                 type.AddMember(constr);
             }
         }
 
-        private void AnalyzeTypeField(Type type, IReflect systemType)
+        private void AnalyzeTypeField(Data.Type type, IReflect systemType)
         {
             foreach (var fieldInfo in systemType.GetFields(_flags))
             {
@@ -159,13 +158,13 @@ namespace DotDll.Model.Analysis
                     fieldInfo.IsStatic,
                     constraint
                 );
-                
+
                 AnalyzeMemberAttributes(field, fieldInfo);
                 type.AddMember(field);
             }
         }
 
-        private void AnalyzeTypeEvents(Type type, System.Type systemType)
+        private void AnalyzeTypeEvents(Data.Type type, Type systemType)
         {
             foreach (var eventInfo in systemType.GetEvents(_flags))
             {
@@ -180,20 +179,20 @@ namespace DotDll.Model.Analysis
                 type.AddMember(eve);
             }
         }
-        
-        private void AnalyzeNestedType(Type type, System.Type systemType)
+
+        private void AnalyzeNestedType(Data.Type type, Type systemType)
         {
             foreach (var nested in systemType.GetNestedTypes(_flags))
             {
                 var n = new NestedType(AnalyzeType(nested));
-                
+
                 AnalyzeMemberAttributes(n, nested);
-                
+
                 type.AddMember(n);
             }
         }
-        
-        private void AnalyzeTypeProperties(Type type, IReflect systemType)
+
+        private void AnalyzeTypeProperties(Data.Type type, IReflect systemType)
         {
             foreach (var propertyInfo in systemType.GetProperties(_flags))
             {
@@ -201,26 +200,23 @@ namespace DotDll.Model.Analysis
                 var setter = propertyInfo.SetMethod;
 
                 var property = new Property(propertyInfo.Name, AnalyzeMethod(getter), AnalyzeMethod(setter));
-                
+
                 AnalyzeMemberAttributes(property, propertyInfo);
                 type.AddMember(property);
             }
         }
 
-        private void AnalyzeTypeMethods(Type type, IReflect systemType)
+        private void AnalyzeTypeMethods(Data.Type type, IReflect systemType)
         {
             foreach (var methodInfo in systemType.GetMethods(_flags))
             {
                 var method = AnalyzeMethod(methodInfo);
 
 
-                if (method != null)
-                {
-                    type.AddMember(method);
-                }
+                if (method != null) type.AddMember(method);
             }
         }
-        
+
         private Method? AnalyzeMethod(MethodInfo? methodInfo)
         {
             if (methodInfo == null) return null;
@@ -236,8 +232,8 @@ namespace DotDll.Model.Analysis
                 .WithParameters(AnalyzeMethodParameters(methodInfo.GetParameters()))
                 .WithGenericArguments(methodInfo.GetGenericArguments().Select(AnalyzeType).ToList())
                 .Build();
-            
-                            
+
+
             AnalyzeMemberAttributes(method, methodInfo);
 
             return method;
@@ -249,22 +245,18 @@ namespace DotDll.Model.Analysis
                 .Select(param =>
                 {
                     var p = new Parameter(param.Name, AnalyzeType(param.ParameterType));
-                    
+
                     var attribs = System.Attribute.GetCustomAttributes(param, false);
 
-                    if (attribs != null)
-                    {
-                        p.Attributes.AddRange(AnalyzeAttributes(attribs));
-                    }
+                    if (attribs != null) p.Attributes.AddRange(AnalyzeAttributes(attribs));
 
                     return p;
                 })
                 .ToList();
         }
-        
+
         private IEnumerable<Attribute> AnalyzeAttributes(IEnumerable<System.Attribute> attributes)
         {
-            
             return attributes
                 .Select(a =>
                 {
@@ -272,30 +264,30 @@ namespace DotDll.Model.Analysis
                         .GetType()
                         .GetProperties()
                         .ToDictionary(p => p.Name, p => p.GetValue(a)?.ToString() ?? "null");
-                    
+
                     return new Attribute(a.GetType().Name.Replace("Attribute", ""), values);
                 });
         }
-        
+
         private void AnalyzeMemberAttributes(Member member, MemberInfo memberInfo)
         {
             var attributes = System.Attribute.GetCustomAttributes(memberInfo, false);
-            
+
             member.Attributes.AddRange(AnalyzeAttributes(attributes));
         }
-        
-        private Type.Kind AnalyzeTypeKind(System.Type type)
+
+        private Data.Type.Kind AnalyzeTypeKind(Type type)
         {
-            if (type.IsArray) return Type.Kind.Array;
+            if (type.IsArray) return Data.Type.Kind.Array;
 
-            if (type.IsEnum) return Type.Kind.Enum;
+            if (type.IsEnum) return Data.Type.Kind.Enum;
 
-            if (type.IsInterface) return Type.Kind.Interface;
+            if (type.IsInterface) return Data.Type.Kind.Interface;
 
-            return type.IsGenericParameter ? Type.Kind.GenericArg : Type.Kind.Class;
+            return type.IsGenericParameter ? Data.Type.Kind.GenericArg : Data.Type.Kind.Class;
         }
 
-        private Access AnalyzeTypeAccessLevel(System.Type type)
+        private Access AnalyzeTypeAccessLevel(Type type)
         {
             if (type.IsPublic || type.IsNestedPublic) return Access.Public;
 
@@ -305,7 +297,7 @@ namespace DotDll.Model.Analysis
 
             return type.IsNestedAssembly ? Access.Internal : Access.Private;
         }
-       
+
         private Access AnalyzeAccessLevel(dynamic info)
         {
             if (info.IsPublic) return Access.Public;
@@ -316,6 +308,5 @@ namespace DotDll.Model.Analysis
 
             return info.IsAssembly ? Access.Internal : Access.Private;
         }
-
     }
 }

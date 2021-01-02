@@ -80,6 +80,10 @@ namespace DotDll.Model.Analysis
                 systemType.IsSealed,
                 systemType.IsAbstract
             );
+            
+            type.Attributes.AddRange(
+                AnalyzeAttributes(System.Attribute.GetCustomAttributes(systemType, false))
+                );
 
             _typesMapping[systemType] = type;
 
@@ -108,7 +112,7 @@ namespace DotDll.Model.Analysis
 
             return type;
         }
-
+        
         private void AnalyzeTypeMembers(Type type, System.Type systemType)
         {
             AnalyzeTypeConstructor(type, systemType);
@@ -122,11 +126,17 @@ namespace DotDll.Model.Analysis
         private void AnalyzeTypeConstructor(Type type, System.Type systemType)
         {
             foreach (var constructorInfo in systemType.GetConstructors(_flags))
-                type.AddMember(new Constructor(
+            {
+                var constr = new Constructor(
                     type,
                     AnalyzeAccessLevel(constructorInfo),
                     AnalyzeMethodParameters(constructorInfo.GetParameters())
-                ));
+                );
+                
+                AnalyzeMemberAttributes(constr, constructorInfo);
+                
+                type.AddMember(constr);
+            }
         }
 
         private void AnalyzeTypeField(Type type, IReflect systemType)
@@ -149,21 +159,11 @@ namespace DotDll.Model.Analysis
                     fieldInfo.IsStatic,
                     constraint
                 );
+                
+                AnalyzeMemberAttributes(field, fieldInfo);
                 type.AddMember(field);
             }
         }
-
-        private Access AnalyzeAccessLevel(dynamic info)
-        {
-            if (info.IsPublic) return Access.Public;
-
-            if (info.IsFamilyAndAssembly) return Access.InternalProtected;
-
-            if (info.IsFamily) return Access.Protected;
-
-            return info.IsAssembly ? Access.Internal : Access.Private;
-        }
-
 
         private void AnalyzeTypeEvents(Type type, System.Type systemType)
         {
@@ -176,18 +176,23 @@ namespace DotDll.Model.Analysis
                     AnalyzeMethod(eventInfo.RaiseMethod)
                 );
 
+                AnalyzeMemberAttributes(eve, eventInfo);
                 type.AddMember(eve);
             }
         }
-
-
+        
         private void AnalyzeNestedType(Type type, System.Type systemType)
         {
             foreach (var nested in systemType.GetNestedTypes(_flags))
-                type.AddMember(new NestedType(AnalyzeType(nested)));
+            {
+                var n = new NestedType(AnalyzeType(nested));
+                
+                AnalyzeMemberAttributes(n, nested);
+                
+                type.AddMember(n);
+            }
         }
-
-
+        
         private void AnalyzeTypeProperties(Type type, IReflect systemType)
         {
             foreach (var propertyInfo in systemType.GetProperties(_flags))
@@ -196,6 +201,8 @@ namespace DotDll.Model.Analysis
                 var setter = propertyInfo.SetMethod;
 
                 var property = new Property(propertyInfo.Name, AnalyzeMethod(getter), AnalyzeMethod(setter));
+                
+                AnalyzeMemberAttributes(property, propertyInfo);
                 type.AddMember(property);
             }
         }
@@ -206,10 +213,14 @@ namespace DotDll.Model.Analysis
             {
                 var method = AnalyzeMethod(methodInfo);
 
-                if (method != null) type.AddMember(method);
+
+                if (method != null)
+                {
+                    type.AddMember(method);
+                }
             }
         }
-
+        
         private Method? AnalyzeMethod(MethodInfo? methodInfo)
         {
             if (methodInfo == null) return null;
@@ -225,16 +236,54 @@ namespace DotDll.Model.Analysis
                 .WithParameters(AnalyzeMethodParameters(methodInfo.GetParameters()))
                 .WithGenericArguments(methodInfo.GetGenericArguments().Select(AnalyzeType).ToList())
                 .Build();
+            
+                            
+            AnalyzeMemberAttributes(method, methodInfo);
 
             return method;
         }
 
         private List<Parameter> AnalyzeMethodParameters(IEnumerable<ParameterInfo> parameters)
         {
-            return parameters.Select(param => new Parameter(param.Name, AnalyzeType(param.ParameterType)))
+            return parameters
+                .Select(param =>
+                {
+                    var p = new Parameter(param.Name, AnalyzeType(param.ParameterType));
+                    
+                    var attribs = System.Attribute.GetCustomAttributes(param, false);
+
+                    if (attribs != null)
+                    {
+                        p.Attributes.AddRange(AnalyzeAttributes(attribs));
+                    }
+
+                    return p;
+                })
                 .ToList();
         }
-
+        
+        private IEnumerable<Attribute> AnalyzeAttributes(IEnumerable<System.Attribute> attributes)
+        {
+            
+            return attributes
+                .Select(a =>
+                {
+                    var values = a
+                        .GetType()
+                        .GetProperties()
+                        .ToDictionary(p => p.Name, p => p.GetValue(a)?.ToString() ?? "null");
+                    
+                    return new Attribute(a.GetType().Name.Replace("Attribute", ""), values);
+                });
+        }
+        
+        private void AnalyzeMemberAttributes(Member member, MemberInfo memberInfo)
+        {
+            var attributes = System.Attribute.GetCustomAttributes(memberInfo, false);
+            
+            member.Attributes.AddRange(AnalyzeAttributes(attributes));
+        }
+        
         private Type.Kind AnalyzeTypeKind(System.Type type)
         {
             if (type.IsArray) return Type.Kind.Array;
@@ -256,5 +305,17 @@ namespace DotDll.Model.Analysis
 
             return type.IsNestedAssembly ? Access.Internal : Access.Private;
         }
+       
+        private Access AnalyzeAccessLevel(dynamic info)
+        {
+            if (info.IsPublic) return Access.Public;
+
+            if (info.IsFamilyAndAssembly) return Access.InternalProtected;
+
+            if (info.IsFamily) return Access.Protected;
+
+            return info.IsAssembly ? Access.Internal : Access.Private;
+        }
+
     }
 }

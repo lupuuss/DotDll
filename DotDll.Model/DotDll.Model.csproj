@@ -87,6 +87,7 @@
         <Compile Include="Analysis\IDllAnalyzer.cs" />
         <Compile Include="Analysis\ReflectionDllAnalyzer.cs" />
         <Compile Include="Data\Base\Access.cs" />
+        <Compile Include="Data\Base\Attribute.cs" />
         <Compile Include="Data\Base\Member.cs" />
         <Compile Include="Data\Base\Parameter.cs" />
         <Compile Include="Data\MetadataInfo.cs" />

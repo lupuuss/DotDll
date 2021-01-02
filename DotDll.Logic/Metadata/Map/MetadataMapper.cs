@@ -41,7 +41,14 @@ namespace DotDll.Logic.Metadata.Map
 
             if (type.TypeKind is Type.Kind.GenericArg) return new DType(type.Name);
 
-            var declaration = GetAccessString(type.Access);
+            string declaration = "";
+
+            if (type.Attributes.Any())
+            {
+                declaration = $"[{string.Join(", ", type.Attributes.Select(a => a.Name))}]\n";
+            }
+            
+            declaration += GetAccessString(type.Access);
 
             if (type.IsStatic)
             {
@@ -85,21 +92,24 @@ namespace DotDll.Logic.Metadata.Map
 
         private DMember MapMember(Member member)
         {
+
+            var declarationInit = GetAttributesString(member);
+            
             return member switch
             {
-                Event eve => MapEvent(eve),
-                Constructor constructor => MapConstructor(constructor),
-                Field field => MapField(field),
-                Method method => MapMethod(method),
-                NestedType nestedType => MapNestedType(nestedType),
-                Property property => MapProperty(property),
+                Event eve => MapEvent(eve, declarationInit),
+                Constructor constructor => MapConstructor(constructor, declarationInit),
+                Field field => MapField(field, declarationInit),
+                Method method => MapMethod(method, declarationInit),
+                NestedType nestedType => MapNestedType(nestedType, declarationInit),
+                Property property => MapProperty(property, declarationInit),
                 _ => throw new ArgumentOutOfRangeException(nameof(member))
             };
         }
 
-        private DMember MapProperty(Property property)
+        private DMember MapProperty(Property property, string declarationInit)
         {
-            var declaration = $"(property) {property.ReturnType.FullName()} {property.Name} ";
+            var declaration = $"{declarationInit}(property) {property.ReturnType.FullName()} {property.Name} ";
 
             if (property.CanRead) declaration += $"{{ {GetAccessString(property.Getter!.AccessLevel)} get; ";
 
@@ -110,9 +120,9 @@ namespace DotDll.Logic.Metadata.Map
             return new DMember(declaration, property.GetRelatedTypes().Select(MapType).ToList());
         }
 
-        private DMember MapNestedType(NestedType nestedType)
+        private DMember MapNestedType(NestedType nestedType, string declarationInit)
         {
-            var declaration = "(nested) ";
+            var declaration = $"{declarationInit}(nested) ";
             var dType = MapType(nestedType.Type);
 
             declaration += dType.Declaration;
@@ -120,9 +130,9 @@ namespace DotDll.Logic.Metadata.Map
             return new DMember(declaration, new List<DType> {dType});
         }
 
-        private DMember MapMethod(Method method)
+        private DMember MapMethod(Method method, string declarationInit)
         {
-            var declaration = GetAccessString(method.AccessLevel) + " ";
+            var declaration = $"{declarationInit}{GetAccessString(method.AccessLevel)} ";
 
             if (method.IsStatic)
                 declaration += "static ";
@@ -151,7 +161,7 @@ namespace DotDll.Logic.Metadata.Map
             return $"<{args}>";
         }
 
-        private DMember MapField(Field field)
+        private DMember MapField(Field field, string declarationInit)
         {
             var constraint = field.FieldConstraint switch
             {
@@ -161,7 +171,9 @@ namespace DotDll.Logic.Metadata.Map
                 _ => throw new ArgumentOutOfRangeException()
             };
 
-            var declaration = constraint != ""
+            var declaration = declarationInit;
+            
+            declaration += constraint != ""
                 ? $"{GetAccessString(field.AccessLevel)} {constraint} "
                 : $"{GetAccessString(field.AccessLevel)} ";
 
@@ -171,24 +183,17 @@ namespace DotDll.Logic.Metadata.Map
             return new DMember(declaration, field.GetRelatedTypes().Select(MapType).ToList());
         }
 
-        private DMember MapConstructor(Constructor constructor)
+        private DMember MapConstructor(Constructor constructor, string declarationInit)
         {
-            var declaration = $"{GetAccessString(constructor.AccessLevel)} {constructor.Name}{MapParameters(constructor.Parameters)}";
+            var declaration = $"{declarationInit}{GetAccessString(constructor.AccessLevel)} " +
+                              $"{constructor.Name}{MapParameters(constructor.Parameters)}";
 
             return new DMember(declaration, constructor.GetRelatedTypes().Select(MapType).ToList());
         }
 
-        private string MapParameters(IEnumerable<Parameter> parameters)
+        private DMember MapEvent(Event eve, string declarationInit)
         {
-            return "(" + string.Join(
-                ", ",
-                parameters.Select(param => $"{param.ParameterType.FullName()} {param.Name}")
-            ) + ")";
-        }
-
-        private DMember MapEvent(Event eve)
-        {
-            var declaration = $"(event) {eve.EventType} {eve.Name} {{";
+            var declaration = $"{declarationInit}(event) {eve.EventType} {eve.Name} {{";
 
             if (eve.AddMethod != null) declaration += $" {GetAccessString(eve.AddMethod.AccessLevel)} add; ";
 
@@ -200,7 +205,22 @@ namespace DotDll.Logic.Metadata.Map
 
             return new DMember(declaration, eve.GetRelatedTypes().Select(MapType).ToList());
         }
-
+        
+        private string MapParameters(IEnumerable<Parameter> parameters)
+        {
+            return "(" + string.Join(
+                ", ",
+                parameters.Select(param =>
+                {
+                    var attrs = param.Attributes.Any()
+                        ? "[" + string.Join(",", param.Attributes.Select(a => a.Name)) + "]"
+                        : "";
+                    
+                    return $"{attrs} {param.ParameterType.FullName()} {param.Name}";
+                })
+            ) + ")";
+        }
+        
         private string GetAccessString(Access typeAccess)
         {
             return typeAccess switch
@@ -213,6 +233,11 @@ namespace DotDll.Logic.Metadata.Map
                 Access.Inner => "",
                 _ => throw new ArgumentOutOfRangeException(nameof(typeAccess), typeAccess, null)
             };
+        }
+
+        private string GetAttributesString(Member member)
+        {
+            return member.Attributes.Any() ? $"[{string.Join(", ", member.Attributes.Select(a => a.Name))}]\n" : "";
         }
     }
 }

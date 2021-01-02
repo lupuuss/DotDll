@@ -28,6 +28,8 @@ namespace DotDll.Model.Data.Base
 
         public bool IsAbstract { get; protected set; }
 
+        public List<Attribute> Attributes { get; private set; } = new List<Attribute>();
+        
         public abstract IEnumerable<Type> GetRelatedTypes();
     }
 }

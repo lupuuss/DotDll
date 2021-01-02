@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 using DotDll.Model.Serialization.File.Data.Members;
 
 namespace DotDll.Model.Serialization.File.Data.Base
@@ -23,5 +24,8 @@ namespace DotDll.Model.Serialization.File.Data.Base
 
         [DataMember(Name = "ia")]
         public bool IsAbstract;
+        
+        [DataMember(Name = "atr")] 
+        public List<SAttribute> Attributes = null!;
     }
 }

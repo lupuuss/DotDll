@@ -1,7 +1,6 @@
 ﻿// ReSharper disable AutoPropertyCanBeMadeGetOnly.Local
 
 using System.Collections.Generic;
-using System.Linq;
 
 namespace DotDll.Model.Data.Base
 {
@@ -9,7 +8,7 @@ namespace DotDll.Model.Data.Base
     {
         public string Name { get; private set; }
 
-        public Dictionary<string, string> Values;
+        public Dictionary<string, string> Values { get; private set; }
         
         public Attribute(string name, Dictionary<string, string> values)
         {
@@ -17,9 +16,10 @@ namespace DotDll.Model.Data.Base
             Values = values;
         }
 
-        public string FullName()
+        private Attribute()
         {
-            return Name + $"({string.Join(", ",Values.Select(p => p.Key + " = " + p.Value))})";
+            Name = null!;
+            Values = null!;
         }
     }
 }

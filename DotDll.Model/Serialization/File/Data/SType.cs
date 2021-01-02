@@ -36,5 +36,8 @@ namespace DotDll.Model.Serialization.File.Data
         
         [DataMember(Name = "bt")]
         public List<SType> BaseTypes = null!;
+
+        [DataMember(Name = "atr")] 
+        public List<SAttribute> Attributes = null!;
     }
 }

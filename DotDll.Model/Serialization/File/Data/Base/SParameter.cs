@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace DotDll.Model.Serialization.File.Data.Base
 {
@@ -11,5 +12,9 @@ namespace DotDll.Model.Serialization.File.Data.Base
 
         [DataMember(Name = "pt")]
         public SType ParameterType = null!;
+        
+        [DataMember(Name = "atr")] 
+        public List<SAttribute> Attributes = null!;
+        
     }
 }

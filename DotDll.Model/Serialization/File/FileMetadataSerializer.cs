@@ -137,6 +137,7 @@ namespace DotDll.Model.Serialization.File
                 cfg.CreateMap<Method, SMethod>().ReverseMap();
                 cfg.CreateMap<Constructor, SConstructor>().ReverseMap();
 
+                cfg.CreateMap<Attribute, SAttribute>().ReverseMap();
                 cfg.CreateMap<Parameter, SParameter>().ReverseMap();
                 cfg.CreateMap<Namespace, SNamespace>().ReverseMap();
                 cfg.CreateMap<Type, SType>().ReverseMap();

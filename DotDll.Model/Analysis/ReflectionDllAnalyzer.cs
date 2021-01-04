@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using DotDll.Model.Data;
 using DotDll.Model.Data.Base;
 using DotDll.Model.Data.Members;
+using Attribute = DotDll.Model.Data.Base.Attribute;
 using Type = System.Type;
 
 // ReSharper disable MemberCanBeMadeStatic.Local
@@ -263,7 +266,17 @@ namespace DotDll.Model.Analysis
                     var values = a
                         .GetType()
                         .GetProperties()
-                        .ToDictionary(p => p.Name, p => p.GetValue(a)?.ToString() ?? "null");
+                        .ToDictionary(p => p.Name, p =>
+                        {
+                            try
+                            {
+                                return p.GetValue(a, null)?.ToString() ?? "null";
+                            }
+                            catch (Exception)
+                            {
+                                return "null";
+                            }
+                        });
 
                     return new Attribute(a.GetType().Name.Replace("Attribute", ""), values);
                 });

@@ -3,7 +3,7 @@ using DotDll.Logic.Metadata;
 using DotDll.Logic.Navigation;
 using DotDll.Presentation.View.Navigation;
 
-namespace DotDll.Presentation
+namespace DotDll.Presentation.View
 {
     public partial class DotDllApp
     {

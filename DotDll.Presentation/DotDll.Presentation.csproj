@@ -53,14 +53,6 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="DotDllApp.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Compile Include="DotDllApp.xaml.cs">
-      <DependentUpon>DotDllApp.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="ViewModel\Common\BaseViewModel.cs" />
     <Compile Include="ViewModel\Common\DynamicContentViewModel.cs" />
     <Compile Include="ViewModel\Common\NavigationViewModel.cs" />
@@ -71,6 +63,10 @@
     <Compile Include="ViewModel\Metadata\MetadataViewModel.cs" />
     <Compile Include="View\DeserializeListPage.xaml.cs">
       <DependentUpon>DeserializeListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\DotDllApp.xaml.cs">
+      <DependentUpon>DotDllApp.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -129,6 +125,12 @@
       <Project>{85d81cb3-d358-4381-a677-a99919b10a96}</Project>
       <Name>DotDll.Logic</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="View\DotDllApp.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

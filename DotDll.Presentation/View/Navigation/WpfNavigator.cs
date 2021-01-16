@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Controls;
 using DotDll.Logic.Metadata.Sources;
-using DotDll.Presentation.View;
+using DotDll.Logic.Navigation;
 
-namespace DotDll.Presentation.Navigation
+namespace DotDll.Presentation.View.Navigation
 {
     public class WpfNavigator : INavigator
     {

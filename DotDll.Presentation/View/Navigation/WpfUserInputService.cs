@@ -1,7 +1,8 @@
 ﻿using System.Threading.Tasks;
+using DotDll.Logic.Navigation;
 using Microsoft.Win32;
 
-namespace DotDll.Presentation.Navigation
+namespace DotDll.Presentation.View.Navigation
 {
     public class WpfUserInputService : IUserInputService
     {

@@ -1,4 +1,4 @@
-﻿using DotDll.Presentation.Navigation;
+﻿using DotDll.Logic.Navigation;
 using DotDll.Presentation.ViewModel.Common;
 using Moq;
 using NUnit.Framework;

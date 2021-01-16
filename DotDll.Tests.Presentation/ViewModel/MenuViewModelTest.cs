@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using DotDll.Logic.Metadata;
 using DotDll.Logic.Metadata.Sources;
-using DotDll.Presentation.Navigation;
+using DotDll.Logic.Navigation;
 using DotDll.Presentation.ViewModel;
 using Moq;
 using NUnit.Framework;

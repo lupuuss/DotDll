@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:properties="clr-namespace:DotDll.Presentation.Properties"
-      xmlns:navigation="clr-namespace:DotDll.Presentation.Navigation"
+      xmlns:navigation="clr-namespace:DotDll.Logic.Navigation;assembly=DotDll.Logic"
       xmlns:viewModel="clr-namespace:DotDll.Presentation.ViewModel"
       mc:Ignorable="d"
       Title="{x:Static properties:Resources.Menu}"

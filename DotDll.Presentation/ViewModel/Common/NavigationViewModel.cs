@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 using DotDll.Logic.Metadata.Sources;
-using DotDll.Presentation.Navigation;
+using DotDll.Logic.Navigation;
 
 namespace DotDll.Presentation.ViewModel.Common
 {

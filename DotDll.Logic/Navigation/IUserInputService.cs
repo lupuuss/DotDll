@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace DotDll.Presentation.Navigation
+namespace DotDll.Logic.Navigation
 {
     public interface IUserInputService
     {

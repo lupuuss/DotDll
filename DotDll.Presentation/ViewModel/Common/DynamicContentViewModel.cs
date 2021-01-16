@@ -1,4 +1,4 @@
-﻿using DotDll.Presentation.Navigation;
+﻿using DotDll.Logic.Navigation;
 
 namespace DotDll.Presentation.ViewModel.Common
 {

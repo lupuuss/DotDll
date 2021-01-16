@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using DotDll.Logic.Metadata;
 using DotDll.Logic.Metadata.Sources;
-using DotDll.Presentation.Navigation;
+using DotDll.Logic.Navigation;
 using DotDll.Presentation.ViewModel.Common;
 
 namespace DotDll.Presentation.ViewModel

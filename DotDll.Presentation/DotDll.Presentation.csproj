@@ -53,15 +53,6 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ViewModel\Common\BaseViewModel.cs" />
-    <Compile Include="ViewModel\Common\DynamicContentViewModel.cs" />
-    <Compile Include="ViewModel\Common\NavigationViewModel.cs" />
-    <Compile Include="ViewModel\Common\RelayCommand.cs" />
-    <Compile Include="ViewModel\Common\RelayCommandFactory.cs" />
-    <Compile Include="ViewModel\DeserializeListViewModel.cs" />
-    <Compile Include="ViewModel\MenuViewModel.cs" />
-    <Compile Include="ViewModel\Metadata\MetadataNode.cs" />
-    <Compile Include="ViewModel\Metadata\MetadataViewModel.cs" />
     <Compile Include="View\DeserializeListPage.xaml.cs">
       <DependentUpon>DeserializeListPage.xaml</DependentUpon>
     </Compile>
@@ -127,6 +118,10 @@
     <ProjectReference Include="..\DotDll.Logic\DotDll.Logic.csproj">
       <Project>{85d81cb3-d358-4381-a677-a99919b10a96}</Project>
       <Name>DotDll.Logic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DotDll.Presentation.ViewModel\DotDll.Presentation.ViewModel.csproj">
+      <Project>{73be6077-cce7-4409-8eb5-fce947db2ed0}</Project>
+      <Name>DotDll.Presentation.ViewModel</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

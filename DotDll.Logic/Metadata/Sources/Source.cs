@@ -1,6 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("DotDll.Tests.Presentation")]
+[assembly: InternalsVisibleTo("DotDll.Tests.Presentation.ViewModel")]
 
 namespace DotDll.Logic.Metadata.Sources
 {

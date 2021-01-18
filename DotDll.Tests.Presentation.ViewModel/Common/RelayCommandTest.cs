@@ -1,22 +1,18 @@
-﻿using DotDll.Presentation.View;
-using DotDll.Presentation.ViewModel.Common;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace DotDll.Tests.Presentation.ViewModel.Common
 {
     [TestFixture]
     public class RelayCommandTest
     {
-        
-        private readonly RelayCommandFactory _factory = new WpfRelayCommandFactory();
-        
+
         [Test]
         public void RelayCommand_Always_RunPassedActionOnExecute()
         {
             var delegated = false;
             const string relayParam = "Some Param";
 
-            var command = _factory.CreateCommand(param =>
+            var command = new TestRelayCommand(param =>
             {
                 Assert.IsInstanceOf<string>(param);
                 Assert.AreEqual(relayParam, (string) param);
@@ -31,7 +27,7 @@ namespace DotDll.Tests.Presentation.ViewModel.Common
         [Test]
         public void RelayCommand_NoPredicate_CanExecuteReturnsTrue()
         {
-            var actual = _factory.CreateCommand(o => { }).CanExecute(null);
+            var actual = new TestRelayCommand(o => { }).CanExecute(null);
             Assert.True(actual);
         }
 
@@ -42,7 +38,7 @@ namespace DotDll.Tests.Presentation.ViewModel.Common
             var delegated = false;
             const string relayParam = "Some param";
 
-            var relayCommand = _factory.CreateCommand(
+            var relayCommand = new TestRelayCommand(
                 o => { },
                 param =>
                 {

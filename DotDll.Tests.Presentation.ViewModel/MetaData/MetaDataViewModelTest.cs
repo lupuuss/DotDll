@@ -5,7 +5,6 @@ using DotDll.Logic.Metadata;
 using DotDll.Logic.Metadata.Data;
 using DotDll.Logic.Metadata.Sources;
 using DotDll.Logic.Navigation;
-using DotDll.Presentation.View;
 using DotDll.Presentation.ViewModel.Common;
 using DotDll.Presentation.ViewModel.Metadata;
 using Moq;
@@ -16,11 +15,30 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
     [TestFixture]
     public class MetaDataViewModelTest
     {
+        private Mock<INavigator> _navigatorMock;
+        private Mock<IMetadataService> _serviceMock;
+
+        private MetadataViewModel _viewModel;
+
+        private Source _targetSource;
+
+        private readonly List<DNamespace> _namespaces = new List<DNamespace>
+        {
+            new DNamespace("Namespace1", new List<DType>()),
+            new DNamespace("Namespace2", new List<DType>()),
+            new DNamespace("Namespace3", new List<DType>())
+        };
+
+        private MetadataDeclarations _metadata;
+        private Mock<RelayCommandFactory> _factory;
+
+        
         [SetUp]
         public void SetUp()
         {
             _navigatorMock = new Mock<INavigator>();
             _serviceMock = new Mock<IMetadataService>();
+            _factory = new Mock<RelayCommandFactory>();
 
             _metadata = new MetadataDeclarations("Project", _namespaces);
 
@@ -31,33 +49,24 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
             _serviceMock
                 .Setup(service => service.SaveMetadata(It.IsAny<Source>()))
                 .Returns(Task.FromResult(true));
+            
+            _factory.Setup(f => f.CreateCommand(
+                    It.IsAny<Action<Object>>(),
+                    It.IsAny<Predicate<Object>>()
+                )
+            ).Returns<Action<object>,Predicate<object>?>(
+                (action, predicate) => new TestRelayCommand(action, predicate)
+            );
         }
 
-        private Mock<INavigator> _navigatorMock;
-        private Mock<IMetadataService> _serviceMock;
-
-        private MetadataViewModel _viewModel;
-
-        private Source _targetSource;
         
-        private readonly RelayCommandFactory _factory = new WpfRelayCommandFactory();
-
-        private readonly List<DNamespace> _namespaces = new List<DNamespace>
-        {
-            new DNamespace("Namespace1", new List<DType>()),
-            new DNamespace("Namespace2", new List<DType>()),
-            new DNamespace("Namespace3", new List<DType>())
-        };
-
-        private MetadataDeclarations _metadata;
-
         private void InitViewModel()
         {
             _viewModel = new MetadataViewModel(
                 _navigatorMock.Object,
                 _serviceMock.Object,
                 _targetSource,
-                _factory
+                _factory.Object
             );
         }
 

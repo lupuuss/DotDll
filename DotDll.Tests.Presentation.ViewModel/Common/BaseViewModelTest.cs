@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
-using DotDll.Presentation.View;
 using DotDll.Presentation.ViewModel.Common;
+using Moq;
 using NUnit.Framework;
 
 namespace DotDll.Tests.Presentation.ViewModel.Common
@@ -32,7 +32,7 @@ namespace DotDll.Tests.Presentation.ViewModel.Common
         [SetUp]
         public void SetUp()
         {
-            _baseViewModel = new TestBaseViewModel(new WpfRelayCommandFactory());
+            _baseViewModel = new TestBaseViewModel(new Mock<RelayCommandFactory>().Object);
         }
 
         private TestBaseViewModel _baseViewModel;

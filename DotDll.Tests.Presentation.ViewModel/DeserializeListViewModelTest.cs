@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using DotDll.Logic.Metadata;
 using DotDll.Logic.Metadata.Sources;
 using DotDll.Logic.Navigation;
-using DotDll.Presentation.View;
 using DotDll.Presentation.ViewModel;
 using DotDll.Presentation.ViewModel.Common;
 using Moq;
@@ -15,34 +14,46 @@ namespace DotDll.Tests.Presentation.ViewModel
     [TestFixture]
     public class DeserializeListViewModelTest
     {
-        [SetUp]
-        public void SetUp()
-        {
-            _navigatorMock = new Mock<INavigator>();
-            _serviceMock = new Mock<IMetadataService>();
-
-            _serviceMock
-                .Setup(service => service.GetSerializedSources())
-                .Returns(Task.FromResult(_sources));
-        }
 
         private Mock<INavigator> _navigatorMock;
 
         private Mock<IMetadataService> _serviceMock;
 
+        private Mock<RelayCommandFactory> _factory;
+        
         private DeserializeListViewModel _viewModel;
 
-        private readonly RelayCommandFactory _factory = new WpfRelayCommandFactory();
-        
         private readonly List<Source> _sources = new List<Source>
         {
             new SerializedSource("Example1"),
             new SerializedSource("Example2")
         };
+        
+        [SetUp]
+        public void SetUp()
+        {
+            _navigatorMock = new Mock<INavigator>();
+            _serviceMock = new Mock<IMetadataService>();
+            _factory = new Mock<RelayCommandFactory>();
+            
+            _serviceMock
+                .Setup(service => service.GetSerializedSources())
+                .Returns(Task.FromResult(_sources));
+            
+            _factory.Setup(f => f.CreateCommand(
+                It.IsAny<Action<Object>>(),
+                It.IsAny<Predicate<Object>>()
+                )
+            ).Returns<Action<object>,Predicate<object>?>(
+                (action, predicate) => new TestRelayCommand(action, predicate)
+                );
+        }
 
         private void InitViewModel()
         {
-            _viewModel = new DeserializeListViewModel(_navigatorMock.Object, _serviceMock.Object, _factory);
+
+            
+            _viewModel = new DeserializeListViewModel(_navigatorMock.Object, _serviceMock.Object, _factory.Object);
         }
 
         [Test]

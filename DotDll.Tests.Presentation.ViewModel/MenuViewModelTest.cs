@@ -1,8 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using DotDll.Logic.Metadata;
 using DotDll.Logic.Metadata.Sources;
 using DotDll.Logic.Navigation;
-using DotDll.Presentation.View;
 using DotDll.Presentation.ViewModel;
 using DotDll.Presentation.ViewModel.Common;
 using Moq;
@@ -19,10 +19,19 @@ namespace DotDll.Tests.Presentation.ViewModel
             _serviceMock = new Mock<IMetadataService>();
             _navigatorMock = new Mock<INavigator>();
             _userInputService = new Mock<IUserInputService>();
+            _factory = new Mock<RelayCommandFactory>();
 
             _userInputService
                 .Setup(service => service.PickFilePath())
                 .Returns(Task.FromResult(ExpectedPickedPath));
+            
+            _factory.Setup(f => f.CreateCommand(
+                    It.IsAny<Action<Object>>(),
+                    It.IsAny<Predicate<Object>>()
+                )
+            ).Returns<Action<object>,Predicate<object>?>(
+                (action, predicate) => new TestRelayCommand(action, predicate)
+            );
 
             InitViewModel();
         }
@@ -33,11 +42,11 @@ namespace DotDll.Tests.Presentation.ViewModel
 
         private Mock<IUserInputService> _userInputService;
 
+        private Mock<RelayCommandFactory> _factory;
+
         private const string ExpectedPickedPath = "picked/path";
 
         private MenuViewModel _viewModel;
-
-        private readonly RelayCommandFactory _factory = new WpfRelayCommandFactory();
 
         private void InitViewModel()
         {
@@ -45,7 +54,7 @@ namespace DotDll.Tests.Presentation.ViewModel
                 _navigatorMock.Object,
                 _serviceMock.Object,
                 _userInputService.Object,
-                _factory
+                _factory.Object
             );
         }
 

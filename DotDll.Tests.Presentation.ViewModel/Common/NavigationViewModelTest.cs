@@ -1,7 +1,6 @@
 ﻿using System;
 using DotDll.Logic.Metadata.Sources;
 using DotDll.Logic.Navigation;
-using DotDll.Presentation.View;
 using DotDll.Presentation.ViewModel.Common;
 using Moq;
 using NUnit.Framework;
@@ -11,13 +10,26 @@ namespace DotDll.Tests.Presentation.ViewModel.Common
     [TestFixture]
     public class NavigationViewModelTest
     {
-        private readonly RelayCommandFactory _factory = new WpfRelayCommandFactory();
+        private Mock<RelayCommandFactory> _factoryMock;
+        
+        private RelayCommandFactory _factory;
         
         [SetUp]
         public void SetUp()
         {
             _navigatorMock = new Mock<INavigator>();
+            _factoryMock = new Mock<RelayCommandFactory>();
 
+            _factoryMock.Setup(f => f.CreateCommand(
+                    It.IsAny<Action<Object>>(),
+                    It.IsAny<Predicate<Object>>()
+                )
+            ).Returns<Action<object>,Predicate<object>?>(
+                (action, predicate) => new TestRelayCommand(action, predicate)
+            );
+
+            _factory = _factoryMock.Object;
+            
             _navigatorMock.Setup(
                 navigator => navigator.NavigateTo(TargetView.MetaData)
             ).Throws(new ArgumentException("Argument expected"));

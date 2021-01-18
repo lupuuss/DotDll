@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using DotDll.Logic.Metadata.Data;
-using DotDll.Presentation.ViewModel.Metadata;
+using DotDll.Model.Data;
+using DotDll.Model.Data.Base;
+using DotDll.Model.Data.Members;
+using DotDll.Presentation.Model;
 using NUnit.Framework;
 
 namespace DotDll.Tests.Presentation.ViewModel.MetaData
@@ -12,47 +14,42 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
         [SetUp]
         public void SetUp()
         {
-            var stringType = new DType("class String");
+            var stringType = new Type("String", Access.Private, Type.Kind.Class, false, false);
 
-            var firstNameMember = new DMember(
-                "(property) public String FirstName",
-                new List<DType> {stringType}
-            );
+            var firstNameMember = new Field("firstName", Access.Private, stringType, false);
 
-            var lastNameMember = new DMember(
-                "(property) public String LastName",
-                new List<DType> {stringType}
-            );
+            var lastNameMember = new Field("firstName", Access.Private, stringType, false);
+            
+            var personType = new Type(
+                "Person",
+                Access.Public,
+                Type.Kind.Class,
+                false,
+                false
+                );
 
-            var relatedPersonField = new DMember(
-                "(field) private Person _relatedPerson",
-                new List<DType>());
+            var relatedPersonField = new Field("_relatedPerson", Access.Private, personType, false);
+            
+            personType.Members.AddRange(new List<Field> {firstNameMember, lastNameMember, relatedPersonField});
 
-            var personType = new DType(
-                "public class Person",
-                new List<DMember> {firstNameMember, lastNameMember, relatedPersonField}
-            );
+            var namespaceObject = new Namespace("Project", new List<Type> {personType});
 
-            relatedPersonField.RelatedTypes.Add(personType);
-
-            var namespaceObject = new DNamespace("Project", new List<DType> {personType});
-
-            _metadata = new MetadataDeclarations(
+            _metadata = new MetadataInfo(
                 "Project.dll",
-                new List<DNamespace> {namespaceObject}
+                new List<Namespace> {namespaceObject}
             );
         }
 
-        private MetadataDeclarations _metadata;
+        private MetadataInfo _metadata;
 
         [Test]
         public void Constructor_EveryTypeOfDefinition_LoadsZeroNodes()
         {
             var nodes = new List<MetadataNode>
             {
-                new MetadataNode(_metadata.Namespaces[0]),
-                new MetadataNode(_metadata.Namespaces[0].Types[0]),
-                new MetadataNode(_metadata.Namespaces[0].Types[0].Members[0])
+                new NamespaceNode(_metadata.Namespaces[0]),
+                new TypeNode(_metadata.Namespaces[0].Types[0]),
+                new FieldNode((Field) _metadata.Namespaces[0].Types[0].Members[0])
             };
 
             foreach (var node in nodes) Assert.AreEqual(0, node.Nodes.Count);
@@ -63,17 +60,12 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
         {
             var nSpace = _metadata.Namespaces[0];
 
-            var node = new MetadataNode(nSpace);
+            var node = new NamespaceNode(nSpace);
             var expectedSize = nSpace.Types.Count;
 
             node.LoadChildren();
 
             Assert.AreEqual(expectedSize, node.Nodes.Count);
-
-            var typesNames = nSpace.Types.Select(type => type.Declaration);
-            var nodesNames = node.Nodes.Select(n => n.Name);
-
-            CollectionAssert.AreEqual(typesNames, nodesNames);
         }
 
         [Test]
@@ -81,17 +73,12 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
         {
             var type = _metadata.Namespaces[0].Types[0];
 
-            var node = new MetadataNode(type);
+            var node = new TypeNode(type);
             var expectedSize = type.Members.Count;
 
             node.LoadChildren();
 
             Assert.AreEqual(expectedSize, node.Nodes.Count);
-
-            var membersNames = type.Members.Select(member => member.Declaration);
-            var nodesNames = node.Nodes.Select(n => n.Name);
-
-            CollectionAssert.AreEqual(membersNames, nodesNames);
         }
 
         [Test]
@@ -99,23 +86,17 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
         {
             var member = _metadata.Namespaces[0].Types[0].Members[0];
 
-            var node = new MetadataNode(member);
-            var expectedSize = member.RelatedTypes.Count;
+            var node = new FieldNode((Field) member);
 
             node.LoadChildren();
 
-            Assert.AreEqual(expectedSize, node.Nodes.Count);
-
-            var typesNames = member.RelatedTypes.Select(type => type.Declaration);
-            var nodesNames = node.Nodes.Select(n => n.Name);
-
-            CollectionAssert.AreEqual(typesNames, nodesNames);
+            Assert.AreEqual(1, node.Nodes.Count);
         }
 
         [Test]
         public void ClearChildren_Always_ClearsSubNodes()
         {
-            var node = new MetadataNode(_metadata.Namespaces[0]);
+            var node = new NamespaceNode(_metadata.Namespaces[0]);
 
             node.ClearChildren();
 
@@ -138,7 +119,7 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
         [TestCase(true)]
         public void IsExpanded_ListenerRegistered_NotifyAboutChanges(bool isExpandedValue)
         {
-            var node = new MetadataNode(_metadata.Namespaces[0]);
+            var node = new NamespaceNode(_metadata.Namespaces[0]);
             var listenerTriggered = false;
 
             node.IsExpanded = !isExpandedValue;
@@ -160,7 +141,7 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
         [Test]
         public void IsExpanded_SetTrue_LoadsChildrenSubNodes()
         {
-            var node = new MetadataNode(_metadata.Namespaces[0]);
+            var node = new NamespaceNode(_metadata.Namespaces[0]);
 
             node.LoadChildren();
 
@@ -176,7 +157,7 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
         [Test]
         public void IsExpanded_SetFalse_ClearsChildrenSubNodes()
         {
-            var node = new MetadataNode(_metadata.Namespaces[0]);
+            var node = new NamespaceNode(_metadata.Namespaces[0]);
 
             node.LoadChildren();
             node.IsExpanded = true;

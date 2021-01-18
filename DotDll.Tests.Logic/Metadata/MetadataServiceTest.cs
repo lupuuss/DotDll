@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using DotDll.Logic.Metadata;
-using DotDll.Logic.Metadata.Data;
-using DotDll.Logic.Metadata.Map;
 using DotDll.Logic.Metadata.Sources;
 using DotDll.Model.Analysis;
 using DotDll.Model.Data;
@@ -23,7 +21,6 @@ namespace DotDll.Tests.Logic.Metadata
         {
             _analyzerMock = new Mock<IDllAnalyzer>();
             _filesManager = new Mock<IFilesManager>();
-            _metadataMapper = new Mock<IMetadataMapper>();
             _metadataSerializer = new Mock<IMetadataSerializer>();
 
             _analyzerMock.Setup(a => a.Analyze(It.IsAny<string>()))
@@ -34,11 +31,7 @@ namespace DotDll.Tests.Logic.Metadata
 
             _filesManager.Setup(a => a.GetExtension(It.IsAny<string>()))
                 .Returns<string>(Path.GetExtension);
-
-            _metadataMapper.Setup(a => a.Map(It.IsAny<MetadataInfo>()))
-                .Returns(new MetadataDeclarations("Test", new List<DNamespace>()));
-
-
+            
             _metadataSerializer.Setup(a => a.GetAllIds())
                 .Returns(_allIds);
 
@@ -48,7 +41,6 @@ namespace DotDll.Tests.Logic.Metadata
 
         private Mock<IDllAnalyzer> _analyzerMock;
         private Mock<IFilesManager> _filesManager;
-        private Mock<IMetadataMapper> _metadataMapper;
         private Mock<IMetadataSerializer> _metadataSerializer;
 
         private readonly List<string> _allIds = new List<string>
@@ -66,8 +58,7 @@ namespace DotDll.Tests.Logic.Metadata
             _service = new MetadataService(
                 _filesManager.Object,
                 _metadataSerializer.Object,
-                _analyzerMock.Object,
-                _metadataMapper.Object
+                _analyzerMock.Object
             );
         }
 
@@ -166,11 +157,6 @@ namespace DotDll.Tests.Logic.Metadata
                 a => a.Analyze(It.IsAny<string>()),
                 Times.Once
             );
-
-            _metadataMapper.Verify(
-                a => a.Map(It.IsAny<MetadataInfo>()),
-                Times.Once
-            );
         }
 
         [Test]
@@ -184,11 +170,6 @@ namespace DotDll.Tests.Logic.Metadata
 
             _metadataSerializer.Verify(
                 s => s.Deserialize("id0")
-            );
-
-            _metadataMapper.Verify(
-                a => a.Map(It.IsAny<MetadataInfo>()),
-                Times.Once
             );
         }
 

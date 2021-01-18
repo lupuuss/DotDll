@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DotDll.Logic.Metadata;
-using DotDll.Logic.Metadata.Data;
 using DotDll.Logic.Metadata.Sources;
+using DotDll.Model.Data;
 using DotDll.Presentation.Model.Navigation;
 using DotDll.Presentation.ViewModel.Common;
 using DotDll.Presentation.ViewModel.Metadata;
 using Moq;
 using NUnit.Framework;
+using Type = DotDll.Model.Data.Type;
 
 namespace DotDll.Tests.Presentation.ViewModel.MetaData
 {
@@ -22,14 +23,14 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
 
         private Source _targetSource;
 
-        private readonly List<DNamespace> _namespaces = new List<DNamespace>
+        private readonly List<Namespace> _namespaces = new List<Namespace>
         {
-            new DNamespace("Namespace1", new List<DType>()),
-            new DNamespace("Namespace2", new List<DType>()),
-            new DNamespace("Namespace3", new List<DType>())
+            new Namespace("Namespace1", new List<Type>()),
+            new Namespace("Namespace2", new List<Type>()),
+            new Namespace("Namespace3", new List<Type>())
         };
 
-        private MetadataDeclarations _metadata;
+        private MetadataInfo _metadata;
         private Mock<RelayCommandFactory> _factory;
 
         
@@ -40,7 +41,7 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
             _serviceMock = new Mock<IMetadataService>();
             _factory = new Mock<RelayCommandFactory>();
 
-            _metadata = new MetadataDeclarations("Project", _namespaces);
+            _metadata = new MetadataInfo("Project", _namespaces);
 
             _serviceMock
                 .Setup(service => service.LoadMetadata(It.IsAny<Source>()))

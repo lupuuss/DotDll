@@ -3,8 +3,9 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using DotDll.Logic.Metadata;
-using DotDll.Logic.Metadata.Data;
 using DotDll.Logic.Metadata.Sources;
+using DotDll.Model.Data;
+using DotDll.Presentation.Model;
 using DotDll.Presentation.Model.Navigation;
 using DotDll.Presentation.ViewModel.Common;
 
@@ -17,7 +18,7 @@ namespace DotDll.Presentation.ViewModel.Metadata
 
         private bool _alreadySerialized;
 
-        private MetadataDeclarations? _metadata;
+        private MetadataInfo? _metadata;
 
         private string _metadataName = "...";
 
@@ -97,9 +98,9 @@ namespace DotDll.Presentation.ViewModel.Metadata
             _serializeCommand?.RaiseCanExecuteChanged();
         }
 
-        private void LoadFirstLayer(MetadataDeclarations metadata)
+        private void LoadFirstLayer(MetadataInfo metadata)
         {
-            foreach (var node in metadata.Namespaces.Select(nSpace => new MetadataNode(nSpace)))
+            foreach (var node in metadata.Namespaces.Select(nSpace => new NamespaceNode(nSpace)))
             {
                 Nodes.Add(node);
 

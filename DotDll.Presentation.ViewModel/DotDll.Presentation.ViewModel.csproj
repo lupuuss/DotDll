@@ -12,6 +12,7 @@
         <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
         <LangVersion>8</LangVersion>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
@@ -46,7 +47,6 @@
         <Compile Include="Common\RelayCommandFactory.cs" />
         <Compile Include="DeserializeListViewModel.cs" />
         <Compile Include="MenuViewModel.cs" />
-        <Compile Include="Metadata\MetadataNode.cs" />
         <Compile Include="Metadata\MetadataViewModel.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
@@ -54,6 +54,10 @@
       <ProjectReference Include="..\DotDll.Logic\DotDll.Logic.csproj">
         <Project>{85d81cb3-d358-4381-a677-a99919b10a96}</Project>
         <Name>DotDll.Logic</Name>
+      </ProjectReference>
+      <ProjectReference Include="..\DotDll.Model\DotDll.Model.csproj">
+        <Project>{d29b0be1-23ec-45cd-88a7-c442a3907320}</Project>
+        <Name>DotDll.Model</Name>
       </ProjectReference>
       <ProjectReference Include="..\DotDll.Presentation.Model\DotDll.Presentation.Model.csproj">
         <Project>{6359aeca-d573-4919-a6b0-3d9b06ac3b10}</Project>

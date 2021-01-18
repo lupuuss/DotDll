@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DotDll.Logic.Metadata.Data;
 using DotDll.Logic.Metadata.Sources;
+using DotDll.Model.Data;
 
 namespace DotDll.Logic.Metadata
 {
@@ -13,7 +13,7 @@ namespace DotDll.Logic.Metadata
 
         Task<List<Source>> GetSerializedSources();
 
-        Task<MetadataDeclarations> LoadMetadata(Source source);
+        Task<MetadataInfo> LoadMetadata(Source source);
 
         Task<bool> SaveMetadata(Source source);
     }

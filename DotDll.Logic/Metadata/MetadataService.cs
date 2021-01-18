@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using DotDll.Logic.Metadata.Data;
-using DotDll.Logic.Metadata.Map;
 using DotDll.Logic.Metadata.Sources;
 using DotDll.Model.Analysis;
 using DotDll.Model.Data;
@@ -23,21 +21,17 @@ namespace DotDll.Logic.Metadata
 
         private readonly IFilesManager _filesManager;
 
-        private readonly IMetadataMapper _mapper;
-
         private readonly IMetadataSerializer _serializer;
 
         public MetadataService(
             IFilesManager filesManager,
             IMetadataSerializer serializer,
-            IDllAnalyzer analyzer,
-            IMetadataMapper mapper
+            IDllAnalyzer analyzer
         )
         {
             _filesManager = filesManager;
             _serializer = serializer;
             _analyzer = analyzer;
-            _mapper = mapper;
         }
 
         public bool IsValidFileSourcePath(string path)
@@ -65,7 +59,7 @@ namespace DotDll.Logic.Metadata
             });
         }
 
-        public Task<MetadataDeclarations> LoadMetadata(Source source)
+        public Task<MetadataInfo> LoadMetadata(Source source)
         {
             return source switch
             {
@@ -75,13 +69,13 @@ namespace DotDll.Logic.Metadata
 
                     _analyzeCache[fileSource] = dllInfo;
 
-                    return _mapper.Map(dllInfo);
+                    return dllInfo;
                 }),
                 SerializedSource serializedSource => Task.Run(delegate
                 {
                     var dllInfo = _serializer.Deserialize(serializedSource.Identifier);
 
-                    return _mapper.Map(dllInfo);
+                    return dllInfo;
                 }),
                 _ => throw new ArgumentOutOfRangeException(nameof(source))
             };
@@ -121,8 +115,7 @@ namespace DotDll.Logic.Metadata
             return new MetadataService(
                 files,
                 FileMetadataSerializer.Create(".\\serialization\\", files, FileType.Xml),
-                new ReflectionDllAnalyzer(Assembly.LoadFrom),
-                new MetadataMapper()
+                new ReflectionDllAnalyzer(Assembly.LoadFrom)
             );
         }
     }

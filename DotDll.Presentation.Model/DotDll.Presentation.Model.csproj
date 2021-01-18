@@ -12,6 +12,7 @@
         <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
         <LangVersion>8</LangVersion>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
@@ -39,9 +40,25 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="ConstructorNode.cs" />
+        <Compile Include="EventNode.cs" />
+        <Compile Include="FieldNode.cs" />
+        <Compile Include="MemberNode.cs" />
+        <Compile Include="MetadataNode.cs" />
+        <Compile Include="MethodNode.cs" />
+        <Compile Include="NamespaceNode.cs" />
         <Compile Include="Navigation\INavigator.cs" />
         <Compile Include="Navigation\IUserInputService.cs" />
+        <Compile Include="NestedTypeNode.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="PropertyNode.cs" />
+        <Compile Include="TypeNode.cs" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\DotDll.Model\DotDll.Model.csproj">
+        <Project>{d29b0be1-23ec-45cd-88a7-c442a3907320}</Project>
+        <Name>DotDll.Model</Name>
+      </ProjectReference>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

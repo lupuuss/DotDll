@@ -11,7 +11,11 @@ namespace DotDll.Presentation.ViewModel
     {
         private readonly IMetadataService _metadataService;
 
-        public DeserializeListViewModel(INavigator navigator, IMetadataService metadataService) : base(navigator)
+        public DeserializeListViewModel(
+            INavigator navigator,
+            IMetadataService metadataService,
+            RelayCommandFactory factory
+            ) : base(navigator, factory)
         {
             _metadataService = metadataService;
 

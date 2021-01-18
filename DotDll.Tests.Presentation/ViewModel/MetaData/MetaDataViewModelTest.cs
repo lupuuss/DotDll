@@ -5,6 +5,8 @@ using DotDll.Logic.Metadata;
 using DotDll.Logic.Metadata.Data;
 using DotDll.Logic.Metadata.Sources;
 using DotDll.Logic.Navigation;
+using DotDll.Presentation.View;
+using DotDll.Presentation.ViewModel.Common;
 using DotDll.Presentation.ViewModel.Metadata;
 using Moq;
 using NUnit.Framework;
@@ -37,6 +39,8 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
         private MetadataViewModel _viewModel;
 
         private Source _targetSource;
+        
+        private readonly RelayCommandFactory _factory = new WpfRelayCommandFactory();
 
         private readonly List<DNamespace> _namespaces = new List<DNamespace>
         {
@@ -52,7 +56,8 @@ namespace DotDll.Tests.Presentation.ViewModel.MetaData
             _viewModel = new MetadataViewModel(
                 _navigatorMock.Object,
                 _serviceMock.Object,
-                _targetSource
+                _targetSource,
+                _factory
             );
         }
 

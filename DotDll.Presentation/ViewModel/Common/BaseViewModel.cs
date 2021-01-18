@@ -5,6 +5,13 @@ namespace DotDll.Presentation.ViewModel.Common
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
+        protected RelayCommandFactory CommandFactory;
+
+        public BaseViewModel(RelayCommandFactory commandFactory)
+        {
+            CommandFactory = commandFactory;
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
         private void OnPropertyChanged(string propertyName)

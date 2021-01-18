@@ -2,7 +2,9 @@
 using DotDll.Logic.Metadata;
 using DotDll.Logic.Metadata.Sources;
 using DotDll.Logic.Navigation;
+using DotDll.Presentation.View;
 using DotDll.Presentation.ViewModel;
+using DotDll.Presentation.ViewModel.Common;
 using Moq;
 using NUnit.Framework;
 
@@ -35,12 +37,15 @@ namespace DotDll.Tests.Presentation.ViewModel
 
         private MenuViewModel _viewModel;
 
+        private readonly RelayCommandFactory _factory = new WpfRelayCommandFactory();
+
         private void InitViewModel()
         {
             _viewModel = new MenuViewModel(
                 _navigatorMock.Object,
                 _serviceMock.Object,
-                _userInputService.Object
+                _userInputService.Object,
+                _factory
             );
         }
 

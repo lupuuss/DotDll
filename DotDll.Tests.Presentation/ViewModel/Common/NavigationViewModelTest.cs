@@ -1,6 +1,7 @@
 ﻿using System;
 using DotDll.Logic.Metadata.Sources;
 using DotDll.Logic.Navigation;
+using DotDll.Presentation.View;
 using DotDll.Presentation.ViewModel.Common;
 using Moq;
 using NUnit.Framework;
@@ -10,6 +11,8 @@ namespace DotDll.Tests.Presentation.ViewModel.Common
     [TestFixture]
     public class NavigationViewModelTest
     {
+        private readonly RelayCommandFactory _factory = new WpfRelayCommandFactory();
+        
         [SetUp]
         public void SetUp()
         {
@@ -19,7 +22,7 @@ namespace DotDll.Tests.Presentation.ViewModel.Common
                 navigator => navigator.NavigateTo(TargetView.MetaData)
             ).Throws(new ArgumentException("Argument expected"));
 
-            _viewModel = new NavigationViewModel(_navigatorMock.Object);
+            _viewModel = new NavigationViewModel(_navigatorMock.Object, _factory);
         }
 
         private Mock<INavigator> _navigatorMock;
@@ -70,7 +73,7 @@ namespace DotDll.Tests.Presentation.ViewModel.Common
                 .Setup(navigator => navigator.CanGoBackwards())
                 .Returns(false);
 
-            _viewModel = new NavigationViewModel(_navigatorMock.Object);
+            _viewModel = new NavigationViewModel(_navigatorMock.Object, _factory);
 
             var actual = _viewModel.NavigateBackwardsCommand.CanExecute(null);
 
@@ -88,7 +91,7 @@ namespace DotDll.Tests.Presentation.ViewModel.Common
                 .Setup(navigator => navigator.CanGoBackwards())
                 .Returns(true);
 
-            _viewModel = new NavigationViewModel(_navigatorMock.Object);
+            _viewModel = new NavigationViewModel(_navigatorMock.Object, _factory);
 
             var actual = _viewModel.NavigateBackwardsCommand.CanExecute(null);
 
@@ -107,7 +110,7 @@ namespace DotDll.Tests.Presentation.ViewModel.Common
                 .Setup(navigator => navigator.CanGoForwards())
                 .Returns(false);
 
-            _viewModel = new NavigationViewModel(_navigatorMock.Object);
+            _viewModel = new NavigationViewModel(_navigatorMock.Object, _factory);
 
             var actual = _viewModel.NavigateForwardsCommand.CanExecute(null);
 
@@ -125,7 +128,7 @@ namespace DotDll.Tests.Presentation.ViewModel.Common
                 .Setup(navigator => navigator.CanGoForwards())
                 .Returns(true);
 
-            _viewModel = new NavigationViewModel(_navigatorMock.Object);
+            _viewModel = new NavigationViewModel(_navigatorMock.Object, _factory);
 
             var actual = _viewModel.NavigateForwardsCommand.CanExecute(null);
 

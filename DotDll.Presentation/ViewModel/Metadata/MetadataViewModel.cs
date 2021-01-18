@@ -23,7 +23,12 @@ namespace DotDll.Presentation.ViewModel.Metadata
 
         private RelayCommand? _serializeCommand;
 
-        public MetadataViewModel(INavigator navigator, IMetadataService service, Source source) : base(navigator)
+        public MetadataViewModel(
+            INavigator navigator, 
+            IMetadataService service, 
+            Source source, 
+            RelayCommandFactory factory
+            ) : base(navigator, factory)
         {
             _service = service;
             _source = source;
@@ -50,7 +55,7 @@ namespace DotDll.Presentation.ViewModel.Metadata
         public ObservableCollection<MetadataNode> Nodes { get; } = new ObservableCollection<MetadataNode>();
 
         public ICommand SerializeCommand =>
-            _serializeCommand ??= new RelayCommand(
+            _serializeCommand ??= CommandFactory.CreateCommand(
                 o => SaveData(),
                 o => !_alreadySerialized &&
                      !IsLoading &&

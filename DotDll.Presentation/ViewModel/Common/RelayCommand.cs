@@ -3,7 +3,8 @@ using System.Windows.Input;
 
 namespace DotDll.Presentation.ViewModel.Common
 {
-    public class RelayCommand : ICommand
+
+    public abstract class RelayCommand : ICommand
     {
         private readonly Action<object> _action;
         private readonly Predicate<object>? _predicate;
@@ -24,15 +25,8 @@ namespace DotDll.Presentation.ViewModel.Common
             _action(parameter);
         }
 
-        public event EventHandler CanExecuteChanged
-        {
-            add => CommandManager.RequerySuggested += value;
-            remove => CommandManager.RequerySuggested -= value;
-        }
+        public abstract event EventHandler CanExecuteChanged;
 
-        public void RaiseCanExecuteChanged()
-        {
-            CommandManager.InvalidateRequerySuggested();
-        }
+        public abstract void RaiseCanExecuteChanged();
     }
 }

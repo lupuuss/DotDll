@@ -11,7 +11,7 @@ namespace DotDll.Presentation.View
 
             var app = Application.Current.AsDotDllApp();
 
-            DataContext = new MenuViewModel(app.Navigator, app.MetadataServiceImpl, app.UserInputService);
+            DataContext = new MenuViewModel(app.Navigator, app.MetadataServiceImpl, app.UserInputService, app.RelayCommandFactory);
         }
     }
 }

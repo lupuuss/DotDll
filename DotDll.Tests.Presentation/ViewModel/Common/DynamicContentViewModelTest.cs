@@ -1,4 +1,5 @@
 ﻿using DotDll.Logic.Navigation;
+using DotDll.Presentation.View;
 using DotDll.Presentation.ViewModel.Common;
 using Moq;
 using NUnit.Framework;
@@ -11,7 +12,7 @@ namespace DotDll.Tests.Presentation.ViewModel.Common
         [SetUp]
         public void SetUp()
         {
-            _viewModel = new DynamicContentViewModel(new Mock<INavigator>().Object);
+            _viewModel = new DynamicContentViewModel(new Mock<INavigator>().Object, new WpfRelayCommandFactory());
         }
 
         private DynamicContentViewModel _viewModel;

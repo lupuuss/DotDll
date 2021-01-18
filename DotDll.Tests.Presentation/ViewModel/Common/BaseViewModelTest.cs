@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using DotDll.Presentation.View;
 using DotDll.Presentation.ViewModel.Common;
 using NUnit.Framework;
 
@@ -19,6 +20,10 @@ namespace DotDll.Tests.Presentation.ViewModel.Common
                 OnPropertyChangedAuto();
             }
         }
+
+        public TestBaseViewModel(RelayCommandFactory commandFactory) : base(commandFactory)
+        {
+        }
     }
 
     [TestFixture]
@@ -27,7 +32,7 @@ namespace DotDll.Tests.Presentation.ViewModel.Common
         [SetUp]
         public void SetUp()
         {
-            _baseViewModel = new TestBaseViewModel();
+            _baseViewModel = new TestBaseViewModel(new WpfRelayCommandFactory());
         }
 
         private TestBaseViewModel _baseViewModel;

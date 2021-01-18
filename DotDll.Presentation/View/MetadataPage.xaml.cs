@@ -10,7 +10,7 @@ namespace DotDll.Presentation.View
         {
             InitializeComponent();
             var app = Application.Current.AsDotDllApp();
-            DataContext = new MetadataViewModel(app.Navigator, app.MetadataServiceImpl, source);
+            DataContext = new MetadataViewModel(app.Navigator, app.MetadataServiceImpl, source, app.RelayCommandFactory);
         }
     }
 }

@@ -57,6 +57,7 @@
     <Compile Include="ViewModel\Common\DynamicContentViewModel.cs" />
     <Compile Include="ViewModel\Common\NavigationViewModel.cs" />
     <Compile Include="ViewModel\Common\RelayCommand.cs" />
+    <Compile Include="ViewModel\Common\RelayCommandFactory.cs" />
     <Compile Include="ViewModel\DeserializeListViewModel.cs" />
     <Compile Include="ViewModel\MenuViewModel.cs" />
     <Compile Include="ViewModel\Metadata\MetadataNode.cs" />
@@ -80,6 +81,8 @@
     </Compile>
     <Compile Include="View\Navigation\WpfNavigator.cs" />
     <Compile Include="View\Navigation\WpfUserInputService.cs" />
+    <Compile Include="View\WpfCommand.cs" />
+    <Compile Include="View\WpfRelayCommandFactory.cs" />
     <Page Include="View\DeserializeListPage.xaml" />
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

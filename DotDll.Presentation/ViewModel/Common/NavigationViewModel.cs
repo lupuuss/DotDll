@@ -18,7 +18,7 @@ namespace DotDll.Presentation.ViewModel.Common
 
         private Source? _source;
 
-        public NavigationViewModel(INavigator navigator)
+        public NavigationViewModel(INavigator navigator, RelayCommandFactory commandFactory) : base(commandFactory)
         {
             _navigator = navigator;
         }
@@ -39,7 +39,7 @@ namespace DotDll.Presentation.ViewModel.Common
         {
             get
             {
-                return _navigateToCommand ??= new RelayCommand(
+                return _navigateToCommand ??= CommandFactory.CreateCommand(
                     o => _navigator.NavigateTo((TargetView) o)
                 );
             }
@@ -49,7 +49,7 @@ namespace DotDll.Presentation.ViewModel.Common
         {
             get
             {
-                return _navigateBackwardsCommand ??= new RelayCommand(
+                return _navigateBackwardsCommand ??= CommandFactory.CreateCommand(
                     o => _navigator.NavigateBackward(),
                     o => _navigator.CanGoBackwards()
                 );
@@ -60,7 +60,7 @@ namespace DotDll.Presentation.ViewModel.Common
         {
             get
             {
-                return _navigateForwardsCommand ??= new RelayCommand(
+                return _navigateForwardsCommand ??= CommandFactory.CreateCommand(
                     o => _navigator.NavigateForwards(),
                     o => _navigator.CanGoForwards()
                 );
@@ -71,7 +71,7 @@ namespace DotDll.Presentation.ViewModel.Common
         {
             get
             {
-                return _navigateToMetaDataCommand ??= new RelayCommand(
+                return _navigateToMetaDataCommand ??= CommandFactory.CreateCommand(
                     o => _navigator.NavigateTo(TargetView.MetaData, Source!),
                     o => Source != null
                 );

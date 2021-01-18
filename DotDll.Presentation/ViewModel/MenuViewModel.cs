@@ -18,8 +18,9 @@ namespace DotDll.Presentation.ViewModel
         public MenuViewModel(
             INavigator navigator,
             IMetadataService service,
-            IUserInputService userInputService
-        ) : base(navigator)
+            IUserInputService userInputService,
+            RelayCommandFactory factory
+        ) : base(navigator, factory)
         {
             _service = service;
             _userInputService = userInputService;
@@ -60,7 +61,7 @@ namespace DotDll.Presentation.ViewModel
         }
 
         public ICommand PickFileCommand =>
-            _pickFileCommand ??= new RelayCommand(
+            _pickFileCommand ??= CommandFactory.CreateCommand(
                 o => PickFile()
             );
 

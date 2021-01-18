@@ -10,7 +10,7 @@ namespace DotDll.Presentation.ViewModel.Common
 
         private bool _isLoading;
 
-        public DynamicContentViewModel(INavigator navigator) : base(navigator)
+        public DynamicContentViewModel(INavigator navigator, RelayCommandFactory commandFactory) : base(navigator, commandFactory)
         {
         }
 

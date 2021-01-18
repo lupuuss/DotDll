@@ -14,9 +14,11 @@ namespace DotDll.Presentation.View
             var navigator = new WpfNavigator(frame);
 
             // initializes navigator for other classes.
-            Application.Current.AsDotDllApp().Navigator = navigator;
+            var app = Application.Current.AsDotDllApp();
 
-            DataContext = new NavigationViewModel(navigator);
+            app.Navigator = navigator;
+
+            DataContext = new NavigationViewModel(navigator, app.RelayCommandFactory);
         }
     }
 }

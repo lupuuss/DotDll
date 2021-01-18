@@ -1,7 +1,9 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 using DotDll.Logic.Metadata;
 using DotDll.Logic.Navigation;
 using DotDll.Presentation.View.Navigation;
+using DotDll.Presentation.ViewModel.Common;
 
 namespace DotDll.Presentation.View
 {
@@ -12,6 +14,8 @@ namespace DotDll.Presentation.View
         internal IMetadataService MetadataServiceImpl { get; private set; } = null!;
 
         internal IUserInputService UserInputService { get; private set; } = null!;
+        
+        internal RelayCommandFactory RelayCommandFactory { get; private set; } = null!;
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -19,6 +23,7 @@ namespace DotDll.Presentation.View
 
             MetadataServiceImpl = MetadataService.CreateDefault();
             UserInputService = new WpfUserInputService();
+            RelayCommandFactory = new WpfRelayCommandFactory();
         }
     }
 

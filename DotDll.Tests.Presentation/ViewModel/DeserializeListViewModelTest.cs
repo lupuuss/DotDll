@@ -4,7 +4,9 @@ using System.Threading.Tasks;
 using DotDll.Logic.Metadata;
 using DotDll.Logic.Metadata.Sources;
 using DotDll.Logic.Navigation;
+using DotDll.Presentation.View;
 using DotDll.Presentation.ViewModel;
+using DotDll.Presentation.ViewModel.Common;
 using Moq;
 using NUnit.Framework;
 
@@ -30,6 +32,8 @@ namespace DotDll.Tests.Presentation.ViewModel
 
         private DeserializeListViewModel _viewModel;
 
+        private readonly RelayCommandFactory _factory = new WpfRelayCommandFactory();
+        
         private readonly List<Source> _sources = new List<Source>
         {
             new SerializedSource("Example1"),
@@ -38,7 +42,7 @@ namespace DotDll.Tests.Presentation.ViewModel
 
         private void InitViewModel()
         {
-            _viewModel = new DeserializeListViewModel(_navigatorMock.Object, _serviceMock.Object);
+            _viewModel = new DeserializeListViewModel(_navigatorMock.Object, _serviceMock.Object, _factory);
         }
 
         [Test]

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30523.141
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotDll.Presentation", "DotDll.Presentation\DotDll.Presentation.csproj", "{618AE120-34A9-4D96-B618-8B6414855ACA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotDll.Presentation.View", "DotDll.Presentation.View\DotDll.Presentation.View.csproj", "{618AE120-34A9-4D96-B618-8B6414855ACA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotDll.Logic", "DotDll.Logic\DotDll.Logic.csproj", "{85D81CB3-D358-4381-A677-A99919B10A96}"
 EndProject

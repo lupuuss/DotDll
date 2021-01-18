@@ -5,8 +5,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:properties="clr-namespace:DotDll.Presentation.Properties"
-      xmlns:viewModel1="clr-namespace:DotDll.Presentation.ViewModel;assembly=DotDll.Presentation.ViewModel"
-      mc:Ignorable="d" d:DataContext="{d:DesignInstance viewModel1:DeserializeListViewModel}">
+      xmlns:viewModel="clr-namespace:DotDll.Presentation.ViewModel;assembly=DotDll.Presentation.ViewModel"
+      mc:Ignorable="d" d:DataContext="{d:DesignInstance viewModel:DeserializeListViewModel}">
 
     <Page.Resources>
         <BooleanToVisibilityConverter x:Key="VisibilityConverter" />

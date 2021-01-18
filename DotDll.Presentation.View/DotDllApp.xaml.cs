@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using System.Windows.Input;
 using DotDll.Logic.Metadata;
 using DotDll.Logic.Navigation;
 using DotDll.Presentation.View.Navigation;

@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotDll.Tests.Model", "DotDl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotDll.Presentation.ViewModel", "DotDll.Presentation.ViewModel\DotDll.Presentation.ViewModel.csproj", "{73BE6077-CCE7-4409-8EB5-FCE947DB2ED0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotDll.Presentation.Model", "DotDll.Presentation.Model\DotDll.Presentation.Model.csproj", "{6359AECA-D573-4919-A6B0-3D9B06AC3B10}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{73BE6077-CCE7-4409-8EB5-FCE947DB2ED0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{73BE6077-CCE7-4409-8EB5-FCE947DB2ED0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{73BE6077-CCE7-4409-8EB5-FCE947DB2ED0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6359AECA-D573-4919-A6B0-3D9B06AC3B10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6359AECA-D573-4919-A6B0-3D9B06AC3B10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6359AECA-D573-4919-A6B0-3D9B06AC3B10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6359AECA-D573-4919-A6B0-3D9B06AC3B10}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

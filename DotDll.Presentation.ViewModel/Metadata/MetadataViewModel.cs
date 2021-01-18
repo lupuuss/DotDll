@@ -5,7 +5,7 @@ using System.Windows.Input;
 using DotDll.Logic.Metadata;
 using DotDll.Logic.Metadata.Data;
 using DotDll.Logic.Metadata.Sources;
-using DotDll.Logic.Navigation;
+using DotDll.Presentation.Model.Navigation;
 using DotDll.Presentation.ViewModel.Common;
 
 namespace DotDll.Presentation.ViewModel.Metadata

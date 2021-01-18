@@ -4,13 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:p="clr-namespace:DotDll.Presentation.Properties"
-        xmlns:common1="clr-namespace:DotDll.Presentation.ViewModel.Common;assembly=DotDll.Presentation.ViewModel"
+        xmlns:common="clr-namespace:DotDll.Presentation.ViewModel.Common;assembly=DotDll.Presentation.ViewModel"
         mc:Ignorable="d"
         Title="{x:Static p:Resources.AppName}"
         Height="500"
         Width="350"
         MinWidth="350"
-        MinHeight="500" d:DataContext="{d:DesignInstance common1:NavigationViewModel }">
+        MinHeight="500" d:DataContext="{d:DesignInstance common:NavigationViewModel }">
 
     <Grid VerticalAlignment="Top">
 

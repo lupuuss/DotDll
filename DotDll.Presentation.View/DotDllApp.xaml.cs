@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using DotDll.Logic.Metadata;
-using DotDll.Logic.Navigation;
+using DotDll.Presentation.Model.Navigation;
 using DotDll.Presentation.View.Navigation;
 using DotDll.Presentation.ViewModel.Common;
 

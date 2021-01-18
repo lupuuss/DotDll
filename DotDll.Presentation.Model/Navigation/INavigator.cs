@@ -1,4 +1,4 @@
-﻿namespace DotDll.Logic.Navigation
+﻿namespace DotDll.Presentation.Model.Navigation
 {
     public enum TargetView
     {

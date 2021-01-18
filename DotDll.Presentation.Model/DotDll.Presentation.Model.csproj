@@ -4,15 +4,14 @@
     <PropertyGroup>
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
         <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-        <ProjectGuid>{85D81CB3-D358-4381-A677-A99919B10A96}</ProjectGuid>
+        <ProjectGuid>{6359AECA-D573-4919-A6B0-3D9B06AC3B10}</ProjectGuid>
         <OutputType>Library</OutputType>
         <AppDesignerFolder>Properties</AppDesignerFolder>
-        <RootNamespace>DotDll.Logic</RootNamespace>
-        <AssemblyName>DotDll.Logic</AssemblyName>
+        <RootNamespace>DotDll.Presentation.Model</RootNamespace>
+        <AssemblyName>DotDll.Presentation.Model</AssemblyName>
         <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
         <LangVersion>8</LangVersion>
-        <Nullable>enable</Nullable>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
@@ -40,25 +39,9 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="Metadata\Data\Base\Declared.cs" />
-        <Compile Include="Metadata\Data\DMember.cs" />
-        <Compile Include="Metadata\Data\MetadataDeclarations.cs" />
-        <Compile Include="Metadata\Data\DNamespace.cs" />
-        <Compile Include="Metadata\Data\DType.cs" />
-        <Compile Include="Metadata\IMetadataService.cs" />
-        <Compile Include="Metadata\Map\IMetadataMapper.cs" />
-        <Compile Include="Metadata\Map\MetadataMapper.cs" />
-        <Compile Include="Metadata\MetadataService.cs" />
-        <Compile Include="Metadata\Sources\FileSource.cs" />
-        <Compile Include="Metadata\Sources\Source.cs" />
-        <Compile Include="Metadata\Sources\SerializedSource.cs" />
+        <Compile Include="Navigation\INavigator.cs" />
+        <Compile Include="Navigation\IUserInputService.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
-    </ItemGroup>
-    <ItemGroup>
-      <ProjectReference Include="..\DotDll.Model\DotDll.Model.csproj">
-        <Project>{d29b0be1-23ec-45cd-88a7-c442a3907320}</Project>
-        <Name>DotDll.Model</Name>
-      </ProjectReference>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

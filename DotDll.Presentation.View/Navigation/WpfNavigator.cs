@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Controls;
 using DotDll.Logic.Metadata.Sources;
-using DotDll.Logic.Navigation;
+using DotDll.Presentation.Model.Navigation;
 
 namespace DotDll.Presentation.View.Navigation
 {

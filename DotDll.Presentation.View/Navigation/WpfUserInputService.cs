@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using DotDll.Logic.Navigation;
+using DotDll.Presentation.Model.Navigation;
 using Microsoft.Win32;
 
 namespace DotDll.Presentation.View.Navigation

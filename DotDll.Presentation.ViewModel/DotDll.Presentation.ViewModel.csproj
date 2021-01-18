@@ -55,6 +55,10 @@
         <Project>{85d81cb3-d358-4381-a677-a99919b10a96}</Project>
         <Name>DotDll.Logic</Name>
       </ProjectReference>
+      <ProjectReference Include="..\DotDll.Presentation.Model\DotDll.Presentation.Model.csproj">
+        <Project>{6359aeca-d573-4919-a6b0-3d9b06ac3b10}</Project>
+        <Name>DotDll.Presentation.Model</Name>
+      </ProjectReference>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

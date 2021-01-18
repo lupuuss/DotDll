@@ -1,5 +1,5 @@
 ﻿using System;
-using DotDll.Logic.Navigation;
+using DotDll.Presentation.Model.Navigation;
 using DotDll.Presentation.ViewModel.Common;
 using Moq;
 using NUnit.Framework;
